@@ -1,5 +1,6 @@
 import path from 'node:path';
 
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 
@@ -9,7 +10,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-    plugins: [react()],
+    plugins: [react(), tailwindcss()],
     define: {
         __APP_NAME__: JSON.stringify(packageJson.productName),
         __APP_VERSION__: JSON.stringify(packageJson.version),
