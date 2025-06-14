@@ -1,4 +1,4 @@
-import { Splash } from '@/views';
+import { Splash } from '@/app/index';
 
 export default function App() {
     return (

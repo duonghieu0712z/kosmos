@@ -1,6 +1,6 @@
 import logo from '@/assets/images/logo.png';
 
-export default function Main() {
+export default function Splash() {
     return (
         <div className='flex h-full flex-col items-center justify-center'>
             <img src={logo} alt='logo' className='size-42 rounded-4xl bg-zinc-200' />
