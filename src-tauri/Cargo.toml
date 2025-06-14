@@ -1,6 +1,6 @@
 [package]
 name = "kosmos"
-version = "0.1.0"
+version = "0.0.1"
 description = "The writer app"
 authors = ["Daisy"]
 edition = "2024"
