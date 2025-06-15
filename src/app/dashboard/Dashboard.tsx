@@ -1,6 +1,7 @@
 import { BookA, Eye, Globe2, Home, Hourglass, Map, Menu, PencilRuler, Settings } from 'lucide-react';
 import { useState } from 'react';
 
+import { Temp } from '@/app/temp';
 import { cn } from '@/libs';
 
 import SidebarButton from './SidebarButton';
@@ -20,7 +21,7 @@ export default function Dashboard() {
 
     return (
         <div className='flex w-full'>
-            <aside className={cn('bg-base-200 flex w-60 flex-col p-1', !isExpanded && 'w-[42px]')}>
+            <aside className={cn('bg-base-200 flex w-50 flex-col p-1', !isExpanded && 'w-[42px]')}>
                 <header>
                     <SidebarButton
                         icon={Menu}
@@ -42,7 +43,9 @@ export default function Dashboard() {
                 </footer>
             </aside>
 
-            <main className='flex flex-1 items-center justify-center'>Main</main>
+            <main className='flex flex-1 items-center justify-center'>
+                <Temp />
+            </main>
         </div>
     );
 }
