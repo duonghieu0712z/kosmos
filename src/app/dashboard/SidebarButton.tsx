@@ -1,19 +1,19 @@
 import { LucideIcon } from 'lucide-react';
-import { ComponentProps } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 import { NavLinkProps, useNavigate } from 'react-router';
 
 import { cn } from '@/libs';
 
 type SidebarButtonProps = {
     icon: LucideIcon;
-    name: string;
+    text: ReactNode;
     isExpanded?: boolean;
     to?: NavLinkProps['to'];
 };
 
 export default function SidebarButton({
     icon: Icon,
-    name,
+    text,
     isExpanded,
     className,
     to,
@@ -22,10 +22,10 @@ export default function SidebarButton({
     const navigate = useNavigate();
     return (
         <button
-            data-tip={name}
+            data-tip={text}
             className={cn(
                 'btn btn-ghost flex w-full justify-start gap-2 px-1 font-medium',
-                !isExpanded && 'tooltip tooltip-right',
+                !isExpanded && typeof text === 'string' && 'tooltip tooltip-right',
                 className
             )}
             {...props}
@@ -37,7 +37,7 @@ export default function SidebarButton({
             }}
         >
             <Icon strokeWidth={1.5} />
-            {isExpanded && name}
+            {isExpanded && text}
         </button>
     );
 }

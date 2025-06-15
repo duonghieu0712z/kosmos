@@ -26,7 +26,11 @@ export default function Dashboard() {
                 <header>
                     <SidebarButton
                         icon={Menu}
-                        name=''
+                        text={
+                            <div className='bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text font-[calligraphy] text-3xl font-bold text-transparent'>
+                                {__APP_NAME__}
+                            </div>
+                        }
                         isExpanded={isExpanded}
                         onClick={() => setIsExpanded(!isExpanded)}
                     />
@@ -38,7 +42,7 @@ export default function Dashboard() {
                         <SidebarButton
                             key={menu.name}
                             icon={menu.icon}
-                            name={menu.name}
+                            text={menu.name}
                             isExpanded={isExpanded}
                             to={menu.to}
                         />
@@ -47,7 +51,7 @@ export default function Dashboard() {
 
                 <footer>
                     <SidebarSeparator />
-                    <SidebarButton icon={Settings} name='Settings' isExpanded={isExpanded} to='/settings' />
+                    <SidebarButton icon={Settings} text='Settings' isExpanded={isExpanded} to='/settings' />
                 </footer>
             </aside>
 
