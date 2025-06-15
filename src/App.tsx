@@ -11,7 +11,7 @@ export default function App() {
                 }
             }}
         >
-            <header className='bg-base-300 flex h-8 items-center px-2'>Header</header>
+            {/* <header className='bg-base-300 flex h-8 items-center px-2'>Header</header> */}
 
             <main className='flex flex-1'>
                 <Dashboard />
