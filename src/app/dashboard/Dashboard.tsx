@@ -1,19 +1,19 @@
 import { BookA, Eye, Globe2, Home, Hourglass, Map, Menu, PencilRuler, Settings } from 'lucide-react';
 import { useState } from 'react';
+import { Outlet } from 'react-router';
 
-import { Temp } from '@/app/temp';
 import { cn } from '@/libs';
 
 import SidebarButton from './SidebarButton';
 
 const menus = [
-    { name: 'Home', icon: Home },
-    { name: 'Story', icon: BookA },
-    { name: 'Wiki', icon: PencilRuler },
-    { name: 'Map', icon: Map },
-    { name: 'Timeline', icon: Hourglass },
-    { name: 'World Settings', icon: Globe2 },
-    { name: 'View World', icon: Eye },
+    { name: 'Home', icon: Home, to: '/home' },
+    { name: 'Story', icon: BookA, to: '/story' },
+    { name: 'Wiki', icon: PencilRuler, to: '/wiki' },
+    { name: 'Map', icon: Map, to: '/map' },
+    { name: 'Timeline', icon: Hourglass, to: '/timeline' },
+    { name: 'World Settings', icon: Globe2, to: 'world-settings' },
+    { name: 'View World', icon: Eye, to: 'view-world' },
 ];
 
 export default function Dashboard() {
@@ -33,18 +33,24 @@ export default function Dashboard() {
 
                 <main className='flex-1'>
                     {menus.map((menu) => (
-                        <SidebarButton key={menu.name} icon={menu.icon} name={menu.name} isExpanded={isExpanded} />
+                        <SidebarButton
+                            key={menu.name}
+                            icon={menu.icon}
+                            name={menu.name}
+                            isExpanded={isExpanded}
+                            to={menu.to}
+                        />
                     ))}
                 </main>
 
                 <footer>
                     <hr className='bg-neutral my-1 h-px border-0'></hr>
-                    <SidebarButton icon={Settings} name='Settings' isExpanded={isExpanded} />
+                    <SidebarButton icon={Settings} name='Settings' isExpanded={isExpanded} to='/settings' />
                 </footer>
             </aside>
 
             <main className='flex flex-1 items-center justify-center'>
-                <Temp />
+                <Outlet />
             </main>
         </div>
     );

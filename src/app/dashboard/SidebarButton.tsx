@@ -1,5 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import { ComponentProps } from 'react';
+import { NavLinkProps, useNavigate } from 'react-router';
 
 import { cn } from '@/libs';
 
@@ -7,6 +8,7 @@ type SidebarButtonProps = {
     icon: LucideIcon;
     name: string;
     isExpanded?: boolean;
+    to?: NavLinkProps['to'];
 };
 
 export default function SidebarButton({
@@ -14,8 +16,10 @@ export default function SidebarButton({
     name,
     isExpanded,
     className,
+    to,
     ...props
 }: SidebarButtonProps & ComponentProps<'button'>) {
+    const navigate = useNavigate();
     return (
         <button
             data-tip={name}
@@ -25,6 +29,12 @@ export default function SidebarButton({
                 className
             )}
             {...props}
+            onClick={(ev) => {
+                props.onClick?.(ev);
+                if (to) {
+                    navigate(to, { replace: true });
+                }
+            }}
         >
             <Icon strokeWidth={1.5} />
             {isExpanded && name}

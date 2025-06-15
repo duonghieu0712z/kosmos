@@ -1,6 +1,8 @@
-import { Dashboard } from '@/app/dashboard';
+import { RouterProvider } from 'react-router';
 
-export default function App() {
+import { router } from '@/routes';
+
+export default function MainScreen() {
     return (
         <div
             className='flex min-h-screen flex-col overflow-hidden'
@@ -14,7 +16,7 @@ export default function App() {
             {/* <header className='bg-base-300 flex h-8 items-center px-2'>Header</header> */}
 
             <main className='flex flex-1'>
-                <Dashboard />
+                <RouterProvider router={router} />
             </main>
 
             <footer className='bg-base-300 relative flex h-6 items-center px-2 text-xs'>
