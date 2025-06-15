@@ -5,6 +5,7 @@ import { Outlet } from 'react-router';
 import { cn } from '@/libs';
 
 import SidebarButton from './SidebarButton';
+import SidebarSeparator from './SidebarSeparator';
 
 const menus = [
     { name: 'Home', icon: Home, to: '/home' },
@@ -29,6 +30,7 @@ export default function Dashboard() {
                         isExpanded={isExpanded}
                         onClick={() => setIsExpanded(!isExpanded)}
                     />
+                    <SidebarSeparator />
                 </header>
 
                 <main className='flex-1'>
@@ -44,7 +46,7 @@ export default function Dashboard() {
                 </main>
 
                 <footer>
-                    <hr className='bg-neutral my-1 h-px border-0'></hr>
+                    <SidebarSeparator />
                     <SidebarButton icon={Settings} name='Settings' isExpanded={isExpanded} to='/settings' />
                 </footer>
             </aside>
