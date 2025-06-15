@@ -14,10 +14,22 @@
         "windows": [
             {
                 "title": "Kosmos",
+                "label": "main",
+                "visible": false,
                 "minWidth": 1280,
                 "minHeight": 720,
                 "center": true,
                 "maximized": true
+            },
+            {
+                "label": "splash",
+                "url": "splash",
+                "width": 600,
+                "height": 400,
+                "center": true,
+                "decorations": false,
+                "maximizable": false,
+                "resizable": false
             }
         ],
         "security": {

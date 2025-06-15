@@ -1,5 +1,3 @@
-import { Splash } from '@/app/index';
-
 export default function App() {
     return (
         <div
@@ -10,8 +8,6 @@ export default function App() {
                     e.stopPropagation();
                 }
             }}
-        >
-            <Splash />
-        </div>
+        ></div>
     );
 }
