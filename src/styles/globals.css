@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+@plugin 'daisyui' {
+    themes:
+        nord --default,
+        dracula;
+}
+
+@custom-variant dark (&:where([data-theme=dracula], [data-theme=dracula] *));
+
 @layer base {
     * {
         @apply select-none;
