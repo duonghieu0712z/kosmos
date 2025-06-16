@@ -17,8 +17,13 @@
         "prepare": "husky"
     },
     "dependencies": {
+        "@floating-ui/react": "^0.27.12",
         "@tauri-apps/api": "^2",
         "@tauri-apps/plugin-opener": "^2",
+        "@tiptap/extension-placeholder": "^2.14.0",
+        "@tiptap/pm": "^2.14.0",
+        "@tiptap/react": "^2.14.0",
+        "@tiptap/starter-kit": "^2.14.0",
         "clsx": "^2.1.1",
         "lucide-react": "^0.515.0",
         "react": "^19.1.0",
@@ -28,6 +33,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.29.0",
+        "@tailwindcss/typography": "^0.5.16",
         "@tailwindcss/vite": "^4.1.10",
         "@tauri-apps/cli": "^2",
         "@types/node": "^24.0.1",
