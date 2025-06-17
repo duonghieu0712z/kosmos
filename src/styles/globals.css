@@ -16,6 +16,12 @@
     }
 }
 
+@layer components {
+    .is-editor-empty:first-child::before {
+        @apply pointer-events-none float-left h-0 text-[#adb5bd] content-[attr(data-placeholder)];
+    }
+}
+
 @theme {
     --animate-rotate1: rotate1 1.15s linear infinite;
     --animate-rotate2: rotate2 1.15s 0.1s linear infinite;

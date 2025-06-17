@@ -1,4 +1,4 @@
-import RichTextEditor from '@/components/editor/RichTextEditor';
+import { RichTextEditor } from '@/tiptap/editor';
 
 export default function Story() {
     return (

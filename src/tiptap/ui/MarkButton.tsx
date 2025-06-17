@@ -1,0 +1,50 @@
+import { useCurrentEditor } from '@tiptap/react';
+import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from 'lucide-react';
+import { ComponentProps, useEffect } from 'react';
+
+import { cn } from '@/libs';
+
+type Mark = 'bold' | 'italic' | 'underline' | 'strike' | 'superscript' | 'subscript' | 'code';
+
+type MarkButtonProps = {
+    mark: Mark;
+};
+
+const MARK_ICONS = {
+    bold: Bold,
+    italic: Italic,
+    underline: Underline,
+    strike: Strikethrough,
+    superscript: Superscript,
+    subscript: Subscript,
+    code: Code,
+} as const;
+
+export default function MarkButton({ mark, className, ...props }: MarkButtonProps & ComponentProps<'button'>) {
+    const { editor } = useCurrentEditor();
+    useEffect(() => {
+        if (!editor) {
+            return;
+        }
+
+        editor.on('selectionUpdate', () => {
+            console.log(mark, editor.isActive(mark));
+        });
+    }, [editor, mark]);
+
+    if (!editor) {
+        return null;
+    }
+
+    const Icon = MARK_ICONS[mark];
+    return (
+        <button
+            className={cn('btn m-0 size-fit border-none p-1', editor?.isActive(mark) && 'btn-active', className)}
+            {...props}
+            disabled={editor.isActive(mark)}
+            onClick={() => editor?.chain().focus().toggleMark(mark).run()}
+        >
+            <Icon size={20} strokeWidth={1.5} />
+        </button>
+    );
+}
