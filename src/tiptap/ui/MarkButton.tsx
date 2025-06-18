@@ -4,10 +4,8 @@ import { ComponentProps } from 'react';
 
 import { cn } from '@/libs';
 
-type Mark = 'bold' | 'italic' | 'underline' | 'strike' | 'superscript' | 'subscript' | 'code';
-
 type MarkButtonProps = {
-    mark: Mark;
+    mark: 'bold' | 'italic' | 'underline' | 'strike' | 'superscript' | 'subscript' | 'code';
 };
 
 const MARK_ICONS = {
