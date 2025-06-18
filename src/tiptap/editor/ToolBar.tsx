@@ -1,10 +1,12 @@
-import { HistoryButton, MarkButton, Spacer } from '@/tiptap/ui';
+import { HeadingDropdown, HistoryButton, MarkButton, Spacer } from '@/tiptap/ui';
 
 export default function ToolBar() {
     return (
         <div className='menu menu-horizontal rounded-box bg-base-200 w-full gap-0.5'>
             <HistoryButton action='undo' />
             <HistoryButton action='redo' />
+            <Spacer />
+            <HeadingDropdown />
             <Spacer />
             <MarkButton mark='bold' />
             <MarkButton mark='italic' />
