@@ -20,6 +20,7 @@
         "@floating-ui/react": "^0.27.12",
         "@tauri-apps/api": "^2",
         "@tauri-apps/plugin-opener": "^2",
+        "@tiptap/extension-text-style": "3.0.0-beta.8",
         "@tiptap/extensions": "3.0.0-beta.8",
         "@tiptap/pm": "3.0.0-beta.8",
         "@tiptap/react": "3.0.0-beta.8",

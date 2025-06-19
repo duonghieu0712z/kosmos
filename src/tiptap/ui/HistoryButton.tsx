@@ -4,7 +4,7 @@ import { ComponentProps } from 'react';
 
 import { cn } from '@/libs';
 
-type HistoryButton = {
+type HistoryButtonProps = {
     action: 'undo' | 'redo';
 };
 
@@ -13,7 +13,7 @@ const ACTION_ICONS = {
     redo: Redo,
 } as const;
 
-export default function HistoryButton({ action, className, ...props }: HistoryButton & ComponentProps<'button'>) {
+export default function HistoryButton({ action, className, ...props }: HistoryButtonProps & ComponentProps<'button'>) {
     const { editor } = useCurrentEditor();
     if (!editor) {
         return null;
