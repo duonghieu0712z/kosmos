@@ -17,6 +17,12 @@ importers:
       '@tauri-apps/plugin-opener':
         specifier: ^2
         version: 2.2.7
+      '@tiptap/extension-subscript':
+        specifier: 3.0.0-beta.8
+        version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
+      '@tiptap/extension-superscript':
+        specifier: 3.0.0-beta.8
+        version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/extension-text-style':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))
@@ -893,6 +899,18 @@ packages:
     resolution: {integrity: sha512-gyCa+Bz44/CfPYGhW3iqofCcA5YXmS+FOzaheowDUTZ4Zb9thN+v0uwwZtkNdaF5CW8gzroea/nvCKm9c+zMsg==}
     peerDependencies:
       '@tiptap/core': 3.0.0-beta.8
+
+  '@tiptap/extension-subscript@3.0.0-beta.8':
+    resolution: {integrity: sha512-dRXgPqlm/CiaCPzeE2QK6BZPOjxiSARFXjzM8e68VGaScyDUWdkvChfkoMMLLf0NuIlQBE6HWkiZFyHJzx6u0g==}
+    peerDependencies:
+      '@tiptap/core': 3.0.0-beta.8
+      '@tiptap/pm': 3.0.0-beta.8
+
+  '@tiptap/extension-superscript@3.0.0-beta.8':
+    resolution: {integrity: sha512-w3KuxSW+XwQC9YOrHWiBMKiwSNtLgj6RiRBpc8OXhbz/lYuFQhOrR3YrVOs3okQsqvi5L+gFjZvLqm89p2pgHg==}
+    peerDependencies:
+      '@tiptap/core': 3.0.0-beta.8
+      '@tiptap/pm': 3.0.0-beta.8
 
   '@tiptap/extension-text-style@3.0.0-beta.8':
     resolution: {integrity: sha512-Oaj5Ov97zZBHVWZLWh99PBRW/w44ccEbws36kNlvpKkgzyiYyheHdnqQwJcAfDPigpmgj+cKskaPTaJmIBwuEQ==}
@@ -3210,6 +3228,16 @@ snapshots:
   '@tiptap/extension-strike@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))':
     dependencies:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
+
+  '@tiptap/extension-subscript@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
+    dependencies:
+      '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
+      '@tiptap/pm': 3.0.0-beta.8
+
+  '@tiptap/extension-superscript@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
+    dependencies:
+      '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
+      '@tiptap/pm': 3.0.0-beta.8
 
   '@tiptap/extension-text-style@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))':
     dependencies:
