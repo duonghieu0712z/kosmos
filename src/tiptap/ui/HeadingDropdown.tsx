@@ -1,19 +1,58 @@
 import { ChevronDown, Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-react';
+import { useMemo, useRef } from 'react';
+
+import { cn } from '@/libs';
+import { useTiptapEditor } from '@/tiptap/hooks';
 
 const HEADING_ICONS = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading6];
 
 export default function HeadingDropdown() {
+    const ref = useRef<HTMLDivElement>(null);
+
+    const { editor, editorState } = useTiptapEditor({
+        selector({ editor }) {
+            for (let i = 1; i <= 6; i++) {
+                if (editor?.isActive('heading', { level: i })) {
+                    return { level: i };
+                }
+            }
+            return { level: 0 };
+        },
+    });
+    const isHeading = useMemo(() => editorState?.level !== 0, [editorState]);
+
     return (
-        <div className='dropdown'>
-            <div tabIndex={0} role='button' className='btn m-0 size-fit gap-0 border-none p-1'>
-                <Heading size={20} strokeWidth={1.5} />
+        <div ref={ref} className='dropdown'>
+            <div
+                tabIndex={0}
+                role='button'
+                className={cn('btn m-0 size-fit gap-0 border-none p-1', isHeading && 'btn-active')}
+            >
+                {isHeading ? (
+                    (() => {
+                        const Icon = HEADING_ICONS[editorState!.level - 1];
+                        return <Icon size={20} strokeWidth={1.5} />;
+                    })()
+                ) : (
+                    <Heading size={20} strokeWidth={1.5} />
+                )}
                 <ChevronDown size={12} strokeWidth={1.5} />
             </div>
 
-            <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 w-33 p-2 shadow-sm'>
+            <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
                 {HEADING_ICONS.map((Icon, i) => (
                     <li>
-                        <a>
+                        <a
+                            className='grid-cols-1'
+                            onClick={() => {
+                                editor
+                                    ?.chain()
+                                    .focus()
+                                    .setNode('heading', { level: i + 1 })
+                                    .run();
+                                ref.current?.blur();
+                            }}
+                        >
                             <Icon size={20} strokeWidth={1.5} />
                             Heading {i + 1}
                         </a>
@@ -21,7 +60,12 @@ export default function HeadingDropdown() {
                 ))}
                 <hr className='bg-neutral my-1 h-px border-0' />
                 <li>
-                    <a>
+                    <a
+                        onClick={() => {
+                            editor?.chain().focus().setNode('paragraph').run();
+                            ref.current?.blur();
+                        }}
+                    >
                         <div className='size-5'></div>
                         Paragraph
                     </a>
