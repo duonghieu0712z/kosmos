@@ -1,4 +1,4 @@
-import { useCurrentEditor } from '@tiptap/react';
+import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from 'lucide-react';
 import { ComponentProps } from 'react';
 
@@ -20,16 +20,19 @@ const MARK_ICONS = {
 
 export default function MarkButton({ mark, className, ...props }: MarkButtonProps & ComponentProps<'button'>) {
     const { editor } = useCurrentEditor();
-    if (!editor) {
-        return null;
-    }
+    const editorState = useEditorState({
+        editor,
+        selector({ editor }) {
+            return { isActive: editor?.isActive(mark) };
+        },
+    });
 
     const Icon = MARK_ICONS[mark];
     return (
         <button
-            className={cn('btn m-0 size-fit border-none p-1', editor.isActive(mark) && 'btn-active', className)}
+            className={cn('btn m-0 size-fit border-none p-1', editorState?.isActive && 'btn-active', className)}
             {...props}
-            onClick={() => editor.chain().focus().toggleMark(mark).run()}
+            onClick={() => editor?.chain().focus().toggleMark(mark).run()}
         >
             <Icon size={20} strokeWidth={1.5} />
         </button>

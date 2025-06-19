@@ -7,10 +7,5 @@ type SpacerProps = {
 };
 
 export default function Spacer({ orientation = 'vertical', className, ...props }: SpacerProps & ComponentProps<'div'>) {
-    return (
-        <div
-            className={cn('bg-neutral', orientation === 'vertical' ? 'border-l' : 'border-t', className)}
-            {...props}
-        ></div>
-    );
+    return <div className={cn('bg-neutral', orientation === 'vertical' ? 'w-px' : 'h-px', className)} {...props}></div>;
 }
