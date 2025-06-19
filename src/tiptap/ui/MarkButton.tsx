@@ -21,7 +21,10 @@ const MARK_ICONS = {
 export default function MarkButton({ mark, className, ...props }: MarkButtonProps & ComponentProps<'button'>) {
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
-            return { isActive: editor?.isActive(mark) };
+            return {
+                isActive: editor?.isActive(mark),
+                canActive: editor?.can().toggleMark(mark),
+            };
         },
     });
 
@@ -31,6 +34,7 @@ export default function MarkButton({ mark, className, ...props }: MarkButtonProp
             className={cn('btn m-0 size-fit border-none p-1', editorState?.isActive && 'btn-active', className)}
             {...props}
             onClick={() => editor?.chain().focus().toggleMark(mark).run()}
+            disabled={!editorState?.canActive}
         >
             <Icon size={20} strokeWidth={1.5} />
         </button>
