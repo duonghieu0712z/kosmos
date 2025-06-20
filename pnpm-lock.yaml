@@ -24,14 +24,14 @@ importers:
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/extension-text-align':
-        specifier: 3.0.0-beta.10
-        version: 3.0.0-beta.10(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))
+        specifier: 3.0.0-beta.8
+        version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))
       '@tiptap/extension-text-style':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))
       '@tiptap/extensions':
-        specifier: 3.0.0-next.4
-        version: 3.0.0-next.4(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
+        specifier: 3.0.0-beta.8
+        version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/pm':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8
@@ -922,10 +922,10 @@ packages:
       '@tiptap/core': 3.0.0-beta.8
       '@tiptap/pm': 3.0.0-beta.8
 
-  '@tiptap/extension-text-align@3.0.0-beta.10':
-    resolution: {integrity: sha512-Ls0UtY1EgyUwPfmR/5XNKi+9frzg7gPr6afnqWezRzVC8bDm/8c6vH+CetZCPSZvMH1YpO707RiWq8xepmxRLQ==}
+  '@tiptap/extension-text-align@3.0.0-beta.8':
+    resolution: {integrity: sha512-+OMCW0rVjk+STTYDzIKVheSUyPe3tF4IQgGhpp0JN6GhjleEvqb+w4EpcnkmV7Qz3qGY60cef/trSu4vL2HsFw==}
     peerDependencies:
-      '@tiptap/core': 3.0.0-beta.10
+      '@tiptap/core': 3.0.0-beta.8
 
   '@tiptap/extension-text-style@3.0.0-beta.8':
     resolution: {integrity: sha512-Oaj5Ov97zZBHVWZLWh99PBRW/w44ccEbws36kNlvpKkgzyiYyheHdnqQwJcAfDPigpmgj+cKskaPTaJmIBwuEQ==}
@@ -947,12 +947,6 @@ packages:
     peerDependencies:
       '@tiptap/core': 3.0.0-beta.8
       '@tiptap/pm': 3.0.0-beta.8
-
-  '@tiptap/extensions@3.0.0-next.4':
-    resolution: {integrity: sha512-3sfgF/GwBFlagh+PYsFT4OoSypqYNVkTCzjl1opkiXCKwaFSukzjUGOIJZjyQ/xgLE5eaNtwdAF5H320CZs84w==}
-    peerDependencies:
-      '@tiptap/core': ^3.0.0-next.3
-      '@tiptap/pm': ^3.0.0-next.3
 
   '@tiptap/pm@3.0.0-beta.8':
     resolution: {integrity: sha512-mPgXEY/HrZZBTPqZ9EGHGV2oVzXXYXL+RnJ4F8oxb6d8PeNhCMqSUPCzhZW6/efL7g3147OisA4X3nzhR4YaeQ==}
@@ -3284,7 +3278,7 @@ snapshots:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/pm': 3.0.0-beta.8
 
-  '@tiptap/extension-text-align@3.0.0-beta.10(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))':
+  '@tiptap/extension-text-align@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))':
     dependencies:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
 
@@ -3301,11 +3295,6 @@ snapshots:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
 
   '@tiptap/extensions@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
-    dependencies:
-      '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
-      '@tiptap/pm': 3.0.0-beta.8
-
-  '@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
     dependencies:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/pm': 3.0.0-beta.8
