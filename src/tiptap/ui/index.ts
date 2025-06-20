@@ -2,5 +2,6 @@ export { default as HeadingDropdown } from './HeadingDropdown';
 export { default as HistoryButton } from './HistoryButton';
 export { default as ListDropdown } from './ListDropdown';
 export { default as MarkButton } from './MarkButton';
+export { default as NodeButton } from './NodeButton';
 export { default as Spacer } from './Spacer';
 export { default as TextAlignDropdown } from './TextAlignDropdown';

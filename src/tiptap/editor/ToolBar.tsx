@@ -1,4 +1,12 @@
-import { HeadingDropdown, HistoryButton, ListDropdown, MarkButton, Spacer, TextAlignDropdown } from '@/tiptap/ui';
+import {
+    HeadingDropdown,
+    HistoryButton,
+    ListDropdown,
+    MarkButton,
+    NodeButton,
+    Spacer,
+    TextAlignDropdown,
+} from '@/tiptap/ui';
 
 export default function ToolBar() {
     return (
@@ -7,6 +15,8 @@ export default function ToolBar() {
             <HistoryButton action='redo' />
             <Spacer />
             <HeadingDropdown />
+            <NodeButton node='blockquote' />
+            <NodeButton node='codeblock' />
             <Spacer />
             <MarkButton mark='bold' />
             <MarkButton mark='italic' />
