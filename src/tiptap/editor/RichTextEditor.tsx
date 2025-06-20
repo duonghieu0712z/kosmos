@@ -1,5 +1,6 @@
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
+import TextAlign from '@tiptap/extension-text-align';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 import { CharacterCount, Placeholder } from '@tiptap/extensions';
 import { EditorProvider } from '@tiptap/react';
@@ -13,6 +14,7 @@ const EXTENSIONS = [
     TextStyleKit,
     Superscript,
     Subscript,
+    TextAlign.configure({ types: ['heading', 'paragraph'], defaultAlignment: 'left' }),
     Placeholder.configure({ placeholder: 'Write something...' }),
     CharacterCount.configure({ limit: 2000 }),
 ];

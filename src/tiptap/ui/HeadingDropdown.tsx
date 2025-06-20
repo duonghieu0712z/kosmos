@@ -4,7 +4,7 @@ import { ComponentProps, useMemo, useRef } from 'react';
 import { cn } from '@/libs';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
-const HEADING_ICONS = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading6];
+const HEADING_ICONS = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading6] as const;
 
 export default function HeadingDropdown({ className, ...props }: ComponentProps<'div'>) {
     const ref = useRef<HTMLDivElement>(null);
@@ -41,8 +41,8 @@ export default function HeadingDropdown({ className, ...props }: ComponentProps<
 
             <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
                 {HEADING_ICONS.map((Icon, i) => (
-                    <li>
-                        <a
+                    <li key={`heading-${i + 1}`}>
+                        <button
                             className='grid-cols-1'
                             onClick={() => {
                                 editor
@@ -55,12 +55,12 @@ export default function HeadingDropdown({ className, ...props }: ComponentProps<
                         >
                             <Icon size={20} strokeWidth={1.5} />
                             Heading {i + 1}
-                        </a>
+                        </button>
                     </li>
                 ))}
                 <hr className='bg-neutral my-1 h-px border-0' />
-                <li>
-                    <a
+                <li key='paragraph'>
+                    <button
                         onClick={() => {
                             editor?.chain().focus().setNode('paragraph').run();
                             ref.current?.blur();
@@ -68,7 +68,7 @@ export default function HeadingDropdown({ className, ...props }: ComponentProps<
                     >
                         <div className='size-5'></div>
                         Paragraph
-                    </a>
+                    </button>
                 </li>
             </ul>
         </div>

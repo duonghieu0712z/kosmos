@@ -22,6 +22,7 @@
         "@tauri-apps/plugin-opener": "^2",
         "@tiptap/extension-subscript": "3.0.0-beta.8",
         "@tiptap/extension-superscript": "3.0.0-beta.8",
+        "@tiptap/extension-text-align": "3.0.0-beta.10",
         "@tiptap/extension-text-style": "3.0.0-beta.8",
         "@tiptap/extensions": "3.0.0-beta.8",
         "@tiptap/pm": "3.0.0-beta.8",
