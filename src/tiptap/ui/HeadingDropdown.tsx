@@ -1,12 +1,12 @@
 import { ChevronDown, Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-react';
-import { useMemo, useRef } from 'react';
+import { ComponentProps, useMemo, useRef } from 'react';
 
 import { cn } from '@/libs';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
 const HEADING_ICONS = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading6];
 
-export default function HeadingDropdown() {
+export default function HeadingDropdown({ className, ...props }: ComponentProps<'div'>) {
     const ref = useRef<HTMLDivElement>(null);
 
     const { editor, editorState } = useTiptapEditor({
@@ -22,11 +22,11 @@ export default function HeadingDropdown() {
     const isHeading = useMemo(() => editorState?.level !== 0, [editorState]);
 
     return (
-        <div ref={ref} className='dropdown'>
+        <div ref={ref} className={cn('dropdown', className)} {...props}>
             <div
                 tabIndex={0}
                 role='button'
-                className={cn('btn m-0 size-fit gap-0 border-none p-1', isHeading && 'btn-active')}
+                className={cn('btn btn-ghost m-0 size-fit gap-0 border-none p-1', isHeading && 'btn-active')}
             >
                 {isHeading ? (
                     (() => {

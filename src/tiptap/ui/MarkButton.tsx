@@ -31,10 +31,14 @@ export default function MarkButton({ mark, className, ...props }: MarkButtonProp
     const Icon = MARK_ICONS[mark];
     return (
         <button
-            className={cn('btn m-0 size-fit border-none p-1', editorState?.isActive && 'btn-active', className)}
-            {...props}
+            className={cn(
+                'btn btn-ghost m-0 size-fit border-none p-1',
+                editorState?.isActive && 'btn-active',
+                className
+            )}
             onClick={() => editor?.chain().focus().toggleMark(mark).run()}
             disabled={!editorState?.canActive}
+            {...props}
         >
             <Icon size={20} strokeWidth={1.5} />
         </button>

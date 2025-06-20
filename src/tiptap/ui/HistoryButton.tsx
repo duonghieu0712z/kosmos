@@ -23,10 +23,10 @@ export default function HistoryButton({ action, className, ...props }: HistoryBu
     const Icon = ACTION_ICONS[action];
     return (
         <button
-            className={cn('btn m-0 size-fit border-none p-1', className)}
-            {...props}
+            className={cn('btn btn-ghost m-0 size-fit border-none p-1', className)}
             onClick={() => editor?.commands[action]()}
             disabled={!editorState?.canActive}
+            {...props}
         >
             <Icon size={20} strokeWidth={1.5} />
         </button>
