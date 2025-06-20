@@ -1,5 +1,5 @@
 import { ChevronDown, Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-react';
-import { ComponentProps, useMemo, useRef } from 'react';
+import { ComponentProps, useRef } from 'react';
 
 import { cn } from '@/libs';
 import { useTiptapEditor } from '@/tiptap/hooks';
@@ -19,7 +19,7 @@ export default function HeadingDropdown({ className, ...props }: ComponentProps<
             return { level: 0 };
         },
     });
-    const isHeading = useMemo(() => editorState?.level !== 0, [editorState]);
+    const isHeading = editorState?.level !== 0;
 
     return (
         <div ref={ref} className={cn('dropdown', className)} {...props}>

@@ -4,10 +4,6 @@ import { ComponentProps } from 'react';
 import { cn } from '@/libs';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
-type MarkButtonProps = {
-    mark: 'bold' | 'italic' | 'underline' | 'strike' | 'superscript' | 'subscript' | 'code';
-};
-
 const MARK_ICONS = {
     bold: Bold,
     italic: Italic,
@@ -17,6 +13,10 @@ const MARK_ICONS = {
     subscript: Subscript,
     code: Code,
 } as const;
+
+type MarkButtonProps = {
+    mark: keyof typeof MARK_ICONS;
+};
 
 export default function MarkButton({ mark, className, ...props }: MarkButtonProps & ComponentProps<'button'>) {
     const { editor, editorState } = useTiptapEditor({
