@@ -1,6 +1,8 @@
 import {
     HeadingDropdown,
+    HighlightPopover,
     HistoryButton,
+    LinkPopover,
     ListDropdown,
     MarkButton,
     NodeButton,
@@ -22,11 +24,12 @@ export default function ToolBar() {
             <MarkButton mark='italic' />
             <MarkButton mark='underline' />
             <MarkButton mark='strike' />
-            <Spacer />
             <MarkButton mark='superscript' />
             <MarkButton mark='subscript' />
             <Spacer />
             <MarkButton mark='code' />
+            <HighlightPopover />
+            <LinkPopover />
             <Spacer />
             <TextAlignDropdown />
             <ListDropdown />

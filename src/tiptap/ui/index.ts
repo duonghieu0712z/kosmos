@@ -1,5 +1,7 @@
 export { default as HeadingDropdown } from './HeadingDropdown';
+export { default as HighlightPopover } from './HighlightPopover';
 export { default as HistoryButton } from './HistoryButton';
+export { default as LinkPopover } from './LinkPopover';
 export { default as ListDropdown } from './ListDropdown';
 export { default as MarkButton } from './MarkButton';
 export { default as NodeButton } from './NodeButton';

@@ -25,7 +25,7 @@ export default function TextAlignDropdown({ className, ...props }: ComponentProp
 
     return (
         <div ref={ref} className={cn('dropdown', className)} {...props}>
-            <div tabIndex={0} role='button' className={cn('btn btn-ghost m-0 size-fit gap-0 border-none p-1')}>
+            <div tabIndex={0} role='button' className='btn btn-ghost m-0 size-fit gap-0 border-none p-1'>
                 {(() => {
                     const Icon = TEXT_ALIGN_ICONS[editorState?.align ?? 'left'];
                     return <Icon size={20} strokeWidth={1.5} />;
