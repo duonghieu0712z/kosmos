@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -13,6 +14,7 @@ export default tseslint.config(
     js.configs.recommended,
     tseslint.configs.recommended,
     eslintConfigPrettier,
+    eslintPluginPrettierRecommended,
     {
         settings: {
             'import/parsers': {
