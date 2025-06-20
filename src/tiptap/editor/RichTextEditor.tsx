@@ -10,7 +10,7 @@ import { useState } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 
-const CHARACTER_LIMIT = 2000;
+const CHARACTER_LIMIT = 20000;
 
 const EXTENSIONS = [
     StarterKit,
