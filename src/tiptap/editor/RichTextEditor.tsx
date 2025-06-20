@@ -7,7 +7,10 @@ import { EditorProvider } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useState } from 'react';
 
-import ToolBar from './ToolBar';
+import Footer from './Footer';
+import Header from './Header';
+
+const CHARACTER_LIMIT = 2000;
 
 const EXTENSIONS = [
     StarterKit,
@@ -16,7 +19,7 @@ const EXTENSIONS = [
     Subscript,
     TextAlign.configure({ types: ['heading', 'paragraph'], defaultAlignment: 'left' }),
     Placeholder.configure({ placeholder: 'Write something...' }),
-    CharacterCount.configure({ limit: 2000 }),
+    CharacterCount.configure({ limit: CHARACTER_LIMIT }),
 ];
 
 export default function RichTextEditor() {
@@ -30,11 +33,12 @@ export default function RichTextEditor() {
             editorContainerProps={{ className: 'size-full' }}
             editorProps={{
                 attributes: {
-                    class: 'prose dark:prose-invert min-h-full min-w-full p-2 text-base/6 outline',
+                    class: 'prose dark:prose-invert min-h-full min-w-full p-2 text-base/6 not-focus:rounded-sm not-focus:border-2',
                     spellcheck: 'false',
                 },
             }}
-            slotBefore={<ToolBar />}
+            slotBefore={<Header />}
+            slotAfter={<Footer limit={CHARACTER_LIMIT} />}
         />
     );
 }

@@ -10,7 +10,7 @@ import {
     TextAlignDropdown,
 } from '@/tiptap/ui';
 
-export default function ToolBar() {
+export default function Header() {
     return (
         <div className='menu menu-horizontal rounded-box bg-base-200 w-full gap-0.5'>
             <HistoryButton action='undo' />
