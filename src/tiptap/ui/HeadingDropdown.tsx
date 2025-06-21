@@ -11,12 +11,8 @@ export default function HeadingDropdown({ className, ...props }: ComponentProps<
 
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
-            for (let i = 1; i <= 6; i++) {
-                if (editor?.isActive('heading', { level: i })) {
-                    return { level: i };
-                }
-            }
-            return { level: 0 };
+            const level: number = editor?.getAttributes('heading').level ?? 0;
+            return { level };
         },
     });
     const isHeading = editorState?.level !== 0;

@@ -1,4 +1,6 @@
 import {
+    FontFamilyDropdown,
+    FontSizeDropdown,
     HeadingDropdown,
     HighlightPopover,
     HistoryButton,
@@ -17,6 +19,8 @@ export default function Header() {
             <HistoryButton action='redo' />
             <Spacer />
             <HeadingDropdown />
+            <FontFamilyDropdown />
+            <FontSizeDropdown />
             <NodeButton node='blockquote' />
             <NodeButton node='codeblock' />
             <Spacer />

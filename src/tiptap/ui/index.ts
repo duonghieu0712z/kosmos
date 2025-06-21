@@ -1,3 +1,5 @@
+export { default as FontFamilyDropdown } from './FontFamilyDropdown';
+export { default as FontSizeDropdown } from './FontSizeDropdown';
 export { default as HeadingDropdown } from './HeadingDropdown';
 export { default as HighlightPopover } from './HighlightPopover';
 export { default as HistoryButton } from './HistoryButton';

@@ -13,7 +13,7 @@ export default function SplashScreen() {
         >
             <img src={logo} alt='logo' className='size-42' />
 
-            <div className='bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text font-[calligraphy] text-4xl font-bold text-transparent'>
+            <div className='bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text font-[Lucida_Calligraphy] text-4xl font-bold text-transparent'>
                 {__APP_NAME__}
             </div>
 

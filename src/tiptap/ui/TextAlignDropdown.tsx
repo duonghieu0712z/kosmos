@@ -16,9 +16,8 @@ export default function TextAlignDropdown({ className, ...props }: ComponentProp
 
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
-            const align = Object.keys(TEXT_ALIGN_ICONS).find((textAlign) =>
-                editor?.isActive({ textAlign })
-            ) as keyof typeof TEXT_ALIGN_ICONS;
+            const align: keyof typeof TEXT_ALIGN_ICONS =
+                editor?.getAttributes('paragraph').textAlign ?? editor?.getAttributes('heading').textAlign ?? 'left';
             return { align };
         },
     });
@@ -27,7 +26,7 @@ export default function TextAlignDropdown({ className, ...props }: ComponentProp
         <div ref={ref} className={cn('dropdown', className)} {...props}>
             <div tabIndex={0} role='button' className='btn btn-ghost m-0 size-fit gap-0 border-none p-1'>
                 {(() => {
-                    const Icon = TEXT_ALIGN_ICONS[editorState?.align ?? 'left'];
+                    const Icon = TEXT_ALIGN_ICONS[editorState!.align];
                     return <Icon size={20} strokeWidth={1.5} />;
                 })()}
                 <ChevronDown size={12} strokeWidth={1.5} />
