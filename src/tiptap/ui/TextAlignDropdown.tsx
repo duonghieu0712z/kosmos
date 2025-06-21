@@ -33,19 +33,21 @@ export default function TextAlignDropdown({ className, ...props }: ComponentProp
             </div>
 
             <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
-                {Object.entries(TEXT_ALIGN_ICONS).map(([align, Icon]) => (
-                    <li key={align}>
-                        <button
-                            className='m-0 size-fit p-1'
-                            onClick={() => {
-                                editor?.chain().focus().setTextAlign(align).run();
-                                ref.current?.blur();
-                            }}
-                        >
-                            <Icon size={20} strokeWidth={1.5} />
-                        </button>
-                    </li>
-                ))}
+                <div className='menu-horizontal'>
+                    {Object.entries(TEXT_ALIGN_ICONS).map(([align, Icon]) => (
+                        <li key={align}>
+                            <button
+                                className='m-0 size-fit p-1'
+                                onClick={() => {
+                                    editor?.chain().focus().setTextAlign(align).run();
+                                    ref.current?.blur();
+                                }}
+                            >
+                                <Icon size={20} strokeWidth={1.5} />
+                            </button>
+                        </li>
+                    ))}
+                </div>
             </ul>
         </div>
     );

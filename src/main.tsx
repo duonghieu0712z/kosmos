@@ -6,6 +6,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import MainScreen from '@/MainScreen';
+import { loadSystemFonts } from '@/utils';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
 
 async function setup() {
     console.log('Start frontend setup task...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await loadSystemFonts();
     console.log('Frontend setup task completed!');
 
     await invoke('set_complete', { task: 'frontend' });

@@ -37,26 +37,28 @@ export default function ListDropdown({ className, ...props }: ComponentProps<'di
             </div>
 
             <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
-                {Object.entries(LIST_ICONS).map(([listType, Icon]) => (
-                    <li key={listType}>
-                        <button
-                            className='m-0 size-fit p-1'
-                            onClick={() => {
-                                switch (listType) {
-                                    case 'bullet':
-                                        editor?.chain().focus().toggleBulletList().run();
-                                        break;
-                                    case 'ordered':
-                                        editor?.chain().focus().toggleOrderedList().run();
-                                        break;
-                                }
-                                ref.current?.blur();
-                            }}
-                        >
-                            <Icon size={20} strokeWidth={1.5} />
-                        </button>
-                    </li>
-                ))}
+                <div className='menu-horizontal'>
+                    {Object.entries(LIST_ICONS).map(([listType, Icon]) => (
+                        <li key={listType}>
+                            <button
+                                className='m-0 size-fit p-1'
+                                onClick={() => {
+                                    switch (listType) {
+                                        case 'bullet':
+                                            editor?.chain().focus().toggleBulletList().run();
+                                            break;
+                                        case 'ordered':
+                                            editor?.chain().focus().toggleOrderedList().run();
+                                            break;
+                                    }
+                                    ref.current?.blur();
+                                }}
+                            >
+                                <Icon size={20} strokeWidth={1.5} />
+                            </button>
+                        </li>
+                    ))}
+                </div>
             </ul>
         </div>
     );

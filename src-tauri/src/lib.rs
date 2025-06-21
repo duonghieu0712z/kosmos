@@ -2,6 +2,7 @@ use std::sync::Mutex;
 
 use tauri::async_runtime::spawn;
 
+mod font;
 mod splash;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -14,7 +15,10 @@ pub fn run() {
             frontend_task: false,
             backend_task: false,
         }))
-        .invoke_handler(tauri::generate_handler![splash::set_complete])
+        .invoke_handler(tauri::generate_handler![
+            splash::set_complete,
+            font::get_fonts
+        ])
         .setup(|app| {
             spawn(splash::setup(app.handle().clone()));
             Ok(())
