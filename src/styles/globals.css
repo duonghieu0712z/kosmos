@@ -18,7 +18,7 @@
 
 @layer components {
     .is-editor-empty:first-child::before {
-        @apply pointer-events-none float-left h-0 text-[#adb5bd] content-[attr(data-placeholder)];
+        @apply text-neutral-content pointer-events-none float-left h-0 content-[attr(data-placeholder)];
     }
 }
 

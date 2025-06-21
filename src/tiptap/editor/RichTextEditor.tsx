@@ -30,10 +30,12 @@ export default function RichTextEditor() {
             extensions={EXTENSIONS}
             content={content}
             onUpdate={({ editor }) => setContent(editor.getHTML())}
-            editorContainerProps={{ className: 'size-full' }}
+            editorContainerProps={{
+                className: 'size-full overflow-y-auto rounded-sm outline',
+            }}
             editorProps={{
                 attributes: {
-                    class: 'prose dark:prose-invert min-h-full min-w-full p-2 text-base/6 not-focus:rounded-sm not-focus:border-2',
+                    class: 'prose dark:prose-invert min-h-full min-w-full p-2 text-base/6 outline-none',
                     spellcheck: 'false',
                 },
             }}

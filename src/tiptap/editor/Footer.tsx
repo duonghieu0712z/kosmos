@@ -9,7 +9,7 @@ export default function Footer({ limit }: FooterProps) {
     const percentage = Math.round((characters * 100) / limit);
 
     return (
-        <div className='bg-base-200 flex w-full items-center gap-2 p-2'>
+        <div className='bg-base-200 rounded-box flex w-full items-center gap-2 p-2'>
             <div className='relative size-15'>
                 <svg className='size-full -rotate-90' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'>
                     <circle

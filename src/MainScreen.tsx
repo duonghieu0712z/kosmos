@@ -5,7 +5,7 @@ import { router } from '@/routes';
 export default function MainScreen() {
     return (
         <div
-            className='flex min-h-screen flex-col overflow-hidden'
+            className='flex h-screen flex-col overflow-hidden'
             onContextMenu={(e) => {
                 if (import.meta.env.PROD) {
                     e.preventDefault();
@@ -15,7 +15,7 @@ export default function MainScreen() {
         >
             {/* <header className='bg-base-300 flex h-8 items-center px-2'>Header</header> */}
 
-            <main className='flex flex-1'>
+            <main className='flex flex-1 overflow-hidden'>
                 <RouterProvider router={router} />
             </main>
 
@@ -24,8 +24,8 @@ export default function MainScreen() {
                     <div className='inline-grid *:[grid-area:1/1]'>
                         <div className='status status-primary animate-ping'></div>
                         <div className='status status-primary'></div>
-                    </div>{' '}
-                    status
+                    </div>
+                    <span> status</span>
                 </div>
                 <div className='absolute right-2 font-medium'>v{__APP_VERSION__}</div>
             </footer>
