@@ -4,8 +4,9 @@ import { GripVertical } from 'lucide-react';
 
 export default function DragHandler() {
     const { editor } = useCurrentEditor();
+
     return (
-        <DragHandle editor={editor!}>
+        <DragHandle className='cursor-grab active:cursor-grabbing' editor={editor!}>
             <GripVertical strokeWidth={1.5} strokeOpacity={0.3} />
         </DragHandle>
     );
