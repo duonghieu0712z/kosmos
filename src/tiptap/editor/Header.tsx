@@ -22,11 +22,6 @@ export default function Header() {
             <FontFamilyDropdown />
             <FontSizeDropdown />
             <Spacer />
-            <NodeButton node='blockquote' />
-            <NodeButton node='codeblock' />
-            <NodeButton node='hardBreak' />
-            <NodeButton node='horizontalRule' />
-            <Spacer />
             <MarkButton mark='bold' />
             <MarkButton mark='italic' />
             <MarkButton mark='underline' />
@@ -37,6 +32,11 @@ export default function Header() {
             <MarkButton mark='code' />
             <HighlightPopover />
             <LinkPopover />
+            <Spacer />
+            <NodeButton node='blockquote' />
+            <NodeButton node='codeblock' />
+            <NodeButton node='hardBreak' />
+            <NodeButton node='horizontalRule' />
             <Spacer />
             <TextAlignDropdown />
             <ListDropdown />
