@@ -21,8 +21,11 @@ export default function Header() {
             <HeadingDropdown />
             <FontFamilyDropdown />
             <FontSizeDropdown />
+            <Spacer />
             <NodeButton node='blockquote' />
             <NodeButton node='codeblock' />
+            <NodeButton node='hardBreak' />
+            <NodeButton node='horizontalRule' />
             <Spacer />
             <MarkButton mark='bold' />
             <MarkButton mark='italic' />

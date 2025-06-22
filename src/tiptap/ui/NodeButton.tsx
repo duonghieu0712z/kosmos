@@ -1,4 +1,4 @@
-import { SquareCode, TextQuote } from 'lucide-react';
+import { Minus, SquareCode, TextQuote, WrapText } from 'lucide-react';
 import { ComponentProps } from 'react';
 
 import { cn } from '@/libs';
@@ -7,6 +7,8 @@ import { useTiptapEditor } from '@/tiptap/hooks';
 const NODE_ICONS = {
     blockquote: TextQuote,
     codeblock: SquareCode,
+    hardBreak: WrapText,
+    horizontalRule: Minus,
 } as const;
 
 type NodeButtonProps = {
@@ -23,6 +25,12 @@ export default function NodeButton({ node, className, ...props }: NodeButtonProp
                     break;
                 case 'codeblock':
                     canActive = editor!.can().toggleCodeBlock();
+                    break;
+                case 'hardBreak':
+                    canActive = editor!.can().setHardBreak();
+                    break;
+                case 'horizontalRule':
+                    canActive = editor!.can().setHorizontalRule();
                     break;
             }
             return {
@@ -47,6 +55,12 @@ export default function NodeButton({ node, className, ...props }: NodeButtonProp
                         break;
                     case 'codeblock':
                         editor?.chain().focus().toggleCodeBlock().run();
+                        break;
+                    case 'hardBreak':
+                        editor?.chain().focus().setHardBreak().run();
+                        break;
+                    case 'horizontalRule':
+                        editor?.chain().focus().setHorizontalRule().run();
                         break;
                 }
             }}
