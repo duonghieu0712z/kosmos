@@ -7,6 +7,8 @@ import { EditorProvider } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useState } from 'react';
 
+import { DragHandler } from '@/tiptap/ui';
+
 import Footer from './Footer';
 import Header from './Header';
 
@@ -35,12 +37,14 @@ export default function RichTextEditor() {
             }}
             editorProps={{
                 attributes: {
-                    class: 'prose dark:prose-invert min-h-full min-w-full p-2 text-[12pt] outline-none',
+                    class: 'prose dark:prose-invert min-h-full min-w-full p-6 text-[12pt] outline-none',
                     spellcheck: 'false',
                 },
             }}
             slotBefore={<Header />}
             slotAfter={<Footer limit={CHARACTER_LIMIT} />}
-        />
+        >
+            <DragHandler />
+        </EditorProvider>
     );
 }

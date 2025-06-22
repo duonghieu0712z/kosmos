@@ -1,3 +1,4 @@
+export { default as DragHandler } from './DragHandler';
 export { default as FontFamilyDropdown } from './FontFamilyDropdown';
 export { default as FontSizeDropdown } from './FontSizeDropdown';
 export { default as HeadingDropdown } from './HeadingDropdown';

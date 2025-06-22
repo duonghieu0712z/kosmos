@@ -19,7 +19,8 @@
                 "minWidth": 1280,
                 "minHeight": 720,
                 "center": true,
-                "maximized": true
+                "maximized": true,
+                "dragDropEnabled": false
             },
             {
                 "label": "splash",
