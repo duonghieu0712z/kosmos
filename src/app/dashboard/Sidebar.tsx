@@ -28,7 +28,7 @@ export default function Sidebar() {
                 >
                     <img src={logo} alt='logo' className='size-6' />
                     {isExpanded && (
-                        <div className='mr-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text font-[Lucida_Calligraphy] text-3xl font-bold text-transparent'>
+                        <div className='font-lucida-calligraphy mr-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-3xl font-bold text-transparent'>
                             {__APP_NAME__}
                         </div>
                     )}
