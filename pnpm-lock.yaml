@@ -32,12 +32,18 @@ importers:
       '@tiptap/extension-superscript':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
+      '@tiptap/extension-table-of-contents':
+        specifier: 3.0.0-beta.15
+        version: 3.0.0-beta.15(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/extension-text-align':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))
       '@tiptap/extension-text-style':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))
+      '@tiptap/extension-unique-id':
+        specifier: 3.0.0-beta.15
+        version: 3.0.0-beta.15(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/extensions':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)
@@ -972,6 +978,12 @@ packages:
       '@tiptap/core': 3.0.0-beta.8
       '@tiptap/pm': 3.0.0-beta.8
 
+  '@tiptap/extension-table-of-contents@3.0.0-beta.15':
+    resolution: {integrity: sha512-df+Z8Yh6oRFjz6tEzK2OYoM9UjjX93Wd3L/UnfdsjvEY56x7PCdXpWhK4kOf+Vwfx6KjoEK46gnssHuN7Q4uew==}
+    peerDependencies:
+      '@tiptap/core': 3.0.0-beta.15
+      '@tiptap/pm': 3.0.0-beta.15
+
   '@tiptap/extension-text-align@3.0.0-beta.8':
     resolution: {integrity: sha512-+OMCW0rVjk+STTYDzIKVheSUyPe3tF4IQgGhpp0JN6GhjleEvqb+w4EpcnkmV7Qz3qGY60cef/trSu4vL2HsFw==}
     peerDependencies:
@@ -991,6 +1003,12 @@ packages:
     resolution: {integrity: sha512-T22PyLftlO/DpJO3JbrHgUabJdMJp5kPlKMYhCKFQR0R2NhFBG4WPXOISbCdNmu2/NU//yKTWYikbhIrqnl+zw==}
     peerDependencies:
       '@tiptap/core': 3.0.0-beta.8
+
+  '@tiptap/extension-unique-id@3.0.0-beta.15':
+    resolution: {integrity: sha512-l9YPGPHrL8DXZXhzujfVXjEY/6Q/1IrIkmYBGBl64ir3QF0QA3fm8mB1f6fn/shmI/Tx4OVrxdCz+KIUvGrG2Q==}
+    peerDependencies:
+      '@tiptap/core': 3.0.0-beta.15
+      '@tiptap/pm': 3.0.0-beta.15
 
   '@tiptap/extensions@3.0.0-beta.8':
     resolution: {integrity: sha512-rka0nXxgdnkKmbcvsegEozKApeCbYkAz2swrEtukEUIplv8tgB+Y59OpTG46p7FCloASmW2GSuPvfZqG62uFCQ==}
@@ -2676,6 +2694,10 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+
   vite@6.3.5:
     resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -3385,6 +3407,12 @@ snapshots:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
       '@tiptap/pm': 3.0.0-beta.8
 
+  '@tiptap/extension-table-of-contents@3.0.0-beta.15(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
+    dependencies:
+      '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
+      '@tiptap/pm': 3.0.0-beta.8
+      uuid: 10.0.0
+
   '@tiptap/extension-text-align@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))':
     dependencies:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
@@ -3400,6 +3428,12 @@ snapshots:
   '@tiptap/extension-underline@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))':
     dependencies:
       '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
+
+  '@tiptap/extension-unique-id@3.0.0-beta.15(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
+    dependencies:
+      '@tiptap/core': 3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8)
+      '@tiptap/pm': 3.0.0-beta.8
+      uuid: 10.0.0
 
   '@tiptap/extensions@3.0.0-beta.8(@tiptap/core@3.0.0-beta.8(@tiptap/pm@3.0.0-beta.8))(@tiptap/pm@3.0.0-beta.8)':
     dependencies:
@@ -5350,6 +5384,8 @@ snapshots:
       react: 19.1.0
 
   util-deprecate@1.0.2: {}
+
+  uuid@10.0.0: {}
 
   vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0):
     dependencies:

@@ -10,3 +10,5 @@ export { default as MarkButton } from './MarkButton';
 export { default as NodeButton } from './NodeButton';
 export { default as Spacer } from './Spacer';
 export { default as TextAlignDropdown } from './TextAlignDropdown';
+export { default as ToC } from './ToC';
+export { default as ToCProvider } from './ToCProvider';
