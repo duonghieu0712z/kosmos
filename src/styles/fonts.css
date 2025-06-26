@@ -17,7 +17,7 @@
 }
 
 @font-face {
-    font-family: 'Lucida Calligraphy';
+    font-family: 'LucidaCalligraphy';
     src:
         url('@/assets/fonts/LucidaCalligraphy.woff2') format('woff2'),
         url('@/assets/fonts/LucidaCalligraphy.ttf') format('ttf');
@@ -26,7 +26,7 @@
 }
 
 @font-face {
-    font-family: 'Lucida Calligraphy';
+    font-family: 'LucidaCalligraphy';
     src:
         url('@/assets/fonts/LucidaCalligraphyBold.woff2') format('woff2'),
         url('@/assets/fonts/LucidaCalligraphyBold.ttf') format('ttf');

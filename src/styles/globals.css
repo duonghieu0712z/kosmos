@@ -2,6 +2,8 @@
 
 @plugin "@tailwindcss/typography";
 
+@import './fonts.css';
+
 @plugin 'daisyui' {
     themes:
         nord --default,
@@ -24,7 +26,7 @@
 
 @theme {
     --font-inter: Inter, ui-sans-serif, system-ui, sans-serif;
-    --font-lucida-calligraphy: 'Lucida Calligraphy';
+    --font-lucida-calligraphy: LucidaCalligraphy;
 
     --animate-rotate1: rotate1 1.15s linear infinite;
     --animate-rotate2: rotate2 1.15s 0.1s linear infinite;

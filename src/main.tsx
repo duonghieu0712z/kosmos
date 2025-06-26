@@ -1,5 +1,4 @@
 import '@/styles/globals.css';
-import '@/styles/fonts.css';
 
 import { invoke } from '@tauri-apps/api/core';
 import { StrictMode } from 'react';
