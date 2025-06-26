@@ -3,15 +3,14 @@ import { ToC, ToCProvider } from '@/tiptap/ui';
 
 export default function Story() {
     return (
-        <div className='flex size-full items-center justify-center gap-0.5'>
+        <div className='flex size-full items-center justify-center'>
             <ToCProvider>
-                <aside className='h-full w-60'>
-                    <ToC />
-                </aside>
-                <main className='flex h-full flex-1 flex-col gap-0.5 p-1'>
+                <main className='flex h-full flex-1 flex-col'>
                     <RichTextEditor />
                 </main>
-                <aside></aside>
+                <aside className='border-base-300 flex h-full w-60 flex-col border-l p-1'>
+                    <ToC />
+                </aside>
             </ToCProvider>
         </div>
     );

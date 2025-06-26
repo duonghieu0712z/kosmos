@@ -14,7 +14,7 @@ import {
 
 export default function Header() {
     return (
-        <div className='menu menu-horizontal rounded-box bg-base-200 w-full gap-0.5'>
+        <div className='menu menu-horizontal bg-base-200 border-base-300 w-full gap-0.5 border-b'>
             <HistoryButton action='undo' />
             <HistoryButton action='redo' />
             <Spacer />

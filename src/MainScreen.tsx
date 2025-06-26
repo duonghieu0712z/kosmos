@@ -13,22 +13,9 @@ export default function MainScreen() {
                 }
             }}
         >
-            {/* <header className='bg-base-300 flex h-8 items-center px-2'>Header</header> */}
-
             <main className='flex flex-1 overflow-hidden'>
                 <RouterProvider router={router} />
             </main>
-
-            <footer className='bg-base-300 relative flex h-6 items-center px-2 text-xs'>
-                <div>
-                    <div className='inline-grid *:[grid-area:1/1]'>
-                        <div className='status status-primary animate-ping'></div>
-                        <div className='status status-primary'></div>
-                    </div>
-                    <span> status</span>
-                </div>
-                <div className='absolute right-2 font-medium'>v{__APP_VERSION__}</div>
-            </footer>
         </div>
     );
 }

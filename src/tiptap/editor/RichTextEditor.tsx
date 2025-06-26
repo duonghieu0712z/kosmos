@@ -51,7 +51,7 @@ export default function RichTextEditor() {
                 // console.log(editor.getJSON());
             }}
             editorContainerProps={{
-                className: 'size-full overflow-y-auto rounded-sm outline',
+                className: 'size-full overflow-y-auto',
             }}
             editorProps={{
                 attributes: {

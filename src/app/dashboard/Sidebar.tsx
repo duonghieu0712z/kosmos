@@ -1,7 +1,6 @@
-import { BookText, Eye, Globe2, Home, Hourglass, Map, PencilRuler, Settings } from 'lucide-react';
+import { BookText, Eye, Globe2, Home, Hourglass, Map, PanelLeft, PencilRuler, Settings } from 'lucide-react';
 import { useState } from 'react';
 
-import logo from '@/assets/images/logo.png';
 import { cn } from '@/libs';
 
 import SidebarItem from './SidebarItem';
@@ -20,18 +19,13 @@ const menus = [
 export default function Sidebar() {
     const [isExpanded, setIsExpanded] = useState(true);
     return (
-        <aside className={cn('bg-base-200 flex flex-col p-1')}>
+        <aside className={cn('bg-base-200 border-base-300 flex flex-col border-r p-1', isExpanded ? 'w-60' : 'w-10')}>
             <header>
                 <button
-                    className='btn btn-ghost flex w-full justify-start gap-2 px-1 font-medium'
+                    className='btn btn-ghost flex h-[30px] w-full justify-start px-1'
                     onClick={() => setIsExpanded(!isExpanded)}
                 >
-                    <img src={logo} alt='logo' className='size-6' />
-                    {isExpanded && (
-                        <div className='font-lucida-calligraphy mr-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-3xl font-bold text-transparent'>
-                            {__APP_NAME__}
-                        </div>
-                    )}
+                    <PanelLeft size={22} strokeWidth={1.5} />
                 </button>
                 <SidebarSeparator />
             </header>

@@ -24,7 +24,7 @@ export default function SidebarItem({
         <button
             data-tip={text}
             className={cn(
-                'btn btn-ghost flex w-full justify-start gap-2 px-1 font-medium',
+                'btn btn-ghost flex h-[30px] w-full justify-start gap-2 px-1 font-medium',
                 !isExpanded && 'tooltip tooltip-right',
                 className
             )}
@@ -36,7 +36,7 @@ export default function SidebarItem({
                 }
             }}
         >
-            <Icon strokeWidth={1.5} />
+            <Icon size={22} strokeWidth={1.5} />
             {isExpanded && text}
         </button>
     );

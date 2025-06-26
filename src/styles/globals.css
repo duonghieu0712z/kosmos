@@ -1,16 +1,16 @@
 @import 'tailwindcss';
 
 @plugin "@tailwindcss/typography";
+@plugin 'daisyui' {
+    themes: kosmos-light, kosmos-dark;
+}
 
 @import './fonts.css';
 
-@plugin 'daisyui' {
-    themes:
-        nord --default,
-        dracula;
-}
+@import './theme/light.css';
+@import './theme/dark.css';
 
-@custom-variant dark (&:where([data-theme=dracula], [data-theme=dracula] *));
+@custom-variant dark (&:where([data-theme=kosmos-dark], [data-theme=kosmos-dark] *));
 
 @layer base {
     * {
