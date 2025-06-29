@@ -7,7 +7,7 @@ export default function HighlightPopover() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant='ghost' size='icon'>
+                <Button variant='ghost' size='icon' className='size-8'>
                     <Highlighter />
                 </Button>
             </PopoverTrigger>

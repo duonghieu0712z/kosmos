@@ -27,7 +27,7 @@ export default function TextAlignDropdown() {
                 editor?.chain().focus().setTextAlign(value).run();
             }}
         >
-            <SelectTrigger className='w-16'>
+            <SelectTrigger size='sm' className='w-16'>
                 <SelectValue />
             </SelectTrigger>
 

@@ -30,7 +30,7 @@ export default function HeadingDropdown() {
                     .run();
             }}
         >
-            <SelectTrigger className='w-16'>
+            <SelectTrigger size='sm' className='w-16'>
                 <SelectValue />
             </SelectTrigger>
 

@@ -32,6 +32,7 @@ export default function MarkButton({ mark, ...props }: MarkButtonProps & Compone
     return (
         <Toggle
             data-state={editorState?.isActive ? 'on' : 'off'}
+            size='sm'
             onClick={() => editor?.chain().focus().toggleMark(mark).run()}
             disabled={!editorState?.canActive}
             {...props}

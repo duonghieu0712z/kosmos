@@ -23,7 +23,7 @@ export default function FontSizeDropdown() {
                 editor?.chain().focus().setFontSize(`${value}pt`).run();
             }}
         >
-            <SelectTrigger className='w-17'>
+            <SelectTrigger size='sm' className='w-17'>
                 <SelectValue />
             </SelectTrigger>
 

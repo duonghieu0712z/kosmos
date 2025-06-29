@@ -19,7 +19,7 @@ export default function FontFamilyDropdown() {
                 editor?.chain().focus().setFontFamily(value).run();
             }}
         >
-            <SelectTrigger className='w-30'>
+            <SelectTrigger size='sm' className='w-30'>
                 <SelectValue />
             </SelectTrigger>
 

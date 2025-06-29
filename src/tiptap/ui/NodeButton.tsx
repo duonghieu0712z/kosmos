@@ -44,6 +44,7 @@ export default function NodeButton({ node, ...props }: NodeButtonProps & Compone
     return (
         <Toggle
             data-state={editorState?.isActive ? 'on' : 'off'}
+            size='sm'
             onClick={() => {
                 switch (node) {
                     case 'blockquote':

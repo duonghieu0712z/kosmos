@@ -27,7 +27,7 @@ export default function AppSidebar() {
     return (
         <Sidebar collapsible='icon'>
             <SidebarHeader>
-                <SidebarTrigger />
+                <SidebarTrigger className='h-6' />
             </SidebarHeader>
             <SidebarSeparator />
 

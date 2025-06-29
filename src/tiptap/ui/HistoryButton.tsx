@@ -27,6 +27,7 @@ export default function HistoryButton({ action, ...props }: HistoryButtonProps &
             size='icon'
             onClick={() => editor?.commands[action]()}
             disabled={!editorState?.canActive}
+            className='size-8'
             {...props}
         >
             <Icon />

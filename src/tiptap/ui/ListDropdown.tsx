@@ -34,7 +34,7 @@ export default function ListDropdown() {
                 }
             }}
         >
-            <SelectTrigger className='w-16'>
+            <SelectTrigger size='sm' className='w-16'>
                 <SelectValue />
             </SelectTrigger>
 
