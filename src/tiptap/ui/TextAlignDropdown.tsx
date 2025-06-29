@@ -27,11 +27,11 @@ export default function TextAlignDropdown() {
                 editor?.chain().focus().setTextAlign(value).run();
             }}
         >
-            <SelectTrigger size='sm' className='w-16'>
+            <SelectTrigger size='sm' className='w-14 px-2 py-1'>
                 <SelectValue />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent className='min-w-0'>
                 {Object.entries(TEXT_ALIGN_ICONS).map(([align, Icon]) => (
                     <SelectItem key={align} value={align}>
                         <Icon />

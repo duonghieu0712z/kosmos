@@ -1,6 +1,7 @@
 import { Link } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 export default function LinkPopover() {
@@ -11,8 +12,8 @@ export default function LinkPopover() {
                     <Link />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent>
-                <div>Link</div>
+            <PopoverContent className='p-2'>
+                <Input type='url' placeholder='Link' />
             </PopoverContent>
         </Popover>
     );

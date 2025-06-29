@@ -23,11 +23,11 @@ export default function FontSizeDropdown() {
                 editor?.chain().focus().setFontSize(`${value}pt`).run();
             }}
         >
-            <SelectTrigger size='sm' className='w-17'>
+            <SelectTrigger size='sm' className='w-15 px-2 py-1'>
                 <SelectValue />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent className='min-w-0'>
                 {FONT_SIZES.map((size) => (
                     <SelectItem key={size} value={`${size}`}>
                         {size}

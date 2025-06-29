@@ -55,7 +55,7 @@ export default function RichTextEditor() {
             }}
             editorProps={{
                 attributes: {
-                    class: 'prose dark:prose-invert min-h-full min-w-full p-6 text-[12pt] outline-none',
+                    class: 'prose dark:prose-invert min-h-full min-w-full p-6 text-[12pt] outline-none text-foreground',
                     spellcheck: 'false',
                 },
             }}

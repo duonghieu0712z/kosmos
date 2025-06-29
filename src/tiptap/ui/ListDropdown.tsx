@@ -34,11 +34,11 @@ export default function ListDropdown() {
                 }
             }}
         >
-            <SelectTrigger size='sm' className='w-16'>
+            <SelectTrigger size='sm' className='w-14 px-2 py-1'>
                 <SelectValue />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent className='min-w-0'>
                 {Object.entries(LIST_ICONS).map(([listType, Icon]) => (
                     <SelectItem key={listType} value={listType}>
                         <Icon />

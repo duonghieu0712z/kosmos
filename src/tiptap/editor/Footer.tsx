@@ -14,7 +14,7 @@ export default function Footer({ limit }: FooterProps) {
     return (
         <>
             <Separator />
-            <div className='flex w-full items-center gap-2 px-2 py-1 text-xs'>
+            <div className='flex w-full items-center gap-2 p-2 text-xs'>
                 <Progress value={percentage} className='w-40' />
                 {characters} / {limit} character(s), {words} word(s)
             </div>
