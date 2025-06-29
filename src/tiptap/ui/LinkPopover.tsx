@@ -1,9 +1,19 @@
 import { Link } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 export default function LinkPopover() {
     return (
-        <button className='btn btn-ghost m-0 size-fit border-none p-1'>
-            <Link size={20} strokeWidth={1.5} />
-        </button>
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button variant='ghost' size='icon'>
+                    <Link />
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <div>Link</div>
+            </PopoverContent>
+        </Popover>
     );
 }

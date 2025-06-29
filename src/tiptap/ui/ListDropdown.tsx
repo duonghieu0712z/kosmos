@@ -1,7 +1,6 @@
-import { ChevronDown, ListIcon, ListOrdered } from 'lucide-react';
-import { ComponentProps, useRef } from 'react';
+import { ListIcon, ListOrdered } from 'lucide-react';
 
-import { cn } from '@/libs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
 const LIST_ICONS = {
@@ -9,9 +8,7 @@ const LIST_ICONS = {
     ordered: ListOrdered,
 } as const;
 
-export default function ListDropdown({ className, ...props }: ComponentProps<'div'>) {
-    const ref = useRef<HTMLDivElement>(null);
-
+export default function ListDropdown() {
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
             const listType = Object.keys(LIST_ICONS).find((type) =>
@@ -20,46 +17,34 @@ export default function ListDropdown({ className, ...props }: ComponentProps<'di
             return { listType };
         },
     });
-    const isActive = !!editorState?.listType;
+    // const isActive = !!editorState?.listType;
 
     return (
-        <div ref={ref} className={cn('dropdown', className)} {...props}>
-            <div
-                tabIndex={0}
-                role='button'
-                className={cn('btn btn-ghost m-0 size-fit gap-0 border-none p-1', isActive && 'btn-active')}
-            >
-                {(() => {
-                    const Icon = LIST_ICONS[editorState?.listType ?? 'bullet'];
-                    return <Icon size={20} strokeWidth={1.5} />;
-                })()}
-                <ChevronDown size={12} strokeWidth={1.5} />
-            </div>
+        <Select
+            defaultValue='bullet'
+            value={editorState?.listType}
+            onValueChange={(value) => {
+                switch (value) {
+                    case 'bullet':
+                        editor?.chain().focus().toggleBulletList().run();
+                        break;
+                    case 'ordered':
+                        editor?.chain().focus().toggleOrderedList().run();
+                        break;
+                }
+            }}
+        >
+            <SelectTrigger className='w-16'>
+                <SelectValue />
+            </SelectTrigger>
 
-            <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
-                <div className='menu-horizontal'>
-                    {Object.entries(LIST_ICONS).map(([listType, Icon]) => (
-                        <li key={listType}>
-                            <button
-                                className='m-0 size-fit p-1'
-                                onClick={() => {
-                                    switch (listType) {
-                                        case 'bullet':
-                                            editor?.chain().focus().toggleBulletList().run();
-                                            break;
-                                        case 'ordered':
-                                            editor?.chain().focus().toggleOrderedList().run();
-                                            break;
-                                    }
-                                    ref.current?.blur();
-                                }}
-                            >
-                                <Icon size={20} strokeWidth={1.5} />
-                            </button>
-                        </li>
-                    ))}
-                </div>
-            </ul>
-        </div>
+            <SelectContent>
+                {Object.entries(LIST_ICONS).map(([listType, Icon]) => (
+                    <SelectItem key={listType} value={listType}>
+                        <Icon />
+                    </SelectItem>
+                ))}
+            </SelectContent>
+        </Select>
     );
 }

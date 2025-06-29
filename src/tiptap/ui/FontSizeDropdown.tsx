@@ -1,46 +1,39 @@
-import { ChevronDown } from 'lucide-react';
-import { ComponentProps, useRef } from 'react';
-
-import { cn } from '@/libs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
 const FONT_SIZES = [10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72] as const;
 
-function formatFontSize(size: string) {
-    return parseFloat(size);
+function getFontSize(size: string) {
+    return size.replace(/\D/g, '');
 }
 
-export default function FontSizeDropdown({ className, ...props }: ComponentProps<'div'>) {
-    const ref = useRef<HTMLDivElement>(null);
-
+export default function FontSizeDropdown() {
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
-            const fontSize = editor?.getAttributes('textStyle').fontSize || '12pt';
-            return { fontSize };
+            const fontSize: string = editor?.getAttributes('textStyle').fontSize || '12pt';
+            return { fontSize: getFontSize(fontSize) };
         },
     });
 
     return (
-        <div ref={ref} className={cn('dropdown', className)} {...props}>
-            <div tabIndex={0} role='button' className='btn btn-ghost m-0 size-fit gap-0 border-none p-1'>
-                <div className='w-6 text-start'>{formatFontSize(editorState!.fontSize)}</div>
-                <ChevronDown size={12} strokeWidth={1.5} />
-            </div>
+        <Select
+            defaultValue='12'
+            value={editorState?.fontSize}
+            onValueChange={(value) => {
+                editor?.chain().focus().setFontSize(`${value}pt`).run();
+            }}
+        >
+            <SelectTrigger className='w-17'>
+                <SelectValue />
+            </SelectTrigger>
 
-            <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
+            <SelectContent>
                 {FONT_SIZES.map((size) => (
-                    <li key={size}>
-                        <button
-                            onClick={() => {
-                                editor?.chain().focus().setFontSize(`${size}pt`).run();
-                                ref.current?.blur();
-                            }}
-                        >
-                            {size}
-                        </button>
-                    </li>
+                    <SelectItem key={size} value={`${size}`}>
+                        {size}
+                    </SelectItem>
                 ))}
-            </ul>
-        </div>
+            </SelectContent>
+        </Select>
     );
 }

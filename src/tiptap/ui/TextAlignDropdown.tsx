@@ -1,7 +1,6 @@
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight, ChevronDown } from 'lucide-react';
-import { ComponentProps, useRef } from 'react';
+import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'lucide-react';
 
-import { cn } from '@/libs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
 const TEXT_ALIGN_ICONS = {
@@ -11,9 +10,7 @@ const TEXT_ALIGN_ICONS = {
     justify: AlignJustify,
 } as const;
 
-export default function TextAlignDropdown({ className, ...props }: ComponentProps<'div'>) {
-    const ref = useRef<HTMLDivElement>(null);
-
+export default function TextAlignDropdown() {
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
             const align: keyof typeof TEXT_ALIGN_ICONS =
@@ -23,32 +20,24 @@ export default function TextAlignDropdown({ className, ...props }: ComponentProp
     });
 
     return (
-        <div ref={ref} className={cn('dropdown', className)} {...props}>
-            <div tabIndex={0} role='button' className='btn btn-ghost m-0 size-fit gap-0 border-none p-1'>
-                {(() => {
-                    const Icon = TEXT_ALIGN_ICONS[editorState!.align];
-                    return <Icon size={20} strokeWidth={1.5} />;
-                })()}
-                <ChevronDown size={12} strokeWidth={1.5} />
-            </div>
+        <Select
+            defaultValue='left'
+            value={editorState?.align}
+            onValueChange={(value) => {
+                editor?.chain().focus().setTextAlign(value).run();
+            }}
+        >
+            <SelectTrigger className='w-16'>
+                <SelectValue />
+            </SelectTrigger>
 
-            <ul tabIndex={0} className='dropdown-content menu bg-base-100 rounded-box z-1 p-2 shadow-sm'>
-                <div className='menu-horizontal'>
-                    {Object.entries(TEXT_ALIGN_ICONS).map(([align, Icon]) => (
-                        <li key={align}>
-                            <button
-                                className='m-0 size-fit p-1'
-                                onClick={() => {
-                                    editor?.chain().focus().setTextAlign(align).run();
-                                    ref.current?.blur();
-                                }}
-                            >
-                                <Icon size={20} strokeWidth={1.5} />
-                            </button>
-                        </li>
-                    ))}
-                </div>
-            </ul>
-        </div>
+            <SelectContent>
+                {Object.entries(TEXT_ALIGN_ICONS).map(([align, Icon]) => (
+                    <SelectItem key={align} value={align}>
+                        <Icon />
+                    </SelectItem>
+                ))}
+            </SelectContent>
+        </Select>
     );
 }

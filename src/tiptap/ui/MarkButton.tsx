@@ -1,7 +1,7 @@
 import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from 'lucide-react';
 import { ComponentProps } from 'react';
 
-import { cn } from '@/libs';
+import { Toggle } from '@/components/ui/toggle';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
 const MARK_ICONS = {
@@ -18,7 +18,7 @@ type MarkButtonProps = {
     mark: keyof typeof MARK_ICONS;
 };
 
-export default function MarkButton({ mark, className, ...props }: MarkButtonProps & ComponentProps<'button'>) {
+export default function MarkButton({ mark, ...props }: MarkButtonProps & ComponentProps<'button'>) {
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
             return {
@@ -30,17 +30,13 @@ export default function MarkButton({ mark, className, ...props }: MarkButtonProp
 
     const Icon = MARK_ICONS[mark];
     return (
-        <button
-            className={cn(
-                'btn btn-ghost m-0 size-fit border-none p-1',
-                editorState?.isActive && 'btn-active',
-                className
-            )}
+        <Toggle
+            data-state={editorState?.isActive ? 'on' : 'off'}
             onClick={() => editor?.chain().focus().toggleMark(mark).run()}
             disabled={!editorState?.canActive}
             {...props}
         >
-            <Icon size={20} strokeWidth={1.5} />
-        </button>
+            <Icon />
+        </Toggle>
     );
 }

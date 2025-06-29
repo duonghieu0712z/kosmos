@@ -1,7 +1,7 @@
 import { Redo, Undo } from 'lucide-react';
 import { ComponentProps } from 'react';
 
-import { cn } from '@/libs';
+import { Button } from '@/components/ui/button';
 import { useTiptapEditor } from '@/tiptap/hooks';
 
 type HistoryButtonProps = {
@@ -13,7 +13,7 @@ const ACTION_ICONS = {
     redo: Redo,
 } as const;
 
-export default function HistoryButton({ action, className, ...props }: HistoryButtonProps & ComponentProps<'button'>) {
+export default function HistoryButton({ action, ...props }: HistoryButtonProps & ComponentProps<'button'>) {
     const { editor, editorState } = useTiptapEditor({
         selector({ editor }) {
             return { canActive: editor?.can()[action]() };
@@ -22,13 +22,14 @@ export default function HistoryButton({ action, className, ...props }: HistoryBu
 
     const Icon = ACTION_ICONS[action];
     return (
-        <button
-            className={cn('btn btn-ghost m-0 size-fit border-none p-1', className)}
+        <Button
+            variant='ghost'
+            size='icon'
             onClick={() => editor?.commands[action]()}
             disabled={!editorState?.canActive}
             {...props}
         >
-            <Icon size={20} strokeWidth={1.5} />
-        </button>
+            <Icon />
+        </Button>
     );
 }

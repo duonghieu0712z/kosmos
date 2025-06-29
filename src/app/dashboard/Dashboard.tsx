@@ -1,14 +1,16 @@
 import { Outlet } from 'react-router';
 
-import Sidebar from './Sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
+
+import AppSidebar from './AppSidebar';
 
 export default function Dashboard() {
     return (
-        <div className='flex w-full'>
-            <Sidebar />
+        <SidebarProvider className='flex w-full'>
+            <AppSidebar />
             <main className='flex flex-1 items-center justify-center'>
                 <Outlet />
             </main>
-        </div>
+        </SidebarProvider>
     );
 }

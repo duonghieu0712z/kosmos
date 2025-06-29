@@ -1,6 +1,6 @@
 import { TableOfContentData, TableOfContentDataItem } from '@tiptap/extension-table-of-contents';
 
-import { cn } from '@/libs';
+import { cn } from '@/lib/utils';
 import { useToC } from '@/tiptap/hooks';
 
 type ToCItem = TableOfContentDataItem & { children: ToCItem[] };
