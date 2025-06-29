@@ -57,6 +57,8 @@ export default function ToC() {
     const { data } = useToC();
     const tree = buildToCTree(data);
 
+    return <div>Table of Contents</div>;
+
     return (
         <div className='menu w-full'>
             <ToCTree tree={tree} />
