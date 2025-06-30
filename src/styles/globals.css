@@ -13,7 +13,7 @@
         @apply font-inter border-border outline-ring/50 select-none;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground cursor-default;
     }
 }
 
