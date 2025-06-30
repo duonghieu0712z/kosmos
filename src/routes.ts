@@ -1,8 +1,8 @@
-import { createBrowserRouter } from 'react-router';
+import { createMemoryRouter } from 'react-router';
 
-import { Dashboard, Story, Temp } from '@/app';
+import { Dashboard, Story, Todo } from '@/app';
 
-export const router = createBrowserRouter([
+export const router = createMemoryRouter([
     {
         path: '/',
         Component: Dashboard,
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '*',
-                Component: Temp,
+                Component: Todo,
             },
         ],
     },

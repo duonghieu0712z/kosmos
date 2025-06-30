@@ -23,14 +23,14 @@ export default function FontFamilyDropdown() {
                 <SelectValue />
             </SelectTrigger>
 
-            <SelectContent className={cn(SYSTEM_FONTS.length > 1 && 'h-80')}>
+            <SelectContent className={cn(SYSTEM_FONTS.length > 0 && 'h-80')}>
+                <SelectItem value={DEFAULT_FONT}>Default</SelectItem>
+                <SelectSeparator />
+
                 {SYSTEM_FONTS.map((font) => (
-                    <>
-                        <SelectItem key={font} value={font}>
-                            <div style={{ fontFamily: font }}>{font}</div>
-                        </SelectItem>
-                        {font === DEFAULT_FONT && <SelectSeparator />}
-                    </>
+                    <SelectItem key={font} value={font}>
+                        <div style={{ fontFamily: font }}>{font}</div>
+                    </SelectItem>
                 ))}
             </SelectContent>
         </Select>
