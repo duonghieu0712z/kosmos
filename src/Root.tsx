@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router';
 import { router } from '@/routes';
 import { loadSystemFonts } from '@/utils';
 
-export default function App() {
+export default function Root() {
     useEffect(() => {
         const controller = new AbortController();
         loadSystemFonts();
