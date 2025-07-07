@@ -39,6 +39,7 @@ export default tseslint.config(
             'simple-import-sort': simpleImportSort,
         },
         rules: {
+            curly: ['error', 'all'],
             '@typescript-eslint/no-explicit-any': 'off',
             ...reactHooks.configs.recommended.rules,
             ...reactRefresh.configs.vite.rules,

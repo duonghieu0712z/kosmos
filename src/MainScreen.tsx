@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 
 import { router } from '@/routes';
+import { loadSystemFonts } from '@/utils';
 
 export default function MainScreen() {
+    useEffect(() => {
+        const controller = new AbortController();
+        loadSystemFonts();
+        return () => controller.abort();
+    }, []);
+
     return (
         <div
             className='flex h-screen flex-col overflow-hidden'
