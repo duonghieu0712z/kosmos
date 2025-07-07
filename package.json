@@ -63,7 +63,6 @@
         "@typescript-eslint/eslint-plugin": "^8.35.0",
         "@typescript-eslint/parser": "^8.35.0",
         "@vitejs/plugin-react-swc": "^3.10.2",
-        "daisyui": "^5.0.43",
         "eslint": "^9.29.0",
         "eslint-config-prettier": "^10.1.5",
         "eslint-import-resolver-typescript": "^4.4.4",

@@ -2,9 +2,6 @@
 @import 'tw-animate-css';
 
 @plugin "@tailwindcss/typography";
-/* @plugin 'daisyui' {
-    themes: false;
-} */
 
 @import './fonts.css';
 
