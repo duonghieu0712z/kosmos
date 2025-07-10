@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { RouterProvider } from 'react-router';
 
-import { router } from '@/routes';
+import { Dashboard } from '@/app';
 import { loadSystemFonts } from '@/utils';
 
 export default function Root() {
@@ -13,7 +12,7 @@ export default function Root() {
 
     return (
         <div
-            className='flex h-screen flex-col overflow-hidden'
+            className='h-screen overflow-hidden'
             onContextMenu={(e) => {
                 if (import.meta.env.PROD) {
                     e.preventDefault();
@@ -21,9 +20,7 @@ export default function Root() {
                 }
             }}
         >
-            <main className='flex flex-1 overflow-hidden'>
-                <RouterProvider router={router} />
-            </main>
+            <Dashboard />
         </div>
     );
 }
