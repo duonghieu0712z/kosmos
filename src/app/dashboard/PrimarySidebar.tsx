@@ -16,6 +16,8 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar';
 
+import TreeSidebar from './TreeSidebar';
+
 const ITEMS = [
     {
         name: 'Story',
@@ -68,15 +70,14 @@ export default function PrimarySidebar() {
 
                 <SidebarSeparator />
                 <SidebarFooter>
-                    <SidebarMenuButton>
+                    <SidebarMenuButton tooltip={{ children: 'Settings', hidden: false }}>
                         <Settings />
+                        <span className='sr-only'>Settings</span>
                     </SidebarMenuButton>
                 </SidebarFooter>
             </Sidebar>
 
-            <Sidebar collapsible='none' className='hidden flex-1 md:flex'>
-                <SidebarHeader>Dashboard</SidebarHeader>
-            </Sidebar>
+            <TreeSidebar />
         </Sidebar>
     );
 }

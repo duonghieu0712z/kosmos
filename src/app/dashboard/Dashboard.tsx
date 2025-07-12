@@ -1,10 +1,15 @@
+import { CSSProperties } from 'react';
+
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 import PrimarySidebar from './PrimarySidebar';
 
 export default function Dashboard() {
     return (
-        <SidebarProvider className='flex flex-col [--footer-height:calc(--spacing(6))]'>
+        <SidebarProvider
+            className='flex flex-col [--footer-height:calc(--spacing(6))]'
+            style={{ '--sidebar-width': '300px' } as CSSProperties}
+        >
             <main className='flex flex-1'>
                 <PrimarySidebar />
 
