@@ -9,7 +9,15 @@ type TreeItem = {
     children?: TreeItem[];
 };
 
-export function TreeView<T extends TreeItem>({ items, size = 'sm' }: { items: T | T[]; size?: 'sm' | 'default' }) {
+export function TreeView<T extends TreeItem>({
+    items,
+    size = 'default',
+    arrowOnly = false,
+}: {
+    items: T | T[];
+    size?: 'default' | 'sm' | 'lg';
+    arrowOnly?: boolean;
+}) {
     if (Array.isArray(items)) {
         return items.map((item) => <TreeView key={item.uuid} items={item} size={size} />);
     }
@@ -22,12 +30,21 @@ export function TreeView<T extends TreeItem>({ items, size = 'sm' }: { items: T 
     return (
         <SidebarMenuItem>
             <Collapsible className='group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90'>
-                <SidebarMenuButton size={size}>
+                {arrowOnly ? (
+                    <SidebarMenuButton size={size}>
+                        <CollapsibleTrigger asChild>
+                            <ChevronRight className='transition-transform' />
+                        </CollapsibleTrigger>
+                        {name}
+                    </SidebarMenuButton>
+                ) : (
                     <CollapsibleTrigger asChild>
-                        <ChevronRight className='transition-transform' />
+                        <SidebarMenuButton size={size}>
+                            <ChevronRight className='transition-transform' />
+                            {name}
+                        </SidebarMenuButton>
                     </CollapsibleTrigger>
-                    {name}
-                </SidebarMenuButton>
+                )}
 
                 <CollapsibleContent>
                     <SidebarMenuSub>

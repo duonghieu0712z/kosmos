@@ -59,7 +59,7 @@ export default function TreeSidebar() {
                 <SidebarGroup>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <TreeView items={wiki} />
+                            <TreeView items={wiki} size='sm' />
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
