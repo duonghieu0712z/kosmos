@@ -10,6 +10,7 @@ import {
     SidebarMenu,
     SidebarSeparator,
 } from '@/components/ui/sidebar';
+import { useTab } from '@/components/ui/tab-provider';
 import { TreeView } from '@/components/ui/tree';
 
 const wiki = [
@@ -43,6 +44,8 @@ const wiki = [
 ];
 
 export default function TreeSidebar() {
+    const { createTab } = useTab();
+
     return (
         <Sidebar collapsible='none' className='hidden flex-1 md:flex'>
             <SidebarHeader>
@@ -59,7 +62,13 @@ export default function TreeSidebar() {
                 <SidebarGroup>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <TreeView items={wiki} size='sm' />
+                            <TreeView
+                                items={wiki}
+                                size='sm'
+                                onClick={(id, name) => {
+                                    createTab({ id, name });
+                                }}
+                            />
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>

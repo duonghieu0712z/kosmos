@@ -34,10 +34,7 @@ export default function PrimarySidebar() {
     const { setOpen } = useSidebar();
 
     return (
-        <Sidebar
-            collapsible='icon'
-            className='h-[calc(100%-var(--footer-height))] overflow-hidden *:data-[sidebar=sidebar]:flex-row'
-        >
+        <Sidebar collapsible='icon' className='overflow-hidden *:data-[sidebar=sidebar]:flex-row'>
             <Sidebar collapsible='none' className='w-[calc(var(--sidebar-width-icon)+1px)] border-r'>
                 <SidebarHeader>
                     <SidebarTrigger className='size-9' />
