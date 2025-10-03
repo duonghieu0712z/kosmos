@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import { Dashboard } from '@/app';
+import { Dashboard } from '@/modules/dashboard';
 import { loadSystemFonts } from '@/utils';
 
-export default function Root() {
+export default function App() {
     useEffect(() => {
         const controller = new AbortController();
         loadSystemFonts();

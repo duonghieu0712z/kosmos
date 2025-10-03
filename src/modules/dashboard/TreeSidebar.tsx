@@ -1,12 +1,9 @@
-import { Search } from 'lucide-react';
-
 import {
     Sidebar,
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
     SidebarHeader,
-    SidebarInput,
     SidebarMenu,
     SidebarSeparator,
 } from '@/components/ui/sidebar';
@@ -50,10 +47,7 @@ export default function TreeSidebar() {
         <Sidebar collapsible='none' className='hidden flex-1 md:flex'>
             <SidebarHeader>
                 <SidebarGroup>
-                    <SidebarGroupContent className='relative'>
-                        <SidebarInput id='search' placeholder='Search...' className='pl-8' />
-                        <Search className='pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none' />
-                    </SidebarGroupContent>
+                    <SidebarGroupContent className='relative'></SidebarGroupContent>
                 </SidebarGroup>
             </SidebarHeader>
             <SidebarSeparator />
