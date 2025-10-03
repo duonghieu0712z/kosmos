@@ -7,10 +7,10 @@ type Tab = {
 
 type TabContextProps = {
     tabs: Tab[];
-    activeTab: Tab | null;
+    activeTab?: string;
     setActiveTab: (id: string) => void;
     hasTab: (id: string) => boolean;
-    createTab: (tab: Tab) => void;
+    addTab: (tab: Tab) => void;
     removeTab: (id: string) => void;
 };
 
@@ -20,35 +20,77 @@ export function useTab() {
     return useContext(TabContext);
 }
 
+const HISTORY_LIMIT = 100;
+
+function useTabHistory() {
+    const [tabHistory, setTabHistory] = useState<string[]>([]);
+
+    const activeTab = useMemo(() => tabHistory.at(-1), [tabHistory]);
+
+    const pushTabHistory = useCallback(
+        (id: string) =>
+            setTabHistory((history) => {
+                if (activeTab === id) {
+                    return history;
+                }
+
+                if (history.length === HISTORY_LIMIT) {
+                    history.shift();
+                }
+
+                return [...history, id];
+            }),
+        [activeTab]
+    );
+
+    const removeTabHistory = useCallback(
+        (id: string) => setTabHistory((history) => history.filter((tab) => tab !== id)),
+        []
+    );
+
+    return { activeTab, pushTabHistory, removeTabHistory };
+}
+
 export function TabProvider({ children }: { children: ReactNode }) {
     const [tabs, setTabs] = useState<Tab[]>([]);
-    const [activeTab, _setActiveTab] = useState<Tab | null>(null);
+    const { activeTab, pushTabHistory, removeTabHistory } = useTabHistory();
 
-    const setActiveTab = useCallback((id: string) => _setActiveTab(tabs.find((tab) => tab.id === id) || null), [tabs]);
     const hasTab = useCallback((id: string) => tabs.some((tab) => tab.id === id), [tabs]);
-    const createTab = useCallback(
-        (tab: Tab) => {
-            if (hasTab(tab.id)) {
+
+    const setActiveTab = useCallback(
+        (id: string) => {
+            if (!hasTab(id)) {
                 return;
             }
-            setTabs((tabs) => [...tabs, tab]);
-            setActiveTab(tab.id);
+            pushTabHistory(id);
         },
-        [hasTab, setActiveTab]
+        [hasTab, pushTabHistory]
     );
+
+    const addTab = useCallback(
+        (tab: Tab) => {
+            setTabs((tabs) => {
+                if (hasTab(tab.id)) {
+                    return tabs;
+                }
+                return [...tabs, tab];
+            });
+            pushTabHistory(tab.id);
+        },
+        [hasTab, pushTabHistory]
+    );
+
     const removeTab = useCallback(
         (id: string) => {
             setTabs((tabs) => tabs.filter((tab) => tab.id !== id));
-            if (activeTab?.id === id) {
-                setActiveTab(tabs[0]?.id);
-            }
+            removeTabHistory(id);
         },
-        [activeTab?.id, setActiveTab, tabs]
+        [removeTabHistory]
     );
 
     const contextValue = useMemo<TabContextProps>(
-        () => ({ tabs, activeTab, setActiveTab, hasTab, createTab, removeTab }),
-        [tabs, activeTab, setActiveTab, hasTab, createTab, removeTab]
+        () => ({ tabs, activeTab, setActiveTab, hasTab, addTab: addTab, removeTab }),
+        [tabs, activeTab, setActiveTab, hasTab, addTab, removeTab]
     );
 
     return <TabContext.Provider value={contextValue}>{children}</TabContext.Provider>;

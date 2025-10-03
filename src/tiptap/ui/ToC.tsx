@@ -12,14 +12,14 @@ function buildToCTree(data: TableOfContentData) {
     data.forEach((node) => {
         const item: ToCItem = { ...node, children: [] };
 
-        while (stack.length > 0 && stack[stack.length - 1].level >= item.level) {
+        while (stack.length > 0 && stack.at(-1)!.level >= item.level) {
             stack.pop();
         }
 
         if (stack.length === 0) {
             tree.push(item);
         } else {
-            const parent = stack[stack.length - 1];
+            const parent = stack.at(-1)!;
             parent.children.push(item);
         }
         stack.push(item);

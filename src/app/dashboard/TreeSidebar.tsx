@@ -44,7 +44,7 @@ const wiki = [
 ];
 
 export default function TreeSidebar() {
-    const { createTab } = useTab();
+    const { addTab } = useTab();
 
     return (
         <Sidebar collapsible='none' className='hidden flex-1 md:flex'>
@@ -66,7 +66,7 @@ export default function TreeSidebar() {
                                 items={wiki}
                                 size='sm'
                                 onClick={(id, name) => {
-                                    createTab({ id, name });
+                                    addTab({ id, name });
                                 }}
                             />
                         </SidebarMenu>
