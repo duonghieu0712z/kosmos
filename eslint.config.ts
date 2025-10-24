@@ -1,8 +1,8 @@
-import js from '@eslint/js';
+import eslint from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
 import { defineConfig } from 'eslint/config';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -12,10 +12,10 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig(
     { ignores: ['**/node_modules', '**/dist', '**/src-tauri/target'] },
-    js.configs.recommended,
+    eslint.configs.recommended,
     tseslint.configs.recommended,
     eslintConfigPrettier,
-    eslintPluginPrettierRecommended,
+    eslintPluginPrettier,
     {
         settings: {
             'import/parsers': {

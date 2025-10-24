@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@plugin "@tailwindcss/typography";
-
 @import './fonts.css';
 
 @layer base {
@@ -11,12 +9,6 @@
     }
     body {
         @apply bg-background text-foreground cursor-default;
-    }
-}
-
-@layer components {
-    .is-editor-empty:first-child::before {
-        @apply pointer-events-none float-left h-0 text-[#adb5bd] content-[attr(data-placeholder)];
     }
 }
 
