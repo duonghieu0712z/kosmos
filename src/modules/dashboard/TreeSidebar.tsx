@@ -1,0 +1,72 @@
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarSeparator,
+} from '@/components/ui/sidebar';
+import { useTab } from '@/components/ui/tab-provider';
+import { TreeView } from '@/components/ui/tree';
+
+const wiki = [
+    {
+        uuid: 'characters',
+        name: 'Characters',
+        children: [
+            { uuid: 'character-1', name: 'Character 1' },
+            { uuid: 'character-2', name: 'Character 2' },
+            { uuid: 'character-3', name: 'Character 3' },
+        ],
+    },
+    {
+        uuid: 'locations',
+        name: 'Locations',
+        children: [
+            { uuid: 'location-1', name: 'Location 1' },
+            { uuid: 'location-2', name: 'Location 2' },
+            { uuid: 'location-3', name: 'Location 3' },
+        ],
+    },
+    {
+        uuid: 'organizations',
+        name: 'Organizations',
+        children: [
+            { uuid: 'organization-1', name: 'Organization 1' },
+            { uuid: 'organization-2', name: 'Organization 2' },
+            { uuid: 'organization-3', name: 'Organization 3' },
+        ],
+    },
+];
+
+export default function TreeSidebar() {
+    const { addTab } = useTab();
+
+    return (
+        <Sidebar collapsible='none' className='hidden flex-1 md:flex'>
+            <SidebarHeader>
+                <SidebarGroup>
+                    <SidebarGroupContent className='relative'></SidebarGroupContent>
+                </SidebarGroup>
+            </SidebarHeader>
+            <SidebarSeparator />
+
+            <SidebarContent>
+                <SidebarGroup>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            <TreeView
+                                items={wiki}
+                                size='sm'
+                                onClick={(id, name) => {
+                                    addTab({ id, name });
+                                }}
+                            />
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+            </SidebarContent>
+        </Sidebar>
+    );
+}

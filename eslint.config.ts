@@ -1,7 +1,8 @@
-import js from '@eslint/js';
+import eslint from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import { defineConfig } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -9,12 +10,12 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig(
     { ignores: ['**/node_modules', '**/dist', '**/src-tauri/target'] },
-    js.configs.recommended,
+    eslint.configs.recommended,
     tseslint.configs.recommended,
     eslintConfigPrettier,
-    eslintPluginPrettierRecommended,
+    eslintPluginPrettier,
     {
         settings: {
             'import/parsers': {
@@ -39,6 +40,7 @@ export default tseslint.config(
             'simple-import-sort': simpleImportSort,
         },
         rules: {
+            curly: ['error', 'all'],
             '@typescript-eslint/no-explicit-any': 'off',
             ...reactHooks.configs.recommended.rules,
             ...reactRefresh.configs.vite.rules,

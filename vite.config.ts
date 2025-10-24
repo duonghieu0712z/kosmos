@@ -20,11 +20,6 @@ export default defineConfig(async () => ({
             '@': path.resolve(__dirname, 'src'),
         },
     },
-    build: {
-        rollupOptions: {
-            input: [path.resolve(__dirname, 'index.html'), path.resolve(__dirname, 'splash.html')],
-        },
-    },
 
     // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
     //
