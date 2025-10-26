@@ -1,4 +1,4 @@
-import { Menu, PredefinedMenuItem, Submenu } from '@tauri-apps/api/menu';
+import { Menu, MenuItem, PredefinedMenuItem, Submenu } from '@tauri-apps/api/menu';
 import { open } from '@tauri-apps/plugin-dialog';
 import { platform } from '@tauri-apps/plugin-os';
 
@@ -6,20 +6,22 @@ const isMac = platform() === 'macos';
 
 const separator = await PredefinedMenuItem.new({ item: 'Separator' });
 
+const settingsMenuItem = await MenuItem.new({
+    id: 'settings',
+    text: 'Settings...',
+    accelerator: 'CmdOrCtrl+,',
+    action: async () => {
+        console.log('settings');
+    },
+});
+
 const macMenu = await Submenu.new({
     text: __APP_NAME__,
     items: isMac
         ? [
               await PredefinedMenuItem.new({ item: { About: null } }),
               separator,
-              {
-                  id: 'settings',
-                  text: 'Settings...',
-                  accelerator: 'CmdOrCtrl+,',
-                  action: async () => {
-                      console.log('settings');
-                  },
-              },
+              settingsMenuItem,
               separator,
               await PredefinedMenuItem.new({ item: 'Hide' }),
               await PredefinedMenuItem.new({ item: 'HideOthers' }),
@@ -55,6 +57,7 @@ const fileMenu = await Submenu.new({
                 }
             },
         },
+        ...(!isMac ? [separator, settingsMenuItem] : []),
         separator,
         await PredefinedMenuItem.new({ item: 'CloseWindow' }),
         await PredefinedMenuItem.new({ item: 'Quit' }),
@@ -83,8 +86,20 @@ const windowMenu = await Submenu.new({
     ],
 });
 
+const helpMenu = await Submenu.new({
+    text: 'Help',
+    items: [
+        {
+            id: 'update',
+            text: 'Check for Updates...',
+            action: async () => console.log('check for updates'),
+        },
+        ...(!isMac ? [separator, await PredefinedMenuItem.new({ item: { About: null } })] : []),
+    ],
+});
+
 const menu = await Menu.new({
-    items: [...(isMac ? [macMenu] : []), fileMenu, editMenu, windowMenu],
+    items: [...(isMac ? [macMenu] : []), fileMenu, editMenu, windowMenu, helpMenu],
 });
 
 await menu.setAsAppMenu();
