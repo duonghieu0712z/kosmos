@@ -1,4 +1,4 @@
 onlyBuiltDependencies:
-  - '@swc/core'
-  - esbuild
-  - unrs-resolver
+    - '@swc/core'
+    - esbuild
+    - unrs-resolver

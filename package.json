@@ -86,7 +86,7 @@
         "vite": "^7.1.12"
     },
     "lint-staged": {
-        "*.{ts,tsx,html,css,json}": [
+        "*.{ts,tsx,html,css,json,yaml}": [
             "prettier --write"
         ],
         "*.{ts,tsx}": [
