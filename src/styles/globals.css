@@ -3,6 +3,8 @@
 
 @import './fonts.css';
 
+@custom-variant dark (&:is(.dark *));
+
 @layer base {
     * {
         @apply font-inter border-border outline-ring/50 select-none;
