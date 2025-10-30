@@ -43,17 +43,17 @@ function useTabHistory() {
         [activeTab]
     );
 
-    const removeTabHistory = useCallback(
+    const popTabHistory = useCallback(
         (id: string) => setTabHistory((history) => history.filter((tab) => tab !== id)),
         []
     );
 
-    return { activeTab, pushTabHistory, removeTabHistory };
+    return { activeTab, pushTabHistory, popTabHistory };
 }
 
 export function TabProvider({ children }: { children: ReactNode }) {
     const [tabs, setTabs] = useState<Tab[]>([]);
-    const { activeTab, pushTabHistory, removeTabHistory } = useTabHistory();
+    const { activeTab, pushTabHistory, popTabHistory } = useTabHistory();
 
     const hasTab = useCallback((id: string) => tabs.some((tab) => tab.id === id), [tabs]);
 
@@ -83,13 +83,13 @@ export function TabProvider({ children }: { children: ReactNode }) {
     const removeTab = useCallback(
         (id: string) => {
             setTabs((tabs) => tabs.filter((tab) => tab.id !== id));
-            removeTabHistory(id);
+            popTabHistory(id);
         },
-        [removeTabHistory]
+        [popTabHistory]
     );
 
     const contextValue = useMemo<TabContextProps>(
-        () => ({ tabs, activeTab, setActiveTab, hasTab, addTab: addTab, removeTab }),
+        () => ({ tabs, activeTab, setActiveTab, hasTab, addTab, removeTab }),
         [tabs, activeTab, setActiveTab, hasTab, addTab, removeTab]
     );
 
