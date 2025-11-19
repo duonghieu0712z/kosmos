@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schema.tauri.app/config/2",
+    "productName": "Kosmos",
+    "version": "0.0.1",
+    "identifier": "app.kosmos.kosmos",
+    "build": {
+        "beforeDevCommand": "pnpm dev",
+        "devUrl": "http://localhost:1420",
+        "beforeBuildCommand": "pnpm build",
+        "frontendDist": "../dist",
+        "removeUnusedCommands": true
+    },
+    "app": {
+        "windows": [
+            {
+                "title": "Kosmos",
+                "minWidth": 1280,
+                "minHeight": 720,
+                "center": true,
+                "maximized": true,
+                "dragDropEnabled": false
+            }
+        ],
+        "security": {
+            "csp": null
+        }
+    },
+    "bundle": {
+        "publisher": "Kosmos",
+        "active": true,
+        "targets": ["app", "dmg", "msi", "nsis"],
+        "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
+    }
+}
