@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { getName, getVersion } from '@tauri-apps/api/app';
-import { onMounted, ref } from 'vue';
+import { Dashboard } from '@/modules/dashboard';
 
-const appName = ref('');
-const appVersion = ref('');
-
-onMounted(async () => {
-    appName.value = await getName();
-    appVersion.value = await getVersion();
-});
+const IS_PROD = import.meta.env.PROD;
 </script>
 
 <template>
-    <div class="h-screen overflow-hidden">
-        <div class="flex h-full flex-col items-center justify-center gap-0.5">
-            <div class="font-lucida-calligraphy text-6xl font-bold">{{ appName }}</div>
-            <div class="text-xs">v{{ appVersion }}</div>
-        </div>
+    <div
+        class="h-screen overflow-hidden"
+        @contextmenu="
+            (ev) => {
+                if (IS_PROD) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                }
+            }
+        "
+    >
+        <Dashboard />
     </div>
 </template>
