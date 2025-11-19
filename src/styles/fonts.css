@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Inter';
+    src:
+        url('@/assets/fonts/Inter/Inter.woff2') format('woff2'),
+        url('@/assets/fonts/Inter/Inter.ttf') format('ttf');
+    font-weight: 100 200 300 400 500 600 700 800 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src:
+        url('@/assets/fonts/Inter/Inter-Italic.woff2') format('woff2'),
+        url('@/assets/fonts/Inter/Inter-Italic.ttf') format('ttf');
+    font-weight: 100 200 300 400 500 600 700 800 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'LucidaCalligraphy';
+    src:
+        url('@/assets/fonts/LucidaCalligraphy/LucidaCalligraphy.woff2') format('woff2'),
+        url('@/assets/fonts/LucidaCalligraphy/LucidaCalligraphy.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LucidaCalligraphy';
+    src:
+        url('@/assets/fonts/LucidaCalligraphy/LucidaCalligraphyBold.woff2') format('woff2'),
+        url('@/assets/fonts/LucidaCalligraphy/LucidaCalligraphyBold.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+}
