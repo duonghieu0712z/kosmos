@@ -12,10 +12,10 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarSeparator,
     SidebarTrigger,
     useSidebar,
 } from '@/components/ui/sidebar';
-import SidebarSeparator from '@/components/ui/sidebar/SidebarSeparator.vue';
 
 const ITEMS = [
     {
@@ -56,7 +56,7 @@ const { setOpen } = useSidebar();
                                     "
                                 >
                                     <component :is="item.icon" />
-                                    <span>{{ item.name }}</span>
+                                    <span class="sr-only">{{ item.name }}</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>
