@@ -30,10 +30,14 @@ export default defineConfig([
         },
         rules: {
             curly: ['error', 'all'],
+
             '@typescript-eslint/no-empty-object-type': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
-            'simple-import-sort/imports': 'warn',
-            'simple-import-sort/exports': 'warn',
+
+            'simple-import-sort/imports': 'error',
+            'simple-import-sort/exports': 'error',
+
+            'vue/attributes-order': ['error', { alphabetical: true }],
             'vue/multi-word-component-names': 'off',
             'vue/require-default-prop': 'off',
         },

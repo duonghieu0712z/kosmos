@@ -24,13 +24,13 @@ const props = withDefaults(defineProps<SidebarMenuButtonProps>(), {
 
 <template>
     <Primitive
-        data-slot="sidebar-menu-button"
-        data-sidebar="menu-button"
-        :data-size="size"
-        :data-active="isActive"
-        :class="cn(sidebarMenuButtonVariants({ variant, size }), props.class)"
         :as="as"
         :as-child="asChild"
+        :class="cn(sidebarMenuButtonVariants({ variant, size }), props.class)"
+        :data-active="isActive"
+        data-sidebar="menu-button"
+        :data-size="size"
+        data-slot="sidebar-menu-button"
         v-bind="$attrs"
     >
         <slot />

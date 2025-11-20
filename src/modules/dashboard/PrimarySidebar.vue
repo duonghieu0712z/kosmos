@@ -33,8 +33,8 @@ const { setOpen } = useSidebar();
 </script>
 
 <template>
-    <Sidebar collapsible="icon" class="overflow-hidden transition-none *:data-[sidebar=sidebar]:flex-row">
-        <Sidebar collapsible="none" class="w-[calc(var(--sidebar-width-icon)+1px)] border-r">
+    <Sidebar class="overflow-hidden transition-none *:data-[sidebar=sidebar]:flex-row" collapsible="icon">
+        <Sidebar class="w-[calc(var(--sidebar-width-icon)+1px)] border-r" collapsible="none">
             <SidebarHeader>
                 <SidebarTrigger class="size-8" />
             </SidebarHeader>
@@ -46,8 +46,8 @@ const { setOpen } = useSidebar();
                         <SidebarMenu>
                             <SidebarMenuItem v-for="item in ITEMS" :key="item.name">
                                 <SidebarMenuButton
-                                    :tooltip="h('div', { hidden: false }, item.name)"
                                     :is-active="activeItem.name === item.name"
+                                    :tooltip="h('div', { hidden: false }, item.name)"
                                     @click="
                                         () => {
                                             activeItem = item;

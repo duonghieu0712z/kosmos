@@ -10,8 +10,6 @@ const props = defineProps<{
 
 <template>
     <ul
-        data-slot="sidebar-menu-sub"
-        data-sidebar="menu-badge"
         :class="
             cn(
                 'border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5',
@@ -19,6 +17,8 @@ const props = defineProps<{
                 props.class
             )
         "
+        data-sidebar="menu-badge"
+        data-slot="sidebar-menu-sub"
     >
         <slot />
     </ul>

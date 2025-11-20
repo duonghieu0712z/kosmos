@@ -9,7 +9,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <li data-slot="sidebar-menu-item" data-sidebar="menu-item" :class="cn('group/menu-item relative', props.class)">
+    <li :class="cn('group/menu-item relative', props.class)" data-sidebar="menu-item" data-slot="sidebar-menu-item">
         <slot />
     </li>
 </template>
