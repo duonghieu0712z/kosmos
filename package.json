@@ -9,7 +9,7 @@
         "preview": "vite preview",
         "start": "pnpm tauri dev",
         "make": "pnpm tauri build",
-        "lint": "eslint --ext .ts,.tsx .",
+        "lint": "eslint --ext .ts,.tsx,.vue .",
         "lint:fix": "eslint --fix --ext .ts,.tsx,.vue .",
         "format": "prettier --check .",
         "format:fix": "prettier --write .",

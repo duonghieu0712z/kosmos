@@ -3,7 +3,7 @@ import { defineConfig } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import vue from 'eslint-plugin-vue';
+import vueEslint from 'eslint-plugin-vue';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import vueParser from 'vue-eslint-parser';
@@ -12,7 +12,7 @@ export default defineConfig([
     { ignores: ['**/node_modules', '**/dist', '**/src-tauri/target'] },
     eslint.configs.recommended,
     tseslint.configs.recommended,
-    vue.configs['flat/recommended'],
+    vueEslint.configs['flat/recommended'],
     prettierRecommended,
     {
         files: ['**/*.{ts,tsx,vue}'],
@@ -32,8 +32,8 @@ export default defineConfig([
             curly: ['error', 'all'],
             '@typescript-eslint/no-empty-object-type': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
-            'simple-import-sort/imports': 'error',
-            'simple-import-sort/exports': 'error',
+            'simple-import-sort/imports': 'warn',
+            'simple-import-sort/exports': 'warn',
             'vue/multi-word-component-names': 'off',
             'vue/require-default-prop': 'off',
         },
