@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BookText, PencilRuler, Settings } from 'lucide-vue-next';
-import { h, ref } from 'vue';
+import { ref } from 'vue';
 
 import {
     Sidebar,
@@ -8,14 +8,15 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarSeparator,
-    SidebarTrigger,
     useSidebar,
 } from '@/components/ui/sidebar';
+
+const sidebarButtonClass =
+    'data-[active=true]:[&>svg]:stroke-sidebar-foreground hover:[&>svg]:stroke-sidebar-foreground hover:bg-sidebar flex h-12 items-center justify-center rounded-none group-data-[collapsible=icon]:size-12! hover:cursor-pointer';
 
 const ITEMS = [
     {
@@ -29,33 +30,39 @@ const ITEMS = [
 ];
 
 const activeItem = ref(ITEMS[0]);
-const { setOpen } = useSidebar();
+const { open, setOpen, toggleSidebar } = useSidebar();
 </script>
 
 <template>
-    <Sidebar class="overflow-hidden transition-none *:data-[sidebar=sidebar]:flex-row" collapsible="icon">
-        <Sidebar class="w-[calc(var(--sidebar-width-icon)+1px)] border-r" collapsible="none">
+    <Sidebar class="overflow-hidden *:data-[sidebar=sidebar]:flex-row" collapsible="icon">
+        <Sidebar class="w-[calc(var(--sidebar-width-icon)+0px)] border-r" collapsible="none">
             <SidebarHeader>
                 <SidebarTrigger class="size-8" />
             </SidebarHeader>
             <SidebarSeparator />
 
             <SidebarContent>
-                <SidebarGroup>
+                <SidebarGroup class="p-0">
                     <SidebarGroupContent>
-                        <SidebarMenu>
+                        <SidebarMenu class="gap-0 overflow-x-hidden">
                             <SidebarMenuItem v-for="item in ITEMS" :key="item.name">
                                 <SidebarMenuButton
-                                    :is-active="activeItem.name === item.name"
-                                    :tooltip="h('div', { hidden: false }, item.name)"
+                                    always-show-tooltip
+                                    :class="sidebarButtonClass"
+                                    :is-active="open && item.name === activeItem.name"
+                                    :tooltip="item.name"
                                     @click="
                                         () => {
-                                            activeItem = item;
-                                            setOpen(true);
+                                            if (item.name === activeItem.name) {
+                                                toggleSidebar();
+                                            } else {
+                                                activeItem = item;
+                                                setOpen(true);
+                                            }
                                         }
                                     "
                                 >
-                                    <component :is="item.icon" />
+                                    <component :is="item.icon" class="stroke-muted-foreground size-6" />
                                     <span class="sr-only">{{ item.name }}</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -65,9 +72,9 @@ const { setOpen } = useSidebar();
             </SidebarContent>
 
             <SidebarSeparator />
-            <SidebarFooter>
-                <SidebarMenuButton :tooltip="h('div', { hidden: false }, 'Settings')">
-                    <Settings />
+            <SidebarFooter class="p-0">
+                <SidebarMenuButton always-show-tooltip :class="sidebarButtonClass" tooltip="Settings">
+                    <Settings class="stroke-muted-foreground size-6" />
                     <span class="sr-only">Settings</span>
                 </SidebarMenuButton>
             </SidebarFooter>

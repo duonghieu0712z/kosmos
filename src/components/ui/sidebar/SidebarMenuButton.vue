@@ -16,6 +16,7 @@ const props = withDefaults(
     defineProps<
         SidebarMenuButtonProps & {
             tooltip?: string | Component;
+            alwaysShowTooltip?: boolean;
         }
     >(),
     {
@@ -41,7 +42,7 @@ const delegatedProps = reactiveOmit(props, 'tooltip');
                 <slot />
             </SidebarMenuButtonChild>
         </TooltipTrigger>
-        <TooltipContent align="center" :hidden="state !== 'collapsed' || isMobile" side="right">
+        <TooltipContent align="center" :hidden="!alwaysShowTooltip && (state !== 'collapsed' || isMobile)" side="right">
             <template v-if="typeof tooltip === 'string'">
                 {{ tooltip }}
             </template>

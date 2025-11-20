@@ -34,7 +34,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
     <Sheet v-else-if="isMobile" :open="openMobile" v-bind="$attrs" @update:open="setOpenMobile">
         <SheetContent
             class="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-            data-mobile="true"
+            data-mobile
             data-sidebar="sidebar"
             data-slot="sidebar"
             :side="side"
