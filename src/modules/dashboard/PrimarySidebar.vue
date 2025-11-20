@@ -2,6 +2,7 @@
 import { BookText, PencilRuler, Settings } from 'lucide-vue-next';
 import { ref } from 'vue';
 
+import { ThemeToggle } from '@/components/theme';
 import {
     Sidebar,
     SidebarContent,
@@ -67,7 +68,11 @@ const { open, setOpen, toggleSidebar } = useSidebar();
             </SidebarContent>
 
             <SidebarSeparator />
-            <SidebarFooter class="p-0">
+            <SidebarFooter class="gap-0 p-0">
+                <SidebarMenuButton as-child>
+                    <ThemeToggle />
+                </SidebarMenuButton>
+
                 <SidebarMenuButton always-show-tooltip :class="sidebarButtonClass" tooltip="Settings">
                     <Settings class="stroke-muted-foreground size-6" />
                     <span class="sr-only">Settings</span>
