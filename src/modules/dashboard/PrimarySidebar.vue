@@ -35,7 +35,7 @@ const { open, setOpen, toggleSidebar } = useSidebar();
 
 <template>
     <Sidebar class="overflow-hidden *:data-[sidebar=sidebar]:flex-row" collapsible="icon">
-        <Sidebar class="w-[calc(var(--sidebar-width-icon)+1px)] border-r" collapsible="none">
+        <Sidebar class="w-(--sidebar-width-icon) border-r" collapsible="none">
             <SidebarContent>
                 <SidebarGroup class="p-0">
                     <SidebarGroupContent>
