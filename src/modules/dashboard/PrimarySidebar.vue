@@ -33,7 +33,7 @@ const { setOpen } = useSidebar();
 </script>
 
 <template>
-    <Sidebar collapsible="icon" class="overflow-hidden *:data-[sidebar=sidebar]:flex-row">
+    <Sidebar collapsible="icon" class="overflow-hidden transition-none *:data-[sidebar=sidebar]:flex-row">
         <Sidebar collapsible="none" class="w-[calc(var(--sidebar-width-icon)+1px)] border-r">
             <SidebarHeader>
                 <SidebarTrigger class="size-8" />
