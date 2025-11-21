@@ -55,7 +55,7 @@ const activeId = ref('');
                         activeId === item._id && 'bg-accent'
                     )
                 "
-                :style="{ 'padding-left': `calc(var(--spacing) * (4 * ${item.level - 1} + 2))` }"
+                :style="{ 'padding-left': `calc(var(--spacing) * 4 * ${item.level - 0.5})` }"
                 @click="activeId = item._id"
             >
                 <template v-if="item.hasChildren">
