@@ -8,8 +8,11 @@ importers:
     .:
         dependencies:
             '@tauri-apps/api':
-                specifier: ^2
+                specifier: ^2.9.0
                 version: 2.9.0
+            '@vueuse/components':
+                specifier: ^14.0.0
+                version: 14.0.0(vue@3.5.24(typescript@5.9.3))
             '@vueuse/core':
                 specifier: ^14.0.0
                 version: 14.0.0(vue@3.5.24(typescript@5.9.3))
@@ -37,16 +40,16 @@ importers:
                 version: 9.39.1
             '@tailwindcss/vite':
                 specifier: ^4.1.17
-                version: 4.1.17(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
+                version: 4.1.17(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
             '@tauri-apps/cli':
-                specifier: ^2
+                specifier: ^2.9.4
                 version: 2.9.4
             '@types/node':
                 specifier: ^24.10.1
                 version: 24.10.1
             '@vitejs/plugin-vue':
                 specifier: ^6.0.2
-                version: 6.0.2(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
+                version: 6.0.2(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
             eslint:
                 specifier: ^9.39.1
                 version: 9.39.1(jiti@2.6.1)
@@ -69,8 +72,8 @@ importers:
                 specifier: ^9.1.7
                 version: 9.1.7
             lint-staged:
-                specifier: ^16.2.6
-                version: 16.2.6
+                specifier: ^16.2.7
+                version: 16.2.7
             prettier:
                 specifier: ^3.6.2
                 version: 3.6.2
@@ -90,8 +93,8 @@ importers:
                 specifier: ^8.47.0
                 version: 8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
             vite:
-                specifier: ^7.2.2
-                version: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
+                specifier: ^7.2.4
+                version: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
             vue-eslint-parser:
                 specifier: ^10.2.0
                 version: 10.2.0(eslint@9.39.1(jiti@2.6.1))
@@ -1209,6 +1212,14 @@ packages:
                 integrity: sha512-9cwHL2EsJBdi8NY22pngYYWzkTDhld6fAD6jlaeloNGciNSJL6bLpbxVgXl96X00Jtc6YWQv96YA/0sxex/k1A==,
             }
 
+    '@vueuse/components@14.0.0':
+        resolution:
+            {
+                integrity: sha512-0PFAbAzKo+Ipt45R0OVHvZwjTj9oDZJQ/lc77d020fKl9GrxEIRvVIzMW1CZVn1vwmGhXEZPIF3erjixW2yqpg==,
+            }
+        peerDependencies:
+            vue: ^3.5.0
+
     '@vueuse/core@12.8.2':
         resolution:
             {
@@ -2014,10 +2025,10 @@ packages:
             }
         engines: { node: '>= 12.0.0' }
 
-    lint-staged@16.2.6:
+    lint-staged@16.2.7:
         resolution:
             {
-                integrity: sha512-s1gphtDbV4bmW1eylXpVMk2u7is7YsrLl8hzrtvC70h4ByhcMLZFY01Fx05ZUDNuv1H8HO4E+e2zgejV1jVwNw==,
+                integrity: sha512-lDIj4RnYmK7/kXMya+qJsmkRFkGolciXjrsZ6PC25GdTfWOAWetR0ZbsNXRAj1EHHImRSalc+whZFg56F5DVow==,
             }
         engines: { node: '>=20.17' }
         hasBin: true
@@ -2570,10 +2581,10 @@ packages:
                 integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==,
             }
 
-    vite@7.2.2:
+    vite@7.2.4:
         resolution:
             {
-                integrity: sha512-BxAKBWmIbrDgrokdGZH1IgkIk/5mMHDreLDmCJ0qpyJaAteP8NvMhkwr/ZCQNqNH97bw/dANTE9PDzqwJghfMQ==,
+                integrity: sha512-NL8jTlbo0Tn4dUEXEsUg8KeyG/Lkmc4Fnzb8JXN/Ykm9G4HNImjtABMJgkQoVjOBN/j2WAwDTRytdqJbZsah7w==,
             }
         engines: { node: ^20.19.0 || >=22.12.0 }
         hasBin: true
@@ -3049,12 +3060,12 @@ snapshots:
             '@tailwindcss/oxide-win32-arm64-msvc': 4.1.17
             '@tailwindcss/oxide-win32-x64-msvc': 4.1.17
 
-    '@tailwindcss/vite@4.1.17(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))':
+    '@tailwindcss/vite@4.1.17(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))':
         dependencies:
             '@tailwindcss/node': 4.1.17
             '@tailwindcss/oxide': 4.1.17
             tailwindcss: 4.1.17
-            vite: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
+            vite: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
 
     '@tanstack/virtual-core@3.13.12': {}
 
@@ -3215,10 +3226,10 @@ snapshots:
             '@typescript-eslint/types': 8.47.0
             eslint-visitor-keys: 4.2.1
 
-    '@vitejs/plugin-vue@6.0.2(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))':
+    '@vitejs/plugin-vue@6.0.2(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))':
         dependencies:
             '@rolldown/pluginutils': 1.0.0-beta.50
-            vite: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
+            vite: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
             vue: 3.5.24(typescript@5.9.3)
 
     '@volar/language-core@2.4.23':
@@ -3298,6 +3309,12 @@ snapshots:
             vue: 3.5.24(typescript@5.9.3)
 
     '@vue/shared@3.5.24': {}
+
+    '@vueuse/components@14.0.0(vue@3.5.24(typescript@5.9.3))':
+        dependencies:
+            '@vueuse/core': 14.0.0(vue@3.5.24(typescript@5.9.3))
+            '@vueuse/shared': 14.0.0(vue@3.5.24(typescript@5.9.3))
+            vue: 3.5.24(typescript@5.9.3)
 
     '@vueuse/core@12.8.2(typescript@5.9.3)':
         dependencies:
@@ -3741,7 +3758,7 @@ snapshots:
             lightningcss-win32-arm64-msvc: 1.30.2
             lightningcss-win32-x64-msvc: 1.30.2
 
-    lint-staged@16.2.6:
+    lint-staged@16.2.7:
         dependencies:
             commander: 14.0.2
             listr2: 9.0.5
@@ -4033,7 +4050,7 @@ snapshots:
 
     util-deprecate@1.0.2: {}
 
-    vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1):
+    vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1):
         dependencies:
             esbuild: 0.25.12
             fdir: 6.5.0(picomatch@4.0.3)
