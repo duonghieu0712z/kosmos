@@ -28,7 +28,7 @@ const props = withDefaults(
 
 const { isMobile, state } = useSidebar();
 
-const delegatedProps = reactiveOmit(props, 'tooltip');
+const delegatedProps = reactiveOmit(props, 'tooltip', 'alwaysShowTooltip');
 </script>
 
 <template>
