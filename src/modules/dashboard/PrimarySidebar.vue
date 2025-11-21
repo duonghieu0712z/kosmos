@@ -16,6 +16,8 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar';
 
+import Explorer from './Explorer.vue';
+
 const sidebarButtonClass =
     'data-[active=true]:[&>svg]:stroke-sidebar-foreground hover:[&>svg]:stroke-sidebar-foreground hover:bg-sidebar flex h-12 items-center justify-center rounded-none group-data-[collapsible=icon]:size-12! hover:cursor-pointer';
 
@@ -79,5 +81,7 @@ const { open, setOpen, toggleSidebar } = useSidebar();
                 </SidebarMenuButton>
             </SidebarFooter>
         </Sidebar>
+
+        <Explorer />
     </Sidebar>
 </template>
