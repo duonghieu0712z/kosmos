@@ -51,8 +51,8 @@ const activeId = ref('');
                 v-bind="item.bind"
                 :class="
                     cn(
-                        'focus:bg-accent hover:bg-accent flex w-full items-center gap-2 px-2 py-0.5 text-sm outline-none',
-                        activeId === item._id && 'bg-accent'
+                        'focus:bg-accent hover:bg-accent/50 flex w-full items-center gap-2 px-2 py-1 text-sm outline-none hover:cursor-pointer',
+                        activeId === item._id && 'bg-accent hover:bg-accent'
                     )
                 "
                 :style="{ 'padding-left': `calc(var(--spacing) * 4 * ${item.level - 0.5})` }"
