@@ -12,7 +12,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex h-full flex-col items-center justify-center">
         <div class="font-lucida-calligraphy text-6xl font-bold">{{ appName }}</div>
         <div class="text-xs">v{{ appVersion }}</div>
 
