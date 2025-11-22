@@ -3,6 +3,7 @@ import { FileText, Folder, FolderOpen } from 'lucide-vue-next';
 import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
 import { ref } from 'vue';
 
+import { useTabs } from '@/components/custom/tabs';
 import { cn } from '@/lib/utils';
 
 const SAMPLES = [
@@ -39,7 +40,9 @@ const SAMPLES = [
     },
 ];
 
-const activeId = ref('');
+const currentItem = ref('');
+
+const { activeTab, pushTab } = useTabs();
 </script>
 
 <template>
@@ -52,11 +55,20 @@ const activeId = ref('');
                 :class="
                     cn(
                         'focus:bg-accent hover:bg-accent/50 flex w-full items-center gap-2 px-2 py-1 text-sm outline-none hover:cursor-pointer',
-                        activeId === item._id && 'bg-accent hover:bg-accent'
+                        currentItem === item._id && 'bg-accent hover:bg-accent'
                     )
                 "
                 :style="{ 'padding-left': `calc(var(--spacing) * 4 * ${item.level - 0.5})` }"
-                @click="activeId = item._id"
+                @click="
+                    () => {
+                        currentItem = item._id;
+                        if (!item.hasChildren) {
+                            const tab = { id: item._id, name: item.value.name };
+                            pushTab(tab);
+                            activeTab(tab.id);
+                        }
+                    }
+                "
             >
                 <template v-if="item.hasChildren">
                     <Folder v-if="!isExpanded" :size="16" />

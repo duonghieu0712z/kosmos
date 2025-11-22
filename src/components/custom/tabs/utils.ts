@@ -1,5 +1,5 @@
 import { createContext } from 'reka-ui';
-import { ComputedRef } from 'vue';
+import { Ref } from 'vue';
 
 export interface Tab {
     id: string;
@@ -8,6 +8,9 @@ export interface Tab {
 }
 
 export const [useTabs, provideTabsContext] = createContext<{
-    currentTab: ComputedRef<string | null>;
-    setTab: (tab: Tab) => void;
+    tabs: Ref<Tab[]>;
+    currentTab: Ref<string | undefined>;
+    activeTab: (id: string) => void;
+    pushTab: (tab: Tab) => void;
+    popTab: (id: string) => void;
 }>('Tabs');
