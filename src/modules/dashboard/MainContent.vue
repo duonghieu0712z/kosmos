@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { X } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { useTabs } from '@/components/custom/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -8,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Todo } from '@/modules/todo';
 
 const { tabs, currentTab, activeTab, popTab } = useTabs();
+
+const tabEle = computed(() => document.querySelector(`[data-tab-id="tab-${currentTab.value}"]`));
 </script>
 
 <template>
@@ -18,11 +21,12 @@ const { tabs, currentTab, activeTab, popTab } = useTabs();
             @update:model-value="(value) => activeTab(value as string)"
         >
             <ScrollArea v-wheel-x orientation="horizontal">
-                <TabsList class="h-6 w-full justify-start rounded-none p-0">
+                <TabsList class="h-6 w-full justify-start rounded-none p-0" @vue:updated="tabEle?.scrollIntoView(true)">
                     <TabsTrigger
                         v-for="tab in tabs"
                         :key="tab.id"
                         class="data-active:after:border-ring relative w-40 flex-none justify-end rounded-none pr-0.5 text-xs hover:cursor-pointer data-active:after:absolute data-active:after:bottom-0 data-active:after:left-0 data-active:after:w-full data-active:after:border-b-2 hover:[&>span]:opacity-100 data-active:[&>span]:opacity-100"
+                        :data-tab-id="`tab-${tab.id}`"
                         :value="tab.id"
                     >
                         <div class="flex-1 truncate">{{ tab.name }}</div>
