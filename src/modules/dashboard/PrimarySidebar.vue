@@ -2,7 +2,7 @@
 import { BookText, PencilRuler, Settings } from 'lucide-vue-next';
 import { ref } from 'vue';
 
-import { ThemeToggle } from '@/components/theme';
+import { ThemeToggle } from '@/components/custom/theme';
 import {
     Sidebar,
     SidebarContent,
@@ -19,7 +19,7 @@ import {
 import Explorer from './Explorer.vue';
 
 const sidebarButtonClass =
-    'data-[active=true]:[&>svg]:stroke-sidebar-foreground hover:[&>svg]:stroke-sidebar-foreground hover:bg-sidebar flex h-12 items-center justify-center rounded-none group-data-[collapsible=icon]:size-12! hover:cursor-pointer';
+    'data-[active=true]:[&>svg]:stroke-sidebar-foreground hover:[&>svg]:stroke-sidebar-foreground hover:bg-sidebar data-[active=true]:before:border-sidebar-foreground flex h-12 items-center justify-center rounded-none group-data-[collapsible=icon]:size-12! hover:cursor-pointer data-[active=true]:before:absolute data-[active=true]:before:top-0 data-[active=true]:before:left-0 data-[active=true]:before:h-full data-[active=true]:before:border-l-2';
 
 const ITEMS = [
     {
