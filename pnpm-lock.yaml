@@ -10,6 +10,12 @@ importers:
             '@tauri-apps/api':
                 specifier: ^2.9.0
                 version: 2.9.0
+            '@tiptap/extension-subscript':
+                specifier: ^3.11.0
+                version: 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
+            '@tiptap/extension-superscript':
+                specifier: ^3.11.0
+                version: 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
             '@tiptap/pm':
                 specifier: ^3.11.0
                 version: 3.11.0
@@ -1419,6 +1425,24 @@ packages:
             }
         peerDependencies:
             '@tiptap/core': ^3.11.0
+
+    '@tiptap/extension-subscript@3.11.0':
+        resolution:
+            {
+                integrity: sha512-9F2vBOO27nXHESGPleIqX6/+N7ds6HFvB/mQo4mpAiyNm8Z+zAovHYKnYA4CPLyhnb6fvr0ykgAj9lG2h54jvA==,
+            }
+        peerDependencies:
+            '@tiptap/core': ^3.11.0
+            '@tiptap/pm': ^3.11.0
+
+    '@tiptap/extension-superscript@3.11.0':
+        resolution:
+            {
+                integrity: sha512-naNkPcNhmhy2/aAP+/gnhmGIPqchGELatz3sZc21fk5+lZUPyYU51BseFYtkoLC+ScPjlf2ZWux1QppYeCc+wg==,
+            }
+        peerDependencies:
+            '@tiptap/core': ^3.11.0
+            '@tiptap/pm': ^3.11.0
 
     '@tiptap/extension-text@3.11.0':
         resolution:
@@ -4442,6 +4466,16 @@ snapshots:
     '@tiptap/extension-strike@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
         dependencies:
             '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
+
+    '@tiptap/extension-subscript@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
+        dependencies:
+            '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
+            '@tiptap/pm': 3.11.0
+
+    '@tiptap/extension-superscript@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
+        dependencies:
+            '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
+            '@tiptap/pm': 3.11.0
 
     '@tiptap/extension-text@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
         dependencies:
