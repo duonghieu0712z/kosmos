@@ -1,21 +1,10 @@
 <script setup lang="ts">
 import { Editor } from '@tiptap/vue-3';
-import { Bold, Code2, Italic, Strikethrough, Subscript, Superscript, Underline } from 'lucide-vue-next';
 
 import { Button, ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-type MarkType = 'bold' | 'italic' | 'strike' | 'underline' | 'code' | 'superscript' | 'subscript';
-
-const MARK_ICONS = {
-    bold: Bold,
-    italic: Italic,
-    strike: Strikethrough,
-    underline: Underline,
-    code: Code2,
-    superscript: Superscript,
-    subscript: Subscript,
-};
+import { MARK_ICONS, MarkType } from './utils';
 
 interface Props extends ButtonProps {
     editor: Editor;

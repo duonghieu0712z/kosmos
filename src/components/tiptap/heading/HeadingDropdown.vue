@@ -13,12 +13,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import HeadingButton from './HeadingButton.vue';
-import { HEADING_ICONS, HeadingLevels } from './utils';
+import { HEADING_ICONS, HeadingLevel } from './utils';
 
 const props = withDefaults(
     defineProps<{
         editor: Editor;
-        levels?: HeadingLevels[];
+        levels?: HeadingLevel[];
     }>(),
     { levels: () => [1, 2, 3, 4, 0] }
 );

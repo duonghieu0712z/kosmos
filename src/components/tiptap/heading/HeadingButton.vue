@@ -4,11 +4,11 @@ import { Editor } from '@tiptap/vue-3';
 import { Button, ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-import { HEADING_ICONS, HeadingLevels } from './utils';
+import { HEADING_ICONS, HeadingLevel } from './utils';
 
 interface Props extends ButtonProps {
     editor: Editor;
-    level: HeadingLevels;
+    level: HeadingLevel;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emits = defineEmits<{
-    (e: 'update:toggle', level: HeadingLevels): void;
+    (e: 'update:toggle', level: HeadingLevel): void;
 }>();
 </script>
 
