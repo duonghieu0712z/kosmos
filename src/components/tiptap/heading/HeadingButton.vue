@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { Editor } from '@tiptap/vue-3';
 
-import { Button, ButtonProps } from '@/components/ui/button';
+import type { ToggleProps } from '@/components/ui/toggle';
+import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
 import { HEADING_ICONS, HeadingLevel } from './utils';
 
-interface Props extends ButtonProps {
+interface Props extends ToggleProps {
     editor: Editor;
     level: HeadingLevel;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    variant: 'ghost',
+    variant: 'default',
     size: 'sm',
 });
 
@@ -22,12 +23,10 @@ const emits = defineEmits<{
 </script>
 
 <template>
-    <Button
-        :class="cn('data-[active-state=true]:bg-accent rounded!', props.class)"
-        :data-active-state="level === 0 ? editor.isActive('paragraph') : editor.isActive('heading', { level })"
-        :disabled="
-            !editor.isEditable || !(level === 0 ? editor.can().setParagraph() : editor.can().toggleHeading({ level }))
-        "
+    <Toggle
+        :class="cn('rounded!', props.class)"
+        :disabled="!editor.isEditable || (level !== 0 && !editor.can().toggleHeading({ level }))"
+        :model-value="level !== 0 && editor.isActive('heading', { level })"
         :size="size"
         :variant="variant"
         @click="
@@ -40,7 +39,7 @@ const emits = defineEmits<{
         "
     >
         <component :is="HEADING_ICONS[level]" />
-        <div v-if="level === 0" :class="cn(size?.includes('icon') ? 'sr-only' : 'flex-1')">Paragraph</div>
+        <div v-if="level === 0" :class="flex - 1">Paragraph</div>
         <div v-else :class="cn(size?.includes('icon') ? 'sr-only' : 'flex-1')">Heading {{ level }}</div>
-    </Button>
+    </Toggle>
 </template>

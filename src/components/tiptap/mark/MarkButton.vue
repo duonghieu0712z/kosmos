@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { Editor } from '@tiptap/vue-3';
 
-import { Button, ButtonProps } from '@/components/ui/button';
+import type { ToggleProps } from '@/components/ui/toggle';
+import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
 import { MARK_ICONS, MarkType } from './utils';
 
-interface Props extends ButtonProps {
+interface Props extends ToggleProps {
     editor: Editor;
     type: MarkType;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    variant: 'ghost',
-    size: 'icon-sm',
+    variant: 'default',
+    size: 'sm',
 });
 
 const emits = defineEmits<{
@@ -22,10 +23,10 @@ const emits = defineEmits<{
 </script>
 
 <template>
-    <Button
-        :class="cn('data-[active-state=true]:bg-accent rounded!', props.class)"
-        :data-active-state="editor.isActive(props.type)"
+    <Toggle
+        :class="cn('rounded!', props.class)"
         :disabled="!editor.isEditable || !editor.can().toggleMark(props.type)"
+        :model-value="editor.isActive(props.type)"
         :size="size"
         :variant="variant"
         @click="
@@ -36,5 +37,5 @@ const emits = defineEmits<{
         "
     >
         <component :is="MARK_ICONS[props.type]" />
-    </Button>
+    </Toggle>
 </template>
