@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import TextAlignButton from './TextAlignButton.vue';
-import { ALIGN_ICONS, TextAlign } from './utils';
+import { ALIGN_ICONS, TextAlign } from './types';
 
 const ALIGNS: TextAlign[] = ['left', 'center', 'right', 'justify'];
 

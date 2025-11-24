@@ -5,7 +5,7 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import { MARK_ICONS, MarkType } from './utils';
+import { MARK_ICONS, MarkType } from './types';
 
 interface Props extends ToggleProps {
     editor: Editor;

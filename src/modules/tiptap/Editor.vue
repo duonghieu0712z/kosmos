@@ -8,6 +8,7 @@ import { Editor, EditorContent } from '@tiptap/vue-3';
 import { HeadingDropdown } from '@/components/tiptap/heading';
 import { MarkButton } from '@/components/tiptap/mark';
 import { TextAlignButton } from '@/components/tiptap/text-align';
+import { UndoRedoButton } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
 
 const editor = new Editor({
@@ -30,6 +31,11 @@ const editor = new Editor({
 <template>
     <main v-if="editor" class="flex flex-col">
         <ButtonGroup class="w-full gap-0.5 px-2 pt-2">
+            <UndoRedoButton :editor="editor" type="undo" />
+            <UndoRedoButton :editor="editor" type="redo" />
+
+            <ButtonGroupSeparator />
+
             <HeadingDropdown :editor="editor" />
 
             <ButtonGroupSeparator />

@@ -5,7 +5,7 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import { ALIGN_ICONS, TextAlign } from './utils';
+import { ALIGN_ICONS, TextAlign } from './types';
 
 interface Props extends ToggleProps {
     editor: Editor;

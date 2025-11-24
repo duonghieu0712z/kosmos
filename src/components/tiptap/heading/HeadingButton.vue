@@ -5,7 +5,7 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import { HEADING_ICONS, HeadingLevel } from './utils';
+import { HEADING_ICONS, HeadingLevel } from './types';
 
 interface Props extends ToggleProps {
     editor: Editor;

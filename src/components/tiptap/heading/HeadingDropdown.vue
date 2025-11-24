@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import HeadingButton from './HeadingButton.vue';
-import { HEADING_ICONS, HeadingLevel } from './utils';
+import { HEADING_ICONS, HeadingLevel } from './types';
 
 const props = withDefaults(
     defineProps<{
