@@ -5,11 +5,11 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import { MARK_ICONS, MarkType } from './utils';
+import { ALIGN_ICONS, TextAlign } from './utils';
 
 interface Props extends ToggleProps {
     editor: Editor;
-    type: MarkType;
+    align: TextAlign;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,24 +18,24 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emits = defineEmits<{
-    (e: 'update:toggle', type: MarkType): void;
+    (e: 'update:toggle', align: TextAlign): void;
 }>();
 </script>
 
 <template>
     <Toggle
         :class="cn('rounded!', props.class)"
-        :disabled="!editor.isEditable || !editor.can().toggleMark(type)"
-        :model-value="editor.isActive(type)"
+        :disabled="!editor.isEditable || !editor.can().setTextAlign(align)"
+        :model-value="editor.isActive({ textAlign: align })"
         :size="size"
         :variant="variant"
         @click="
             () => {
-                editor.chain().focus().toggleMark(type).run();
-                emits('update:toggle', type);
+                editor.chain().focus().setTextAlign(align).run();
+                emits('update:toggle', align);
             }
         "
     >
-        <component :is="MARK_ICONS[type]" />
+        <component :is="ALIGN_ICONS[align]" />
     </Toggle>
 </template>

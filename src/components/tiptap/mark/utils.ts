@@ -10,4 +10,4 @@ export const MARK_ICONS = {
     code: Code2,
     superscript: Superscript,
     subscript: Subscript,
-};
+} as const;

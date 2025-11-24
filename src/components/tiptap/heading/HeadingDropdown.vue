@@ -30,13 +30,13 @@ const currentLevel = computed<number>(() => props.editor.getAttributes('heading'
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
             <Button
-                class="data-[active-state=true]:bg-accent gap-1 rounded! px-2!"
+                class="data-[active-state=true]:bg-accent gap-0 rounded! px-1!"
                 :data-active-state="currentLevel !== 0"
                 size="sm"
                 variant="ghost"
             >
                 <component :is="HEADING_ICONS[currentLevel]" />
-                <ChevronDown class="size-3" />
+                <ChevronDown class="size-2" />
             </Button>
         </DropdownMenuTrigger>
 
