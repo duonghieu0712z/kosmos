@@ -25,6 +25,9 @@ const emits = defineEmits<{
     <Button
         :class="cn('data-[active-state=true]:bg-accent rounded!', props.class)"
         :data-active-state="level === 0 ? editor.isActive('paragraph') : editor.isActive('heading', { level })"
+        :disabled="
+            !editor.isEditable || !(level === 0 ? editor.can().setParagraph() : editor.can().toggleHeading({ level }))
+        "
         :size="size"
         :variant="variant"
         @click="

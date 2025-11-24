@@ -36,6 +36,7 @@ const emits = defineEmits<{
     <Button
         :class="cn('data-[active-state=true]:bg-accent rounded!', props.class)"
         :data-active-state="editor.isActive(props.type)"
+        :disabled="!editor.isEditable || !editor.can().toggleMark(props.type)"
         :size="size"
         :variant="variant"
         @click="
