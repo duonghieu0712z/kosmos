@@ -21,6 +21,7 @@ const editor = new Editor({
     editorProps: {
         attributes: {
             class: 'prose dark:prose-invert text-foreground min-h-full min-w-full cursor-text p-6 text-[12pt] outline-none border',
+            spellCheck: 'false',
         },
     },
 });
