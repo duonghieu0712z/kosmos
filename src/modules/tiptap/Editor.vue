@@ -21,7 +21,7 @@ const editor = new Editor({
 
 <template>
     <main v-if="editor" class="flex flex-col">
-        <ButtonGroup class="px-2 pt-2">
+        <ButtonGroup class="w-full gap-0.5 px-2 pt-2">
             <HeadingDropdown :editor="editor" />
 
             <ButtonGroupSeparator />

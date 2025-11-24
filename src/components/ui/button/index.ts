@@ -1,5 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
+import { PrimitiveProps } from 'reka-ui';
+import { HTMLAttributes } from 'vue';
 
 export { default as Button } from './Button.vue';
 
@@ -33,3 +35,9 @@ export const buttonVariants = cva(
     }
 );
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
+
+export interface ButtonProps extends PrimitiveProps {
+    variant?: ButtonVariants['variant'];
+    size?: ButtonVariants['size'];
+    class?: HTMLAttributes['class'];
+}
