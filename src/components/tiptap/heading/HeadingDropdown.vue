@@ -41,7 +41,7 @@ const currentLevel = computed<number>(() => props.editor.getAttributes('heading'
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" as-child>
-            <ButtonGroup class="min-w-0 p-0.5 text-xs" orientation="vertical">
+            <ButtonGroup class="min-w-0 gap-0.5 p-0.5 text-xs" orientation="vertical">
                 <DropdownMenuItem v-for="level in props.levels" :key="level" as-child>
                     <HeadingButton class="justify-start px-2! py-1 text-xs" :editor="editor" :level="level" />
                 </DropdownMenuItem>

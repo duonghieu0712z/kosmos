@@ -10,9 +10,11 @@ import { HEADING_ICONS, HeadingLevel } from './utils';
 interface Props extends ToggleProps {
     editor: Editor;
     level: HeadingLevel;
+    onlyIcon?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+    onlyIcon: false,
     variant: 'default',
     size: 'sm',
 });
@@ -39,7 +41,7 @@ const emits = defineEmits<{
         "
     >
         <component :is="HEADING_ICONS[level]" />
-        <div v-if="level === 0" :class="flex - 1">Paragraph</div>
-        <div v-else :class="cn(size?.includes('icon') ? 'sr-only' : 'flex-1')">Heading {{ level }}</div>
+        <div v-if="level === 0" :class="cn(onlyIcon ? 'sr-only' : 'flex-1')">Paragraph</div>
+        <div v-else :class="cn(onlyIcon ? 'sr-only' : 'flex-1')">Heading {{ level }}</div>
     </Toggle>
 </template>
