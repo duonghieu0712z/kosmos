@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
+import { reactiveOmit } from '@vueuse/core';
 
-import { Button, ButtonProps } from '@/components/ui/button';
+import type { ButtonProps } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-import { UNDO_REDO_ICONS, UndoRedoType } from './types';
+import type { UndoRedoType } from './types';
+import { UNDO_REDO_ICONS } from './types';
 
 const props = withDefaults(
     defineProps<
@@ -22,14 +25,15 @@ const props = withDefaults(
 const emits = defineEmits<{
     (e: 'update:action', type: UndoRedoType): void;
 }>();
+
+const delegatedProps = reactiveOmit(props, 'editor', 'type');
 </script>
 
 <template>
     <Button
+        v-bind="delegatedProps"
         :class="cn('rounded!', props.class)"
         :disabled="!editor.isEditable || !editor.can()[type]()"
-        :size="size"
-        :variant="variant"
         @click="
             () => {
                 editor.chain().focus()[type]().run();

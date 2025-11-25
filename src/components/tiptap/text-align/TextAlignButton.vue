@@ -1,34 +1,39 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
+import { reactiveOmit } from '@vueuse/core';
 
 import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import { ALIGN_ICONS, TextAlign } from './types';
+import type { TextAlign } from './types';
+import { ALIGN_ICONS } from './types';
 
-interface Props extends ToggleProps {
-    editor: Editor;
-    align: TextAlign;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    variant: 'default',
-    size: 'sm',
-});
+const props = withDefaults(
+    defineProps<
+        ToggleProps & {
+            editor: Editor;
+            align: TextAlign;
+        }
+    >(),
+    {
+        size: 'sm',
+    }
+);
 
 const emits = defineEmits<{
     (e: 'update:toggle', align: TextAlign): void;
 }>();
+
+const delegatedProps = reactiveOmit(props, 'editor', 'align');
 </script>
 
 <template>
     <Toggle
+        v-bind="delegatedProps"
         :class="cn('rounded!', props.class)"
         :disabled="!editor.isEditable || !editor.can().setTextAlign(align)"
         :model-value="editor.isActive({ textAlign: align })"
-        :size="size"
-        :variant="variant"
         @click="
             () => {
                 editor.chain().focus().setTextAlign(align).run();

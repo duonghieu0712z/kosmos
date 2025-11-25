@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
 import type { ToggleProps as _ToggleProps } from 'reka-ui';
-import { HTMLAttributes } from 'vue';
+import type { HTMLAttributes } from 'vue';
 
 export { default as Toggle } from './Toggle.vue';
 

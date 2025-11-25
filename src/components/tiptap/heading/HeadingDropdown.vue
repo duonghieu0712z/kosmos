@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
 import { ChevronDown } from 'lucide-vue-next';
 import { computed } from 'vue';
 
@@ -13,14 +13,17 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import HeadingButton from './HeadingButton.vue';
-import { HEADING_ICONS, HeadingLevel } from './types';
+import type { HeadingLevel } from './types';
+import { HEADING_ICONS } from './types';
 
 const props = withDefaults(
     defineProps<{
         editor: Editor;
         levels?: HeadingLevel[];
     }>(),
-    { levels: () => [1, 2, 3, 4, 0] }
+    {
+        levels: () => [1, 2, 3, 4, 0],
+    }
 );
 
 const currentLevel = computed<number>(() => props.editor.getAttributes('heading').level ?? 0);
@@ -41,9 +44,9 @@ const currentLevel = computed<number>(() => props.editor.getAttributes('heading'
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" as-child>
-            <ButtonGroup class="min-w-0 gap-0.5 p-0.5 text-xs" orientation="vertical">
+            <ButtonGroup class="min-w-0 gap-0.5 p-0.5" orientation="vertical">
                 <DropdownMenuItem v-for="level in props.levels" :key="level" as-child>
-                    <HeadingButton class="justify-start px-2! py-1 text-xs" :editor="editor" :level="level" />
+                    <HeadingButton class="px-2! py-1 text-xs" :editor="editor" :level="level" />
                 </DropdownMenuItem>
             </ButtonGroup>
         </DropdownMenuContent>

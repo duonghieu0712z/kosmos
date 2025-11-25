@@ -30,7 +30,7 @@ const editor = new Editor({
 
 <template>
     <main v-if="editor" class="flex flex-col">
-        <ButtonGroup class="w-full gap-0.5! px-2 pt-2">
+        <ButtonGroup class="w-full px-2 pt-2 has-[>[data-slot=button-group]]:gap-0.5">
             <UndoRedoGroup :editor="editor" />
             <ButtonGroupSeparator />
             <HeadingDropdown :editor="editor" />

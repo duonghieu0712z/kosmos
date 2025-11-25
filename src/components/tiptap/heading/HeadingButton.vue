@@ -1,36 +1,39 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
+import { reactiveOmit } from '@vueuse/core';
 
 import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import { HEADING_ICONS, HeadingLevel } from './types';
+import type { HeadingLevel } from './types';
+import { HEADING_ICONS } from './types';
 
-interface Props extends ToggleProps {
-    editor: Editor;
-    level: HeadingLevel;
-    onlyIcon?: boolean;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    onlyIcon: false,
-    variant: 'default',
-    size: 'sm',
-});
+const props = withDefaults(
+    defineProps<
+        ToggleProps & {
+            editor: Editor;
+            level: HeadingLevel;
+        }
+    >(),
+    {
+        size: 'sm',
+    }
+);
 
 const emits = defineEmits<{
     (e: 'update:toggle', level: HeadingLevel): void;
 }>();
+
+const delegatedProps = reactiveOmit(props, 'editor', 'level');
 </script>
 
 <template>
     <Toggle
+        v-bind="delegatedProps"
         :class="cn('rounded!', props.class)"
         :disabled="!editor.isEditable || (level !== 0 && !editor.can().toggleHeading({ level }))"
         :model-value="level !== 0 && editor.isActive('heading', { level })"
-        :size="size"
-        :variant="variant"
         @click="
             () => {
                 level === 0
@@ -41,7 +44,7 @@ const emits = defineEmits<{
         "
     >
         <component :is="HEADING_ICONS[level]" />
-        <div v-if="level === 0" :class="cn(onlyIcon ? 'sr-only' : 'flex-1')">Paragraph</div>
-        <div v-else :class="cn(onlyIcon ? 'sr-only' : 'flex-1')">Heading {{ level }}</div>
+        <div v-if="level === 0" class="flex-1">Paragraph</div>
+        <div v-else class="flex-1">Heading {{ level }}</div>
     </Toggle>
 </template>

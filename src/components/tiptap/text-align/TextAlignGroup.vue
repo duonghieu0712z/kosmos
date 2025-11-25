@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit } from '@vueuse/core';
 
-import { ButtonGroup, ButtonGroupProps } from '@/components/ui/button-group';
+import type { ButtonGroupProps } from '@/components/ui/button-group';
+import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
 import TextAlignButton from './TextAlignButton.vue';
@@ -13,13 +14,12 @@ const props = withDefaults(
         ButtonGroupProps & {
             editor: Editor;
             aligns?: TextAlign[];
-            inDropdown?: boolean;
         }
     >(),
     { aligns: () => ['left', 'center', 'right', 'justify'] }
 );
 
-const delegatedProps = reactiveOmit(props, 'class', 'editor', 'aligns');
+const delegatedProps = reactiveOmit(props, 'editor', 'aligns');
 </script>
 
 <template>

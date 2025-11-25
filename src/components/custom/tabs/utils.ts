@@ -1,5 +1,5 @@
 import { createContext } from 'reka-ui';
-import { Ref } from 'vue';
+import type { Ref } from 'vue';
 
 export interface Tab {
     id: string;

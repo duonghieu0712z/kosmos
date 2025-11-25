@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit } from '@vueuse/core';
 
-import { ButtonGroup, ButtonGroupProps } from '@/components/ui/button-group';
+import type { ButtonGroupProps } from '@/components/ui/button-group';
+import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
-import { UndoRedoType } from './types';
+import type { UndoRedoType } from './types';
 import UndoRedoButton from './UndoRedoButton.vue';
 
 const props = withDefaults(
@@ -15,10 +16,12 @@ const props = withDefaults(
             types?: UndoRedoType[];
         }
     >(),
-    { types: () => ['undo', 'redo'] }
+    {
+        types: () => ['undo', 'redo'],
+    }
 );
 
-const delegatedProps = reactiveOmit(props, 'class', 'editor', 'types');
+const delegatedProps = reactiveOmit(props, 'editor', 'types');
 </script>
 
 <template>

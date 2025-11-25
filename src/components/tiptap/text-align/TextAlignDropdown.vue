@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
 import { ChevronDown } from 'lucide-vue-next';
 import { computed } from 'vue';
 
@@ -13,7 +13,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import TextAlignButton from './TextAlignButton.vue';
-import { ALIGN_ICONS, TextAlign } from './types';
+import type { TextAlign } from './types';
+import { ALIGN_ICONS } from './types';
 
 const props = withDefaults(
     defineProps<{

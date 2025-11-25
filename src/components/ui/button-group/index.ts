@@ -1,6 +1,6 @@
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
-import { HTMLAttributes } from 'vue';
+import type { HTMLAttributes } from 'vue';
 
 export { default as ButtonGroup } from './ButtonGroup.vue';
 export { default as ButtonGroupSeparator } from './ButtonGroupSeparator.vue';

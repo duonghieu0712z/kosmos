@@ -1,18 +1,27 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
+import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit } from '@vueuse/core';
 
-import { ButtonGroup, ButtonGroupProps } from '@/components/ui/button-group';
+import type { ButtonGroupProps } from '@/components/ui/button-group';
+import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
 import MarkButton from './MarkButton.vue';
-import { MarkType } from './types';
+import type { MarkType } from './types';
 
-const props = withDefaults(defineProps<ButtonGroupProps & { editor: Editor; marks?: MarkType[] }>(), {
-    marks: () => ['bold', 'italic', 'strike', 'underline', 'code', 'superscript', 'subscript'],
-});
+const props = withDefaults(
+    defineProps<
+        ButtonGroupProps & {
+            editor: Editor;
+            marks?: MarkType[];
+        }
+    >(),
+    {
+        marks: () => ['bold', 'italic', 'strike', 'underline', 'code', 'superscript', 'subscript'],
+    }
+);
 
-const delegatedProps = reactiveOmit(props, 'class', 'editor', 'marks');
+const delegatedProps = reactiveOmit(props, 'editor', 'marks');
 </script>
 
 <template>

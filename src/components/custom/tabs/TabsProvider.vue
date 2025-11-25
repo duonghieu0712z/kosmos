@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { provideTabsContext, Tab } from './utils';
+import type { Tab } from './utils';
+import { provideTabsContext } from './utils';
 
 const MAX_HISTORY = 100;
 
