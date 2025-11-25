@@ -15,6 +15,7 @@ import {
     SidebarSeparator,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { useSettings } from '@/modules/settings';
 
 import Explorer from './Explorer.vue';
 
@@ -32,8 +33,10 @@ const ITEMS = [
     },
 ];
 
-const activeItem = ref(ITEMS[0]);
 const { open, setOpen, toggleSidebar } = useSidebar();
+const { openSettings } = useSettings();
+
+const activeItem = ref(ITEMS[0]);
 </script>
 
 <template>
@@ -75,7 +78,12 @@ const { open, setOpen, toggleSidebar } = useSidebar();
                     <ThemeToggle />
                 </SidebarMenuButton>
 
-                <SidebarMenuButton always-show-tooltip :class="sidebarButtonClass" tooltip="Settings">
+                <SidebarMenuButton
+                    always-show-tooltip
+                    :class="sidebarButtonClass"
+                    tooltip="Settings"
+                    @click="openSettings"
+                >
                     <Settings class="stroke-muted-foreground size-6" />
                     <span class="sr-only">Settings</span>
                 </SidebarMenuButton>

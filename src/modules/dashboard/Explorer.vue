@@ -43,7 +43,7 @@ const SAMPLES = [
 
 const currentItem = ref('');
 
-const { activeTab, pushTab } = useTabs();
+const { pushTab } = useTabs();
 </script>
 
 <template>
@@ -66,7 +66,6 @@ const { activeTab, pushTab } = useTabs();
                         if (!item.hasChildren) {
                             const tab = { id: item._id, name: item.value.name, component: Editor };
                             pushTab(tab);
-                            activeTab(tab.id);
                         }
                     }
                 "

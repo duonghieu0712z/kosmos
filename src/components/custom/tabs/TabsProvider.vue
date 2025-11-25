@@ -25,9 +25,9 @@ function hasTab(id: string) {
 }
 
 function pushTab(tab: Tab) {
+    activeTab(tab.id);
     if (!hasTab(tab.id)) {
         tabs.value.push(tab);
-        activeTab(tab.id);
     }
 }
 
