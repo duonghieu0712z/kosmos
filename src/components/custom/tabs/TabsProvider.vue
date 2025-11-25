@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, shallowRef } from 'vue';
 
 import type { Tab } from './utils';
 import { provideTabsContext } from './utils';
 
 const MAX_HISTORY = 100;
 
-const tabs = ref<Tab[]>([]);
+const tabs = shallowRef<Tab[]>([]);
 const history = ref<string[]>([]);
 
 const currentTab = ref<string>();

@@ -5,6 +5,7 @@ import { ref } from 'vue';
 
 import { useTabs } from '@/components/custom/tabs';
 import { cn } from '@/lib/utils';
+import Editor from '@/modules/tiptap/Editor.vue';
 
 const SAMPLES = [
     {
@@ -63,7 +64,7 @@ const { activeTab, pushTab } = useTabs();
                     () => {
                         currentItem = item._id;
                         if (!item.hasChildren) {
-                            const tab = { id: item._id, name: item.value.name };
+                            const tab = { id: item._id, name: item.value.name, component: Editor };
                             pushTab(tab);
                             activeTab(tab.id);
                         }

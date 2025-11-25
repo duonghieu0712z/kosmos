@@ -6,8 +6,7 @@ import { useTabs } from '@/components/custom/tabs';
 import { ScrollArea, vWheelX } from '@/components/ui/scroll-area';
 import { SidebarInset } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-// import { Todo } from '@/modules/todo';
-import { Editor } from '@/modules/tiptap';
+import { Todo } from '@/modules/todo';
 
 const { tabs, currentTab, activeTab, popTab } = useTabs();
 
@@ -47,7 +46,8 @@ const tabEle = computed(() => document.querySelector(`[data-tab-id="tab-${curren
             </ScrollArea>
 
             <TabsContent v-for="tab in tabs" :key="tab.id" as-child :value="tab.id">
-                <Editor />
+                <component :is="tab.component" v-if="tab.component" />
+                <Todo v-else />
             </TabsContent>
         </Tabs>
     </SidebarInset>

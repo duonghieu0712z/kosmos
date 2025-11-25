@@ -1,10 +1,10 @@
 import { createContext } from 'reka-ui';
-import type { Ref } from 'vue';
+import type { Component, Ref } from 'vue';
 
 export interface Tab {
     id: string;
     name: string;
-    content?: any;
+    component?: Component;
 }
 
 export const [useTabs, provideTabsContext] = createContext<{
