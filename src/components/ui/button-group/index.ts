@@ -1,5 +1,6 @@
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
+import { HTMLAttributes } from 'vue';
 
 export { default as ButtonGroup } from './ButtonGroup.vue';
 export { default as ButtonGroupSeparator } from './ButtonGroupSeparator.vue';
@@ -23,3 +24,8 @@ export const buttonGroupVariants = cva(
 );
 
 export type ButtonGroupVariants = VariantProps<typeof buttonGroupVariants>;
+
+export interface ButtonGroupProps {
+    class?: HTMLAttributes['class'];
+    orientation?: ButtonGroupVariants['orientation'];
+}

@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import { Editor } from '@tiptap/vue-3';
+import { reactiveOmit } from '@vueuse/core';
+
+import { ButtonGroup, ButtonGroupProps } from '@/components/ui/button-group';
+import { cn } from '@/lib/utils';
+
+import { UndoRedoType } from './types';
+import UndoRedoButton from './UndoRedoButton.vue';
+
+const props = withDefaults(
+    defineProps<
+        ButtonGroupProps & {
+            editor: Editor;
+            types?: UndoRedoType[];
+        }
+    >(),
+    { types: () => ['undo', 'redo'] }
+);
+
+const delegatedProps = reactiveOmit(props, 'class', 'editor', 'types');
+</script>
+
+<template>
+    <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
+        <UndoRedoButton v-for="type in types" :key="type" :editor="editor" :type="type" />
+    </ButtonGroup>
+</template>

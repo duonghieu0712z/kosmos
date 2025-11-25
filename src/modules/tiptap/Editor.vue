@@ -6,9 +6,9 @@ import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 
 import { HeadingDropdown } from '@/components/tiptap/heading';
-import { MarkButton } from '@/components/tiptap/mark';
-import { TextAlignButton } from '@/components/tiptap/text-align';
-import { UndoRedoButton } from '@/components/tiptap/undo-redo';
+import { MarkGroup } from '@/components/tiptap/mark';
+import { TextAlignDropdown, TextAlignGroup } from '@/components/tiptap/text-align';
+import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
 
 const editor = new Editor({
@@ -30,30 +30,15 @@ const editor = new Editor({
 
 <template>
     <main v-if="editor" class="flex flex-col">
-        <ButtonGroup class="w-full gap-0.5 px-2 pt-2">
-            <UndoRedoButton :editor="editor" type="undo" />
-            <UndoRedoButton :editor="editor" type="redo" />
-
+        <ButtonGroup class="w-full gap-0.5! px-2 pt-2">
+            <UndoRedoGroup :editor="editor" />
             <ButtonGroupSeparator />
-
             <HeadingDropdown :editor="editor" />
-
             <ButtonGroupSeparator />
-
-            <MarkButton :editor="editor" type="bold" />
-            <MarkButton :editor="editor" type="italic" />
-            <MarkButton :editor="editor" type="underline" />
-            <MarkButton :editor="editor" type="strike" />
-            <MarkButton :editor="editor" type="code" />
-            <MarkButton :editor="editor" type="superscript" />
-            <MarkButton :editor="editor" type="subscript" />
-
+            <MarkGroup :editor="editor" />
             <ButtonGroupSeparator />
-
-            <TextAlignButton align="left" :editor="editor" />
-            <TextAlignButton align="center" :editor="editor" />
-            <TextAlignButton align="right" :editor="editor" />
-            <TextAlignButton align="justify" :editor="editor" />
+            <TextAlignGroup :editor="editor" />
+            <TextAlignDropdown :editor="editor" />
         </ButtonGroup>
 
         <EditorContent class="flex-1 p-2" :editor="editor" />

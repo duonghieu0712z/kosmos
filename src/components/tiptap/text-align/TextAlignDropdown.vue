@@ -15,14 +15,14 @@ import {
 import TextAlignButton from './TextAlignButton.vue';
 import { ALIGN_ICONS, TextAlign } from './types';
 
-const ALIGNS: TextAlign[] = ['left', 'center', 'right', 'justify'];
-
 const props = withDefaults(
     defineProps<{
         editor: Editor;
+        aligns?: TextAlign[];
         orientation?: 'horizontal' | 'vertical';
     }>(),
     {
+        aligns: () => ['left', 'center', 'right', 'justify'],
         orientation: 'horizontal',
     }
 );
@@ -43,7 +43,7 @@ const currentAlign = computed<TextAlign>(
 
         <DropdownMenuContent align="start" as-child>
             <ButtonGroup class="gap-0.5 p-0.5" :orientation="orientation">
-                <DropdownMenuItem v-for="align in ALIGNS" :key="align" as-child>
+                <DropdownMenuItem v-for="align in aligns" :key="align" as-child>
                     <TextAlignButton :align="align" :editor="editor" />
                 </DropdownMenuItem>
             </ButtonGroup>

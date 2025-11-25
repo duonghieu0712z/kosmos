@@ -6,15 +6,18 @@ import { cn } from '@/lib/utils';
 
 import { UNDO_REDO_ICONS, UndoRedoType } from './types';
 
-interface Props extends ButtonProps {
-    editor: Editor;
-    type: UndoRedoType;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    variant: 'ghost',
-    size: 'icon-sm',
-});
+const props = withDefaults(
+    defineProps<
+        ButtonProps & {
+            editor: Editor;
+            type: UndoRedoType;
+        }
+    >(),
+    {
+        variant: 'ghost',
+        size: 'icon-sm',
+    }
+);
 
 const emits = defineEmits<{
     (e: 'update:action', type: UndoRedoType): void;
