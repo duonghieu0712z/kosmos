@@ -1,9 +1,11 @@
+import type { LucideIcon } from 'lucide-vue-next';
 import { createContext } from 'reka-ui';
 import type { Component, Ref } from 'vue';
 
 export interface Tab {
     id: string;
     name: string;
+    icon?: LucideIcon;
     component?: Component;
 }
 
