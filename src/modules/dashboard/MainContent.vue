@@ -3,7 +3,7 @@ import { X } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { useTabs } from '@/components/custom/tabs';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea, vWheelX } from '@/components/ui/scroll-area';
 import { SidebarInset } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 // import { Todo } from '@/modules/todo';
