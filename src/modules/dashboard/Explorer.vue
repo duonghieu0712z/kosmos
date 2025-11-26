@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FileText, Folder, FolderOpen } from 'lucide-vue-next';
 import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
-import { ref } from 'vue';
+import { markRaw, ref } from 'vue';
 
 import { useTabs } from '@/components/custom/tabs';
 import { cn } from '@/lib/utils';
@@ -64,7 +64,7 @@ const { pushTab } = useTabs();
                     () => {
                         currentItem = item._id;
                         if (!item.hasChildren) {
-                            const tab = { id: item._id, name: item.value.name, component: Editor };
+                            const tab = { id: item._id, name: item.value.name, component: markRaw(Editor) };
                             pushTab(tab);
                         }
                     }
