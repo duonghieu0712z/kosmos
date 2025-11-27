@@ -6,6 +6,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 
 import { HeadingDropdown } from '@/components/tiptap/heading';
+import { ListDropdown, ListGroup } from '@/components/tiptap/list';
 import { MarkGroup } from '@/components/tiptap/mark';
 import { TextAlignDropdown, TextAlignGroup } from '@/components/tiptap/text-align';
 import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
@@ -39,6 +40,9 @@ const editor = new Editor({
             <ButtonGroupSeparator />
             <TextAlignGroup :editor="editor" />
             <TextAlignDropdown :editor="editor" />
+            <ButtonGroupSeparator />
+            <ListGroup :editor="editor" />
+            <ListDropdown :editor="editor" />
         </ButtonGroup>
 
         <EditorContent class="flex-1 p-2" :editor="editor" />
