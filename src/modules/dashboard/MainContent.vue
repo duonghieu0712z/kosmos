@@ -27,13 +27,8 @@ const { tabs, currentTab, activeTab, popTab } = useTabs();
                         <div class="flex-1 truncate text-left text-xs">{{ tab.name }}</div>
                         <span
                             class="hover:bg-ring/20 rounded opacity-0"
-                            @click="popTab(tab.id)"
-                            @mousedown="
-                                (ev) => {
-                                    ev.preventDefault();
-                                    ev.stopPropagation();
-                                }
-                            "
+                            @click.stop="popTab(tab.id)"
+                            @mousedown.stop.prevent
                         >
                             <X />
                         </span>
