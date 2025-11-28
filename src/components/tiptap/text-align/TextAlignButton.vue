@@ -6,8 +6,8 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import type { TextAlign } from './types';
-import { ALIGN_ICONS } from './types';
+import type { TextAlign } from './utils';
+import { canExecute, execute, getIcon, isActive } from './utils';
 
 const props = withDefaults(
     defineProps<
@@ -32,15 +32,15 @@ const delegatedProps = reactiveOmit(props, 'editor', 'align');
     <Toggle
         v-bind="delegatedProps"
         :class="cn('rounded!', props.class)"
-        :disabled="!editor.isEditable || !editor.can().setTextAlign(align)"
-        :model-value="editor.isActive({ textAlign: align })"
+        :disabled="!canExecute(editor, align)"
+        :model-value="isActive(editor, align)"
         @click="
             () => {
-                editor.chain().focus().setTextAlign(align).run();
+                execute(editor, align);
                 emits('update:toggle', align);
             }
         "
     >
-        <component :is="ALIGN_ICONS[align]" />
+        <component :is="getIcon(align)" />
     </Toggle>
 </template>

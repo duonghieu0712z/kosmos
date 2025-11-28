@@ -6,8 +6,8 @@ import type { ButtonProps } from '@/components/ui/button';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-import type { UndoRedoType } from './types';
-import { UNDO_REDO_ICONS } from './types';
+import type { UndoRedoType } from './utils';
+import { canExecute, execute, getIcon } from './utils';
 
 const props = withDefaults(
     defineProps<
@@ -33,14 +33,14 @@ const delegatedProps = reactiveOmit(props, 'editor', 'type');
     <Button
         v-bind="delegatedProps"
         :class="cn('rounded!', props.class)"
-        :disabled="!editor.isEditable || !editor.can()[type]()"
+        :disabled="!canExecute(editor, type)"
         @click="
             () => {
-                editor.chain().focus()[type]().run();
+                execute(editor, type);
                 emits('update:action', type);
             }
         "
     >
-        <component :is="UNDO_REDO_ICONS[type]" />
+        <component :is="getIcon(type)" />
     </Button>
 </template>

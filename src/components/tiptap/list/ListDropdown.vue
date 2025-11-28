@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { ChevronDown } from 'lucide-vue-next';
-import { computed } from 'vue';
 
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -13,10 +12,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import ListButton from './ListButton.vue';
-import type { ListType } from './types';
-import { LIST_ICONS } from './types';
+import type { ListType } from './utils';
+import { canExecuteAny, getCurrentIcon, isActiveAny } from './utils';
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         editor: Editor;
         lists?: ListType[];
@@ -27,32 +26,6 @@ const props = withDefaults(
         orientation: 'horizontal',
     }
 );
-
-const isActive = computed(() => {
-    const { editor } = props;
-    if (!editor.isEditable) {
-        return false;
-    }
-
-    return editor.isActive('bulletList') || editor.isActive('orderedList') || editor.isActive('taskList');
-});
-
-const currentList = computed(() => {
-    const { editor } = props;
-    if (!editor.isEditable) {
-        return 'bullet';
-    }
-
-    if (editor.isActive('orderedList')) {
-        return 'ordered';
-    }
-
-    if (editor.isActive('taskList')) {
-        return 'task';
-    }
-
-    return 'bullet';
-});
 </script>
 
 <template>
@@ -60,11 +33,12 @@ const currentList = computed(() => {
         <DropdownMenuTrigger as-child>
             <Button
                 class="data-[active-state=true]:bg-accent gap-0 rounded! px-1!"
-                :data-active-state="isActive"
+                :data-active-state="isActiveAny(editor, lists)"
+                :disabled="!canExecuteAny(editor, lists)"
                 size="sm"
                 variant="ghost"
             >
-                <component :is="LIST_ICONS[currentList]" />
+                <component :is="getCurrentIcon(editor)" />
                 <ChevronDown class="size-2" />
             </Button>
         </DropdownMenuTrigger>

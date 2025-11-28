@@ -6,8 +6,8 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import type { MarkType } from './types';
-import { MARK_ICONS } from './types';
+import type { MarkType } from './utils';
+import { canExecute, execute, getIcon, isActive } from './utils';
 
 const props = withDefaults(
     defineProps<
@@ -32,15 +32,15 @@ const delegatedProps = reactiveOmit(props, 'editor', 'type');
     <Toggle
         v-bind="delegatedProps"
         :class="cn('rounded!', props.class)"
-        :disabled="!editor.isEditable || !editor.can().toggleMark(type)"
-        :model-value="editor.isActive(type)"
+        :disabled="!canExecute(editor, type)"
+        :model-value="isActive(editor, type)"
         @click="
             () => {
-                editor.chain().focus().toggleMark(type).run();
+                execute(editor, type);
                 emits('update:toggle', type);
             }
         "
     >
-        <component :is="MARK_ICONS[type]" />
+        <component :is="getIcon(type)" />
     </Toggle>
 </template>

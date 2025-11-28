@@ -7,7 +7,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
 import MarkButton from './MarkButton.vue';
-import type { MarkType } from './types';
+import type { MarkType } from './utils';
 
 const props = withDefaults(
     defineProps<

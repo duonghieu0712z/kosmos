@@ -7,7 +7,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
 import TextAlignButton from './TextAlignButton.vue';
-import type { TextAlign } from './types';
+import type { TextAlign } from './utils';
 
 const props = withDefaults(
     defineProps<

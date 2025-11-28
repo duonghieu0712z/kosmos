@@ -6,8 +6,8 @@ import type { ButtonGroupProps } from '@/components/ui/button-group';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
-import type { UndoRedoType } from './types';
 import UndoRedoButton from './UndoRedoButton.vue';
+import type { UndoRedoType } from './utils';
 
 const props = withDefaults(
     defineProps<

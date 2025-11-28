@@ -6,8 +6,8 @@ import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { cn } from '@/lib/utils';
 
-import type { HeadingLevel } from './types';
-import { HEADING_ICONS } from './types';
+import type { HeadingLevel } from './utils';
+import { getIcon } from './utils';
 
 const props = withDefaults(
     defineProps<
@@ -43,7 +43,7 @@ const delegatedProps = reactiveOmit(props, 'editor', 'level');
             }
         "
     >
-        <component :is="HEADING_ICONS[level]" />
+        <component :is="getIcon(level)" />
         <div v-if="level === 0" class="flex-1">Paragraph</div>
         <div v-else class="flex-1">Heading {{ level }}</div>
     </Toggle>

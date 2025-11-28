@@ -7,7 +7,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
 import ListButton from './ListButton.vue';
-import type { ListType } from './types';
+import type { ListType } from './utils';
 
 const props = withDefaults(
     defineProps<
