@@ -61,11 +61,11 @@ const { pushTab } = useTabs();
                 "
                 :style="{ 'padding-left': `calc(var(--spacing) * 4 * ${item.level - 0.5})` }"
                 @click="
-                    () => {
+                    async () => {
                         currentItem = item._id;
                         if (!item.hasChildren) {
                             const tab = { id: item._id, name: item.value.name, component: markRaw(Editor) };
-                            pushTab(tab);
+                            await pushTab(tab);
                         }
                     }
                 "

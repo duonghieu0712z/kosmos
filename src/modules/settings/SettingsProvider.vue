@@ -9,8 +9,8 @@ import { provideSettingsContext } from './utils';
 
 const { pushTab } = useTabs();
 
-function openSettings() {
-    pushTab({ id: 'settings', name: 'Settings', icon: markRaw(Settings2), component: markRaw(Settings) });
+async function openSettings() {
+    await pushTab({ id: 'settings', name: 'Settings', icon: markRaw(Settings2), component: markRaw(Settings) });
 }
 
 provideSettingsContext({ openSettings });

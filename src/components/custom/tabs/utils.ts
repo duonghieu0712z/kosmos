@@ -13,7 +13,7 @@ export interface Tab {
 export const [useTabs, provideTabsContext] = createContext<{
     tabs: Reactive<Tab[]>;
     currentTab: Ref<string | undefined>;
-    activeTab: (id: string) => void;
-    pushTab: (tab: Tab) => void;
-    popTab: (id: string) => void;
+    activeTab: (id: string) => Promise<void>;
+    pushTab: (tab: Tab) => Promise<void>;
+    popTab: (id: string) => Promise<void>;
 }>('Tabs');

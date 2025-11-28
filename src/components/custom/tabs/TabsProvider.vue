@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 
 import type { Tab } from './utils';
 import { provideTabsContext } from './utils';
@@ -10,36 +10,37 @@ const tabs = reactive<Tab[]>([]);
 const history = reactive<string[]>([]);
 const currentTab = ref<string>();
 
-function activeTab(id: string) {
-    if (currentTab.value === id) {
-        return;
-    }
-
+async function activeTab(id: string) {
     currentTab.value = id;
     addToHistory(id);
+
+    await nextTick();
+    document.querySelector(`[data-tab-id="kosmos-tab-${currentTab.value}"]`)?.scrollIntoView(true);
 }
 
 function hasTab(id: string) {
     return tabs.some((tab) => tab.id === id);
 }
 
-function pushTab(tab: Tab) {
-    activeTab(tab.id);
+async function pushTab(tab: Tab) {
     if (!hasTab(tab.id)) {
         tabs.push(tab);
     }
+    await activeTab(tab.id);
 }
 
-function popTab(id: string) {
+async function popTab(id: string) {
     const index = tabs.findIndex((tab) => tab.id === id);
-    if (index !== -1) {
-        tabs.splice(index, 1);
-        removeFromHistory(id);
+    if (index === -1) {
+        return;
+    }
 
-        if (currentTab.value === id) {
-            const lastId = history.at(-1);
-            activeTab(lastId!);
-        }
+    tabs.splice(index, 1);
+    removeFromHistory(id);
+
+    if (currentTab.value === id) {
+        const lastId = history.at(-1);
+        await activeTab(lastId!);
     }
 }
 
