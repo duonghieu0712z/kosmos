@@ -9,6 +9,7 @@
         /* Bundler mode */
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
+        "verbatimModuleSyntax": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
@@ -19,7 +20,6 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        "verbatimModuleSyntax": true,
 
         "paths": {
             "@/*": ["./src/*"]
