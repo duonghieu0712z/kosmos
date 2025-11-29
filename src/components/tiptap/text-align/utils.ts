@@ -1,7 +1,7 @@
 import type { Editor } from '@tiptap/vue-3';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'lucide-vue-next';
 
-import { isNodeTypeSelected } from '@/lib/tiptap';
+import { isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
 
 export type TextAlign = 'left' | 'center' | 'right' | 'justify';
 
@@ -10,6 +10,13 @@ const ALIGN_ICONS = {
     center: AlignCenter,
     right: AlignRight,
     justify: AlignJustify,
+} as const;
+
+const ALIGN_SHORTCUTS = {
+    left: 'mod+shift+l',
+    center: 'mod+shift+e',
+    right: 'mod+shift+r',
+    justify: 'mod+shift+j',
 } as const;
 
 export function canExecute(editor: Editor, align: TextAlign) {
@@ -62,4 +69,12 @@ export function getIcon(align: TextAlign) {
 
 export function getCurrentIcon(editor: Editor) {
     return getIcon(getCurrent(editor));
+}
+
+export function getLabel(align: TextAlign) {
+    return `Align ${align}`;
+}
+
+export function getShortcutKeys(align: TextAlign) {
+    return parseShortcutKeys(ALIGN_SHORTCUTS[align]);
 }

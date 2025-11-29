@@ -3,7 +3,7 @@ import type { Editor } from '@tiptap/vue-3';
 import { isNodeSelection, isTextSelection } from '@tiptap/vue-3';
 import { Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-vue-next';
 
-import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition } from '@/lib/tiptap';
+import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
 
 export type HeadingLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -47,7 +47,7 @@ export function isActive(editor: Editor, level: HeadingLevel) {
     if (!editor.isEditable) {
         return false;
     }
-    return level === 0 ? editor.isActive('heading') : editor.isActive('heading', { level });
+    return level !== 0 && editor.isActive('heading', { level });
 }
 
 export function isActiveAny(editor: Editor, levels: HeadingLevel[]) {
@@ -115,4 +115,12 @@ export function getIcon(level: HeadingLevel) {
 
 export function getCurrentIcon(editor: Editor) {
     return getIcon(getCurrent(editor));
+}
+
+export function getLabel(level: HeadingLevel) {
+    return level === 0 ? 'Paragraph' : `Heading ${level}`;
+}
+
+export function getShortcutKeys(level: HeadingLevel) {
+    return parseShortcutKeys(`mod+alt+${level}`);
 }

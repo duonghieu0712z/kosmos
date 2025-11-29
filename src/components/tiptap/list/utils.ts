@@ -3,7 +3,7 @@ import type { Editor } from '@tiptap/vue-3';
 import { isNodeSelection, isTextSelection } from '@tiptap/vue-3';
 import { List, ListChecks, ListOrdered } from 'lucide-vue-next';
 
-import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition } from '@/lib/tiptap';
+import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
 
 export type ListType = 'bullet' | 'ordered' | 'task';
 
@@ -11,6 +11,12 @@ const LIST_ICONS = {
     bullet: List,
     ordered: ListOrdered,
     task: ListChecks,
+} as const;
+
+const LIST_SHORTCUTS = {
+    bullet: 'mod+shift+8',
+    ordered: 'mod+shift+7',
+    task: 'mod+shift+9',
 } as const;
 
 export function canExecute(editor: Editor, type: ListType, turnInto = true) {
@@ -148,4 +154,12 @@ export function getIcon(type: ListType) {
 
 export function getCurrentIcon(editor: Editor) {
     return getIcon(getCurrent(editor));
+}
+
+export function getLabel(type: ListType) {
+    return `${type.replace(/^./, (c) => c.toUpperCase())} list`;
+}
+
+export function getShortcutKeys(type: ListType) {
+    return parseShortcutKeys(LIST_SHORTCUTS[type]);
 }

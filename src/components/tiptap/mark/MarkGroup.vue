@@ -17,7 +17,7 @@ const props = withDefaults(
         }
     >(),
     {
-        marks: () => ['bold', 'italic', 'strike', 'underline', 'code', 'superscript', 'subscript'],
+        marks: () => ['bold', 'italic', 'underline', 'strike', 'code', 'superscript', 'subscript'],
     }
 );
 
