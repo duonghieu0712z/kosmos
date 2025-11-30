@@ -32,10 +32,10 @@ const delegatedProps = reactiveOmit(props, 'editor', 'level');
 
 <template>
     <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger class="flex-1">
             <Toggle
                 v-bind="delegatedProps"
-                :class="cn('rounded!', props.class)"
+                :class="cn('w-full', props.class)"
                 :disabled="!canExecute(editor, level)"
                 :model-value="isActive(editor, level)"
                 @click="

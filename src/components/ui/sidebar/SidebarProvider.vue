@@ -78,7 +78,7 @@ provideSidebarContext({
 </script>
 
 <template>
-    <TooltipProvider :delay-duration="700">
+    <TooltipProvider disable-hoverable-content>
         <div
             :class="cn('group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full', props.class)"
             data-slot="sidebar-wrapper"

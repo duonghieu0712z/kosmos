@@ -10,6 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 import TextAlignButton from './TextAlignButton.vue';
 import type { TextAlign } from './utils';
@@ -30,22 +31,28 @@ withDefaults(
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-            <Button
-                :active="isActiveAny(editor, aligns)"
-                class="gap-0 rounded! px-1!"
-                :disabled="!canExecuteAny(editor, aligns)"
-                size="sm"
-                variant="ghost"
-            >
-                <component :is="getCurrentIcon(editor)" />
-                <ChevronDown class="size-2" />
-            </Button>
+        <DropdownMenuTrigger>
+            <Tooltip>
+                <TooltipTrigger>
+                    <Button
+                        :active="isActiveAny(editor, aligns)"
+                        class="gap-0 px-1!"
+                        :disabled="!canExecuteAny(editor, aligns)"
+                        size="icon-sm"
+                        variant="ghost"
+                    >
+                        <component :is="getCurrentIcon(editor)" />
+                        <ChevronDown class="size-2" />
+                    </Button>
+                </TooltipTrigger>
+
+                <TooltipContent>Text align</TooltipContent>
+            </Tooltip>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" as-child>
-            <ButtonGroup class="gap-0.5 p-0.5" :orientation="orientation">
-                <DropdownMenuItem v-for="align in aligns" :key="align" as-child>
+            <ButtonGroup class="gap-0.5 p-0.5" :orientation="`${orientation}-rounded`">
+                <DropdownMenuItem v-for="align in aligns" :key="align" class="p-0">
                     <TextAlignButton :align="align" :editor="editor" />
                 </DropdownMenuItem>
             </ButtonGroup>

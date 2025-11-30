@@ -17,7 +17,8 @@ const props = withDefaults(
         }
     >(),
     {
-        marks: () => ['bold', 'italic', 'underline', 'strike', 'code', 'superscript', 'subscript'],
+        marks: () => ['bold', 'italic', 'underline', 'strike'],
+        orientation: 'horizontal-rounded',
     }
 );
 

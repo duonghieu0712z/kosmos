@@ -18,6 +18,7 @@ const props = withDefaults(
     >(),
     {
         types: () => ['undo', 'redo'],
+        orientation: 'horizontal-rounded',
     }
 );
 

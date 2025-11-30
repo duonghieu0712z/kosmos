@@ -38,6 +38,10 @@ const editor = new Editor({
             <ButtonGroupSeparator />
             <MarkGroup :editor="editor" />
             <ButtonGroupSeparator />
+            <MarkGroup :editor="editor" :marks="['superscript', 'subscript']" />
+            <ButtonGroupSeparator />
+            <MarkGroup :editor="editor" :marks="['code']" />
+            <ButtonGroupSeparator />
             <TextAlignGroup :editor="editor" />
             <TextAlignDropdown :editor="editor" />
             <ButtonGroupSeparator />

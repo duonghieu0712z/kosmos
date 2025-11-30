@@ -6,7 +6,6 @@ import { ShortcutKeys } from '@/components/custom/shortcut-keys';
 import type { ButtonProps } from '@/components/ui/button';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
 
 import type { UndoRedoType } from './utils';
 import { canExecute, execute, getIcon, getLabel, getShortcutKeys } from './utils';
@@ -36,7 +35,6 @@ const delegatedProps = reactiveOmit(props, 'editor', 'type');
         <TooltipTrigger>
             <Button
                 v-bind="delegatedProps"
-                :class="cn('rounded!', props.class)"
                 :disabled="!canExecute(editor, type)"
                 @click="
                     () => {

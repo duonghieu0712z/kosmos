@@ -16,7 +16,10 @@ const props = withDefaults(
             aligns?: TextAlign[];
         }
     >(),
-    { aligns: () => ['left', 'center', 'right', 'justify'] }
+    {
+        aligns: () => ['left', 'center', 'right', 'justify'],
+        orientation: 'horizontal-rounded',
+    }
 );
 
 const delegatedProps = reactiveOmit(props, 'editor', 'aligns');

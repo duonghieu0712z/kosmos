@@ -18,6 +18,7 @@ const props = withDefaults(
     >(),
     {
         lists: () => ['bullet', 'ordered'],
+        orientation: 'horizontal-rounded',
     }
 );
 
