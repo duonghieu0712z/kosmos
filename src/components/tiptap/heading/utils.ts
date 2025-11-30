@@ -1,6 +1,5 @@
-import { NodeSelection } from '@tiptap/pm/state';
 import type { Editor } from '@tiptap/vue-3';
-import { isNodeSelection, isTextSelection } from '@tiptap/vue-3';
+import { isTextSelection } from '@tiptap/vue-3';
 import { Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-vue-next';
 
 import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
@@ -62,47 +61,11 @@ export function execute(editor: Editor, level: HeadingLevel) {
         return false;
     }
 
-    try {
-        const view = editor.view;
-        const state = view.state;
-        let selection = state.selection;
-        let tr = state.tr;
-
-        if (selection.empty || isTextSelection(selection)) {
-            const pos = findNodePosition(editor, { node: selection.$anchor.node(1) })?.pos;
-            if (!isValidPosition(pos)) {
-                return false;
-            }
-
-            tr = tr.setSelection(NodeSelection.create(state.doc, pos));
-            view.dispatch(tr);
-            selection = view.state.selection;
-        }
-
-        let chain = editor.chain().focus();
-        if (isNodeSelection(selection)) {
-            const firstChild = selection.node.firstChild?.firstChild;
-            const lastChild = selection.node.lastChild?.lastChild;
-
-            const from = firstChild ? selection.from + firstChild.nodeSize : selection.from + 1;
-            const to = lastChild ? selection.to - lastChild.nodeSize : selection.to - 1;
-
-            chain = chain.setTextSelection({ from, to }).clearNodes();
-        }
-
-        if (isActive(editor, level)) {
-            if (level === 0) {
-                chain.setParagraph().run();
-            } else {
-                chain.toggleHeading({ level }).run();
-            }
-        }
-
-        editor.chain().focus().selectTextblockEnd().run();
-        return true;
-    } catch {
-        return false;
+    if (level === 0) {
+        return editor.chain().focus().setParagraph().run();
     }
+
+    return editor.chain().focus().toggleHeading({ level }).run();
 }
 
 function getCurrent(editor: Editor): HeadingLevel {

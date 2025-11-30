@@ -1,6 +1,5 @@
-import { NodeSelection } from '@tiptap/pm/state';
 import type { Editor } from '@tiptap/vue-3';
-import { isNodeSelection, isTextSelection } from '@tiptap/vue-3';
+import { isTextSelection } from '@tiptap/vue-3';
 import { List, ListChecks, ListOrdered } from 'lucide-vue-next';
 
 import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
@@ -81,54 +80,15 @@ export function execute(editor: Editor, type: ListType) {
         return false;
     }
 
-    try {
-        const view = editor.view;
-        const state = view.state;
-        let selection = state.selection;
-        let tr = state.tr;
-
-        if (selection.empty || isTextSelection(selection)) {
-            const pos = findNodePosition(editor, { node: selection.$anchor.node(1) })?.pos;
-            if (!isValidPosition(pos)) {
-                return false;
-            }
-
-            tr = tr.setSelection(NodeSelection.create(state.doc, pos));
-            view.dispatch(tr);
-            selection = view.state.selection;
-        }
-
-        let chain = editor.chain().focus();
-        if (isNodeSelection(selection)) {
-            const firstChild = selection.node.firstChild?.firstChild;
-            const lastChild = selection.node.lastChild?.lastChild;
-
-            const from = firstChild ? selection.from + firstChild.nodeSize : selection.from + 1;
-            const to = lastChild ? selection.to - lastChild.nodeSize : selection.to - 1;
-
-            chain = chain.setTextSelection({ from, to }).clearNodes();
-        }
-
-        if (isActive(editor, type)) {
-            chain.liftListItem('listItem').lift('bulletList').lift('orderedList').lift('taskList').run();
-        } else {
-            switch (type) {
-                case 'bullet':
-                    chain.toggleBulletList().run();
-                    break;
-                case 'ordered':
-                    chain.toggleOrderedList().run();
-                    break;
-                case 'task':
-                    chain.toggleTaskList().run();
-                    break;
-            }
-        }
-
-        editor.chain().focus().selectTextblockEnd().run();
-        return true;
-    } catch {
-        return false;
+    switch (type) {
+        case 'bullet':
+            return editor.chain().focus().toggleBulletList().run();
+        case 'ordered':
+            return editor.chain().focus().toggleOrderedList().run();
+        case 'task':
+            return editor.chain().focus().toggleTaskList().run();
+        default:
+            return false;
     }
 }
 
