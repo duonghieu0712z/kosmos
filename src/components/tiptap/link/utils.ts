@@ -1,6 +1,8 @@
 import type { Editor } from '@tiptap/vue-3';
 import { Link } from 'lucide-vue-next';
 
+const LINK_LABEL = 'Link';
+
 export function canExecute(editor: Editor) {
     if (!editor.isEditable) {
         return false;
@@ -20,5 +22,5 @@ export function getIcon() {
 }
 
 export function getLabel() {
-    return 'Link';
+    return LINK_LABEL;
 }

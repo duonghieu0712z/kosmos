@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Highlight from '@tiptap/extension-highlight';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import TextAlign from '@tiptap/extension-text-align';
@@ -6,6 +7,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 
 import { HeadingDropdown } from '@/components/tiptap/heading';
+import { HighlightButton } from '@/components/tiptap/highlight';
 import { LinkPopover } from '@/components/tiptap/link';
 import { ListDropdown, ListGroup } from '@/components/tiptap/list';
 import { MarkButton, MarkGroup } from '@/components/tiptap/mark';
@@ -25,6 +27,7 @@ const editor = new Editor({
             types: ['paragraph', 'heading'],
             defaultAlignment: 'left',
         }),
+        Highlight.configure({ multicolor: true }),
     ],
     editorProps: {
         attributes: {
@@ -37,7 +40,7 @@ const editor = new Editor({
 
 <template>
     <main v-if="editor" class="flex flex-col">
-        <ButtonGroup class="w-full px-2 pt-2 has-[>[data-slot=button-group]]:gap-0.5">
+        <ButtonGroup class="w-full px-2 pt-2 has-[>[data-slot=button-group]]:gap-0.5" orientation="horizontal-rounded">
             <UndoRedoGroup :editor="editor" />
             <ButtonGroupSeparator />
             <HeadingDropdown :editor="editor" />
@@ -48,6 +51,7 @@ const editor = new Editor({
             <ButtonGroupSeparator />
             <MarkButton :editor="editor" type="code" />
             <LinkPopover :editor="editor" />
+            <HighlightButton color="#ffd7a8" :editor="editor" />
             <ButtonGroupSeparator />
             <TextAlignGroup :editor="editor" />
             <ButtonGroupSeparator />
