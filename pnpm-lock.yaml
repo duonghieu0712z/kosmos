@@ -10,6 +10,9 @@ importers:
             '@tauri-apps/api':
                 specifier: ^2.9.0
                 version: 2.9.0
+            '@tauri-apps/plugin-opener':
+                specifier: ~2.5.2
+                version: 2.5.2
             '@tiptap/extension-subscript':
                 specifier: ^3.11.0
                 version: 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
@@ -1245,6 +1248,12 @@ packages:
             }
         engines: { node: '>= 10' }
         hasBin: true
+
+    '@tauri-apps/plugin-opener@2.5.2':
+        resolution:
+            {
+                integrity: sha512-ei/yRRoCklWHImwpCcDK3VhNXx+QXM9793aQ64YxpqVF0BDuuIlXhZgiAkc15wnPVav+IbkYhmDJIv5R326Mew==,
+            }
 
     '@tiptap/core@3.11.0':
         resolution:
@@ -4391,6 +4400,10 @@ snapshots:
             '@tauri-apps/cli-win32-arm64-msvc': 2.9.4
             '@tauri-apps/cli-win32-ia32-msvc': 2.9.4
             '@tauri-apps/cli-win32-x64-msvc': 2.9.4
+
+    '@tauri-apps/plugin-opener@2.5.2':
+        dependencies:
+            '@tauri-apps/api': 2.9.0
 
     '@tiptap/core@3.11.0(@tiptap/pm@3.11.0)':
         dependencies:

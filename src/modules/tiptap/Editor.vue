@@ -6,8 +6,9 @@ import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 
 import { HeadingDropdown } from '@/components/tiptap/heading';
+import { LinkPopover } from '@/components/tiptap/link';
 import { ListDropdown, ListGroup } from '@/components/tiptap/list';
-import { MarkGroup } from '@/components/tiptap/mark';
+import { MarkButton, MarkGroup } from '@/components/tiptap/mark';
 import { TextAlignDropdown, TextAlignGroup } from '@/components/tiptap/text-align';
 import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
@@ -15,10 +16,15 @@ import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group'
 const editor = new Editor({
     content: '<h1>Welcome to Kosmos!</h1>',
     extensions: [
-        StarterKit,
+        StarterKit.configure({
+            link: { openOnClick: 'whenNotEditable' },
+        }),
         Superscript,
         Subscript,
-        TextAlign.configure({ types: ['paragraph', 'heading'], defaultAlignment: 'left' }),
+        TextAlign.configure({
+            types: ['paragraph', 'heading'],
+            defaultAlignment: 'left',
+        }),
     ],
     editorProps: {
         attributes: {
@@ -40,12 +46,14 @@ const editor = new Editor({
             <ButtonGroupSeparator />
             <MarkGroup :editor="editor" :marks="['superscript', 'subscript']" />
             <ButtonGroupSeparator />
-            <MarkGroup :editor="editor" :marks="['code']" />
+            <MarkButton :editor="editor" type="code" />
+            <LinkPopover :editor="editor" />
             <ButtonGroupSeparator />
             <TextAlignGroup :editor="editor" />
-            <TextAlignDropdown :editor="editor" />
             <ButtonGroupSeparator />
             <ListGroup :editor="editor" />
+            <ButtonGroupSeparator />
+            <TextAlignDropdown :editor="editor" />
             <ListDropdown :editor="editor" />
         </ButtonGroup>
 
