@@ -33,7 +33,7 @@ const { canToggle, isActive, label, icon } = useHeadings(config);
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger :disabled="canToggle">
+        <DropdownMenuTrigger :disabled="!canToggle">
             <Tooltip>
                 <TooltipTrigger>
                     <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive" size="sm">
