@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
-import { reactiveOmit } from '@vueuse/core';
+import { reactiveOmit, reactivePick } from '@vueuse/core';
 
-import { ShortcutKeys } from '@/components/custom/shortcut-keys';
 import type { ButtonProps } from '@/components/ui/button';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-import type { UndoRedoType } from './utils';
-import { canExecute, execute, getIcon, getLabel, getShortcutKeys } from './utils';
+import type { UndoRedoAction, UseUndoRedoConfig } from './utils';
+import { useUndoRedo } from './utils';
 
 const props = withDefaults(
     defineProps<
         ButtonProps & {
             editor: Editor;
-            type: UndoRedoType;
+            action: UndoRedoAction;
         }
     >(),
     {
@@ -24,31 +23,29 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-    (e: 'update:action', type: UndoRedoType): void;
+    (e: 'update:executed', action: UndoRedoAction): void;
 }>();
 
-const delegatedProps = reactiveOmit(props, 'editor', 'type');
+const delegatedProps = reactiveOmit(props, 'editor', 'action');
+
+const config = reactivePick(props, 'editor', 'action') as UseUndoRedoConfig;
+const { canExecute, label, icon, handleExecute } = useUndoRedo(config);
+
+function onClick() {
+    if (handleExecute()) {
+        emits('update:executed', config.action);
+    }
+}
 </script>
 
 <template>
     <Tooltip>
         <TooltipTrigger>
-            <Button
-                v-bind="delegatedProps"
-                :disabled="!canExecute(editor, type)"
-                @click="
-                    () => {
-                        execute(editor, type);
-                        emits('update:action', type);
-                    }
-                "
-            >
-                <component :is="getIcon(type)" />
+            <Button v-bind="delegatedProps" :disabled="!canExecute" @click="onClick">
+                <component :is="icon" />
             </Button>
         </TooltipTrigger>
 
-        <TooltipContent>
-            {{ getLabel(type) }} (<ShortcutKeys :shortcut-keys="getShortcutKeys(type)"></ShortcutKeys>)
-        </TooltipContent>
+        <TooltipContent>{{ label }}</TooltipContent>
     </Tooltip>
 </template>

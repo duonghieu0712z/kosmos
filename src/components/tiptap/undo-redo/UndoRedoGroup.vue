@@ -7,26 +7,26 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { cn } from '@/lib/utils';
 
 import UndoRedoButton from './UndoRedoButton.vue';
-import type { UndoRedoType } from './utils';
+import type { UndoRedoAction } from './utils';
 
 const props = withDefaults(
     defineProps<
         ButtonGroupProps & {
             editor: Editor;
-            types?: UndoRedoType[];
+            actions?: UndoRedoAction[];
         }
     >(),
     {
-        types: () => ['undo', 'redo'],
+        actions: () => ['undo', 'redo'],
         orientation: 'horizontal-rounded',
     }
 );
 
-const delegatedProps = reactiveOmit(props, 'editor', 'types');
+const delegatedProps = reactiveOmit(props, 'editor', 'actions');
 </script>
 
 <template>
     <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
-        <UndoRedoButton v-for="type in types" :key="type" :editor="editor" :type="type" />
+        <UndoRedoButton v-for="action in actions" :key="action" :action="action" :editor="editor" />
     </ButtonGroup>
 </template>

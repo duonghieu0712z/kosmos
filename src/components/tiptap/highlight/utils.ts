@@ -1,12 +1,18 @@
 import type { Editor } from '@tiptap/vue-3';
 import { Highlighter } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { isMarkInSchema, isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
 
-const HIGHLIGHT_LABEL = 'Highlight';
-const HIGHLIGHT_SHORTCUT = 'mod+shift+h';
+export interface UseHighlightConfig {
+    editor: Editor;
+    color: string;
+}
 
-export function canExecute(editor: Editor) {
+const HIGHLIGHT_LABEL = 'Highlight';
+const HIGHLIGHT_SHORTCUT_KEY = 'mod+shift+h';
+
+function canSetColorHighlight(editor: Editor) {
     if (!editor.isEditable) {
         return false;
     }
@@ -18,15 +24,15 @@ export function canExecute(editor: Editor) {
     return editor.can().setHighlight();
 }
 
-export function isActive(editor: Editor, color?: string) {
+function isActiveColorHighlight(editor: Editor, color?: string) {
     if (!editor.isEditable) {
         return false;
     }
     return color ? editor.isActive('highlight', { color }) : editor.isActive('highlight');
 }
 
-export function setHighlight(editor: Editor, color: string) {
-    if (!canExecute(editor)) {
+function setColorHighlight(editor: Editor, color: string) {
+    if (!canSetColorHighlight(editor)) {
         return false;
     }
 
@@ -40,21 +46,27 @@ export function setHighlight(editor: Editor, color: string) {
     return editor.chain().focus().toggleHighlight({ color }).run();
 }
 
-export function unsetHighlight(editor: Editor) {
-    if (!canExecute(editor)) {
+function removeColorHighlight(editor: Editor) {
+    if (!canSetColorHighlight(editor)) {
         return false;
     }
     return editor.chain().focus().unsetHighlight().run();
 }
 
-export function getIcon() {
-    return Highlighter;
-}
+export function useHighlight(config: UseHighlightConfig) {
+    const { editor, color } = config;
+    const canHighlight = computed(() => canSetColorHighlight(editor));
+    const isActive = computed(() => isActiveColorHighlight(editor, color));
+    const setHighlight = () => setColorHighlight(editor, color);
+    const removeHighlight = () => removeColorHighlight(editor);
 
-export function getLabel(label?: string) {
-    return label ?? HIGHLIGHT_LABEL;
-}
-
-export function getShortcutKeys() {
-    return parseShortcutKeys(HIGHLIGHT_SHORTCUT);
+    return {
+        canHighlight,
+        isActive,
+        label: HIGHLIGHT_LABEL,
+        icon: Highlighter,
+        shortcutKeys: parseShortcutKeys(HIGHLIGHT_SHORTCUT_KEY),
+        setHighlight,
+        removeHighlight,
+    };
 }

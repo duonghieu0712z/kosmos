@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
+import { reactivePick } from '@vueuse/core';
 import { ChevronDown } from 'lucide-vue-next';
 
-import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
     DropdownMenu,
@@ -10,13 +10,14 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 import HeadingButton from './HeadingButton.vue';
-import type { HeadingLevel } from './utils';
-import { canExecuteAny, getCurrentIcon, isActiveAny } from './utils';
+import type { HeadingLevel, UseHeadingsConfig } from './utils';
+import { useHeadings } from './utils';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         editor: Editor;
         levels?: HeadingLevel[];
@@ -25,26 +26,23 @@ withDefaults(
         levels: () => [1, 2, 3, 4, 0],
     }
 );
+
+const config = reactivePick(props, 'editor', 'levels') as UseHeadingsConfig;
+const { canToggle, isActive, label, icon } = useHeadings(config);
 </script>
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger :disabled="canToggle">
             <Tooltip>
                 <TooltipTrigger>
-                    <Button
-                        class="data-[active-state=true]:bg-accent gap-0 px-1!"
-                        :data-active-state="isActiveAny(editor, levels)"
-                        :disabled="!canExecuteAny(editor, levels)"
-                        size="icon-sm"
-                        variant="ghost"
-                    >
-                        <component :is="getCurrentIcon(editor)" />
+                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive" size="sm">
+                        <component :is="icon" />
                         <ChevronDown class="size-2" />
-                    </Button>
+                    </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>Heading</TooltipContent>
+                <TooltipContent>{{ label }}</TooltipContent>
             </Tooltip>
         </DropdownMenuTrigger>
 

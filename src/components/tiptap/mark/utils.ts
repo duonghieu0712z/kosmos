@@ -1,9 +1,15 @@
 import type { Editor } from '@tiptap/vue-3';
 import { Bold, Code2, Italic, Strikethrough, Subscript, Superscript, Underline } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { isMarkInSchema, isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
 
 export type MarkType = 'bold' | 'italic' | 'underline' | 'strike' | 'code' | 'superscript' | 'subscript';
+
+export interface UseMarkConfig {
+    editor: Editor;
+    mark: MarkType;
+}
 
 const MARK_ICONS = {
     bold: Bold,
@@ -15,7 +21,7 @@ const MARK_ICONS = {
     subscript: Subscript,
 } as const;
 
-const MARK_SHORTCUTS = {
+const MARK_SHORTCUT_KEYS = {
     bold: 'mod+b',
     italic: 'mod+i',
     underline: 'mod+u',
@@ -25,40 +31,48 @@ const MARK_SHORTCUTS = {
     subscript: 'mod+,',
 } as const;
 
-export function canExecute(editor: Editor, type: MarkType) {
+function canToggleMark(editor: Editor, mark: MarkType) {
     if (!editor.isEditable) {
         return false;
     }
 
-    if (!isMarkInSchema(editor, type) || isNodeTypeSelected(editor, ['image'])) {
+    if (!isMarkInSchema(editor, mark) || isNodeTypeSelected(editor, ['image'])) {
         return false;
     }
 
-    return editor.can().toggleMark(type);
+    return editor.can().toggleMark(mark);
 }
 
-export function isActive(editor: Editor, type: MarkType) {
+function isActiveMark(editor: Editor, mark: MarkType) {
     if (!editor.isEditable) {
         return false;
     }
-    return editor.isActive(type);
+    return editor.isActive(mark);
 }
 
-export function execute(editor: Editor, type: MarkType) {
-    if (!canExecute(editor, type)) {
+function toggleMark(editor: Editor, mark: MarkType) {
+    if (!canToggleMark(editor, mark)) {
         return false;
     }
-    return editor.chain().focus().toggleMark(type).run();
+    return editor.chain().focus().toggleMark(mark).run();
 }
 
-export function getIcon(type: MarkType) {
-    return MARK_ICONS[type];
-}
-
-export function getLabel(type: MarkType) {
+function getLabelMark(type: MarkType) {
     return type.replace(/^./, (c) => c.toUpperCase());
 }
 
-export function getShortcutKeys(type: MarkType) {
-    return parseShortcutKeys(MARK_SHORTCUTS[type]);
+export function useMark(config: UseMarkConfig) {
+    const { editor, mark } = config;
+    const canToggle = computed(() => canToggleMark(editor, mark));
+    const isActive = computed(() => isActiveMark(editor, mark));
+    const handleToggle = () => toggleMark(editor, mark);
+
+    return {
+        canToggle,
+        isActive,
+        label: getLabelMark(mark),
+        icon: MARK_ICONS[mark],
+        shortcutKeys: parseShortcutKeys(MARK_SHORTCUT_KEYS[mark]),
+        handleToggle,
+    };
 }

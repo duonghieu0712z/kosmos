@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
+import { reactivePick } from '@vueuse/core';
 import { ChevronDown } from 'lucide-vue-next';
 
-import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
     DropdownMenu,
@@ -10,13 +10,14 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 import ListButton from './ListButton.vue';
-import type { ListType } from './utils';
-import { canExecuteAny, getCurrentIcon, isActiveAny } from './utils';
+import type { ListType, UseListsConfig } from './utils';
+import { useLists } from './utils';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         editor: Editor;
         lists?: ListType[];
@@ -27,33 +28,30 @@ withDefaults(
         orientation: 'horizontal',
     }
 );
+
+const config = reactivePick(props, 'editor', 'lists') as UseListsConfig;
+const { canToggle, isActive, label, icon } = useLists(config);
 </script>
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger :disabled="!canToggle">
             <Tooltip>
                 <TooltipTrigger>
-                    <Button
-                        class="data-[active-state=true]:bg-accent gap-0 px-1!"
-                        :data-active-state="isActiveAny(editor, lists)"
-                        :disabled="!canExecuteAny(editor, lists)"
-                        size="icon-sm"
-                        variant="ghost"
-                    >
-                        <component :is="getCurrentIcon(editor)" />
+                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive" size="sm">
+                        <component :is="icon" />
                         <ChevronDown class="size-2" />
-                    </Button>
+                    </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>List</TooltipContent>
+                <TooltipContent>{{ label }}</TooltipContent>
             </Tooltip>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" as-child>
             <ButtonGroup class="min-w-0 gap-0.5 p-0.5" :orientation="`${orientation}-rounded`">
                 <DropdownMenuItem v-for="list in lists" :key="list" class="p-0">
-                    <ListButton :editor="editor" :type="list" />
+                    <ListButton :editor="editor" :list="list" />
                 </DropdownMenuItem>
             </ButtonGroup>
         </DropdownMenuContent>

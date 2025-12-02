@@ -27,6 +27,6 @@ const delegatedProps = reactiveOmit(props, 'editor', 'marks');
 
 <template>
     <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
-        <MarkButton v-for="mark in marks" :key="mark" :editor="editor" :type="mark" />
+        <MarkButton v-for="mark in marks" :key="mark" :editor="editor" :mark="mark" />
     </ButtonGroup>
 </template>

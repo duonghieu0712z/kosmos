@@ -1,21 +1,27 @@
 import type { Editor } from '@tiptap/vue-3';
 import { Redo, Undo } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
 
-export type UndoRedoType = 'undo' | 'redo';
+export type UndoRedoAction = 'undo' | 'redo';
+
+export interface UseUndoRedoConfig {
+    editor: Editor;
+    action: UndoRedoAction;
+}
 
 const UNDO_REDO_ICONS = {
     undo: Undo,
     redo: Redo,
 } as const;
 
-const UNDO_REDO_SHORTCUTS = {
+const UNDO_REDO_SHORTCUT_KEYS = {
     undo: 'mod+z',
     redo: 'mod+shift+z',
 } as const;
 
-export function canExecute(editor: Editor, type: UndoRedoType) {
+function canExecuteAction(editor: Editor, action: UndoRedoAction) {
     if (!editor.isEditable) {
         return false;
     }
@@ -24,24 +30,30 @@ export function canExecute(editor: Editor, type: UndoRedoType) {
         return false;
     }
 
-    return editor.can()[type]();
+    return editor.can()[action]();
 }
 
-export function execute(editor: Editor, type: UndoRedoType) {
-    if (!canExecute(editor, type)) {
+function executeAction(editor: Editor, action: UndoRedoAction) {
+    if (!canExecuteAction(editor, action)) {
         return false;
     }
-    return editor.chain().focus()[type]().run();
+    return editor.chain().focus()[action]().run();
 }
 
-export function getIcon(type: UndoRedoType) {
-    return UNDO_REDO_ICONS[type];
+function getLabelAction(action: UndoRedoAction) {
+    return action.replace(/^./, (c) => c.toUpperCase());
 }
 
-export function getLabel(type: UndoRedoType) {
-    return type.replace(/^./, (c) => c.toUpperCase());
-}
+export function useUndoRedo(config: UseUndoRedoConfig) {
+    const { editor, action } = config;
+    const canExecute = computed(() => canExecuteAction(editor, action));
+    const handleExecute = () => executeAction(editor, action);
 
-export function getShortcutKeys(type: UndoRedoType) {
-    return parseShortcutKeys(UNDO_REDO_SHORTCUTS[type]);
+    return {
+        canExecute,
+        label: getLabelAction(action),
+        icon: UNDO_REDO_ICONS[action],
+        shortcutKeys: parseShortcutKeys(UNDO_REDO_SHORTCUT_KEYS[action]),
+        handleExecute,
+    };
 }

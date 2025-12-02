@@ -1,25 +1,38 @@
 import type { Editor } from '@tiptap/vue-3';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
 
 export type TextAlign = 'left' | 'center' | 'right' | 'justify';
 
-const ALIGN_ICONS = {
+export interface UseTextAlignConfig {
+    editor: Editor;
+    align: TextAlign;
+}
+
+export interface UseTextAlignsConfig {
+    editor: Editor;
+    aligns: TextAlign[];
+}
+
+const TEXT_ALIGN_LABEL = 'Text align';
+
+const TEXT_ALIGN_ICONS = {
     left: AlignLeft,
     center: AlignCenter,
     right: AlignRight,
     justify: AlignJustify,
 } as const;
 
-const ALIGN_SHORTCUTS = {
+const TEXT_ALIGN_SHORTCUT_KEYS = {
     left: 'mod+shift+l',
     center: 'mod+shift+e',
     right: 'mod+shift+r',
     justify: 'mod+shift+j',
 } as const;
 
-export function canExecute(editor: Editor, align: TextAlign) {
+function canSetTextAlign(editor: Editor, align: TextAlign) {
     if (!editor.isEditable) {
         return false;
     }
@@ -31,50 +44,59 @@ export function canExecute(editor: Editor, align: TextAlign) {
     return editor.can().setTextAlign(align);
 }
 
-export function canExecuteAny(editor: Editor, aligns: TextAlign[]) {
+function canSetAnyTextAlign(editor: Editor, aligns: TextAlign[]) {
     if (!editor.isEditable) {
         return false;
     }
-    return aligns.some((align) => canExecute(editor, align));
+    return aligns.some((align) => canSetTextAlign(editor, align));
 }
 
-export function isActive(editor: Editor, align: TextAlign) {
+function isActiveTextAlign(editor: Editor, align: TextAlign) {
     if (!editor.isEditable) {
         return false;
     }
     return editor.isActive({ textAlign: align });
 }
 
-export function isActiveAny(editor: Editor, aligns: TextAlign[]) {
-    if (!editor.isEditable) {
-        return false;
-    }
-    return aligns.some((align) => isActive(editor, align));
-}
-
-export function execute(editor: Editor, align: TextAlign) {
-    if (!canExecute(editor, align)) {
+function setTextAlign(editor: Editor, align: TextAlign) {
+    if (!canSetTextAlign(editor, align)) {
         return false;
     }
     return editor.chain().focus().setTextAlign(align).run();
 }
 
-function getCurrent(editor: Editor): TextAlign {
+function getCurrentTextAlign(editor: Editor): TextAlign {
     return editor.getAttributes('paragraph').textAlign ?? editor.getAttributes('heading').textAlign ?? 'left';
 }
 
-export function getIcon(align: TextAlign) {
-    return ALIGN_ICONS[align];
-}
-
-export function getCurrentIcon(editor: Editor) {
-    return getIcon(getCurrent(editor));
-}
-
-export function getLabel(align: TextAlign) {
+function getLabelTextAlign(align: TextAlign) {
     return `Align ${align}`;
 }
 
-export function getShortcutKeys(align: TextAlign) {
-    return parseShortcutKeys(ALIGN_SHORTCUTS[align]);
+export function useTextAlign(config: UseTextAlignConfig) {
+    const { editor, align } = config;
+    const canAlign = computed(() => canSetTextAlign(editor, align));
+    const isActive = computed(() => isActiveTextAlign(editor, align));
+    const handleAlign = () => setTextAlign(editor, align);
+
+    return {
+        canAlign,
+        isActive,
+        label: getLabelTextAlign(align),
+        icon: TEXT_ALIGN_ICONS[align],
+        shortcutKeys: parseShortcutKeys(TEXT_ALIGN_SHORTCUT_KEYS[align]),
+        handleAlign,
+    };
+}
+
+export function useTextAligns(config: UseTextAlignsConfig) {
+    const { editor, aligns } = config;
+    const canAlign = computed(() => canSetAnyTextAlign(editor, aligns));
+    const icon = computed(() => TEXT_ALIGN_ICONS[getCurrentTextAlign(editor)]);
+
+    return {
+        canAlign,
+        label: TEXT_ALIGN_LABEL,
+        icon,
+    };
 }

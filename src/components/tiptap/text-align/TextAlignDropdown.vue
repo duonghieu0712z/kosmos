@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
+import { reactivePick } from '@vueuse/core';
 import { ChevronDown } from 'lucide-vue-next';
 
 import { Button } from '@/components/ui/button';
@@ -13,10 +14,10 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 import TextAlignButton from './TextAlignButton.vue';
-import type { TextAlign } from './utils';
-import { canExecuteAny, getCurrentIcon, isActiveAny } from './utils';
+import type { TextAlign, UseTextAlignsConfig } from './utils';
+import { useTextAligns } from './utils';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         editor: Editor;
         aligns?: TextAlign[];
@@ -27,26 +28,23 @@ withDefaults(
         orientation: 'horizontal',
     }
 );
+
+const config = reactivePick(props, 'editor', 'aligns') as UseTextAlignsConfig;
+const { canAlign, label, icon } = useTextAligns(config);
 </script>
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger :disabled="!canAlign">
             <Tooltip>
                 <TooltipTrigger>
-                    <Button
-                        :active="isActiveAny(editor, aligns)"
-                        class="gap-0 px-1!"
-                        :disabled="!canExecuteAny(editor, aligns)"
-                        size="icon-sm"
-                        variant="ghost"
-                    >
-                        <component :is="getCurrentIcon(editor)" />
+                    <Button class="gap-0 px-1!" :disabled="!canAlign" size="icon-sm" variant="ghost">
+                        <component :is="icon" />
                         <ChevronDown class="size-2" />
                     </Button>
                 </TooltipTrigger>
 
-                <TooltipContent>Text align</TooltipContent>
+                <TooltipContent>{{ label }}</TooltipContent>
             </Tooltip>
         </DropdownMenuTrigger>
 

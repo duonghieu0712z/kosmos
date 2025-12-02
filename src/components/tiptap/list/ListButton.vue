@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
-import { reactiveOmit } from '@vueuse/core';
+import { reactiveOmit, reactivePick } from '@vueuse/core';
 
-import { ShortcutKeys } from '@/components/custom/shortcut-keys';
 import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-import type { ListType } from './utils';
-import { canExecute, execute, getIcon, getLabel, getShortcutKeys, isActive } from './utils';
+import type { ListType, UseListConfig } from './utils';
+import { useList } from './utils';
 
 const props = withDefaults(
     defineProps<
         ToggleProps & {
             editor: Editor;
-            type: ListType;
+            list: ListType;
         }
     >(),
     {
@@ -23,32 +22,29 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-    (e: 'update:toggle', type: ListType): void;
+    (e: 'update:toggled', list: ListType): void;
 }>();
 
-const delegatedProps = reactiveOmit(props, 'editor', 'type');
+const delegatedProps = reactiveOmit(props, 'editor', 'list');
+
+const config = reactivePick(props, 'editor', 'list') as UseListConfig;
+const { canToggle, isActive, label, icon, handleToggle } = useList(config);
+
+function onClick() {
+    if (handleToggle()) {
+        emits('update:toggled', config.list);
+    }
+}
 </script>
 
 <template>
     <Tooltip>
         <TooltipTrigger>
-            <Toggle
-                v-bind="delegatedProps"
-                :disabled="!canExecute(editor, type)"
-                :model-value="isActive(editor, type)"
-                @click="
-                    () => {
-                        execute(editor, type);
-                        emits('update:toggle', type);
-                    }
-                "
-            >
-                <component :is="getIcon(type)" />
+            <Toggle v-bind="delegatedProps" :disabled="!canToggle" :model-value="isActive" @click="onClick">
+                <component :is="icon" />
             </Toggle>
         </TooltipTrigger>
 
-        <TooltipContent>
-            {{ getLabel(type) }} (<ShortcutKeys :shortcut-keys="getShortcutKeys(type)"></ShortcutKeys>)
-        </TooltipContent>
+        <TooltipContent>{{ label }}</TooltipContent>
     </Tooltip>
 </template>

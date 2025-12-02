@@ -1,10 +1,23 @@
 import type { Editor } from '@tiptap/vue-3';
 import { isTextSelection } from '@tiptap/vue-3';
 import { List, ListChecks, ListOrdered } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
 
 export type ListType = 'bullet' | 'ordered' | 'task';
+
+export interface UseListConfig {
+    editor: Editor;
+    list: ListType;
+}
+
+export interface UseListsConfig {
+    editor: Editor;
+    lists: ListType[];
+}
+
+const LIST_LABEL = 'List';
 
 const LIST_ICONS = {
     bullet: List,
@@ -12,23 +25,23 @@ const LIST_ICONS = {
     task: ListChecks,
 } as const;
 
-const LIST_SHORTCUTS = {
+const LIST_SHORTCUT_KEYS = {
     bullet: 'mod+shift+8',
     ordered: 'mod+shift+7',
     task: 'mod+shift+9',
 } as const;
 
-export function canExecute(editor: Editor, type: ListType, turnInto = true) {
+function canToggleList(editor: Editor, list: ListType, turnInto = true) {
     if (!editor.isEditable) {
         return false;
     }
 
-    if (!isNodeInSchema(editor, `${type}List`) || isNodeTypeSelected(editor, ['image'])) {
+    if (!isNodeInSchema(editor, `${list}List`) || isNodeTypeSelected(editor, ['image'])) {
         return false;
     }
 
     if (!turnInto) {
-        switch (type) {
+        switch (list) {
             case 'bullet':
                 return editor.can().toggleBulletList();
             case 'ordered':
@@ -54,33 +67,33 @@ export function canExecute(editor: Editor, type: ListType, turnInto = true) {
     }
 }
 
-export function canExecuteAny(editor: Editor, lists: ListType[]) {
+function canToggleAnyList(editor: Editor, lists: ListType[]) {
     if (!editor.isEditable) {
         return false;
     }
-    return lists.some((type) => canExecute(editor, type));
+    return lists.some((list) => canToggleList(editor, list));
 }
 
-export function isActive(editor: Editor, type: ListType) {
+function isActiveList(editor: Editor, list: ListType) {
     if (!editor.isEditable) {
         return false;
     }
-    return editor.isActive(`${type}List`);
+    return editor.isActive(`${list}List`);
 }
 
-export function isActiveAny(editor: Editor, lists: ListType[]) {
+function isActiveAnyList(editor: Editor, lists: ListType[]) {
     if (!editor.isEditable) {
         return false;
     }
-    return lists.some((type) => isActive(editor, type));
+    return lists.some((list) => isActiveList(editor, list));
 }
 
-export function execute(editor: Editor, type: ListType) {
-    if (!canExecute(editor, type)) {
+function toggleList(editor: Editor, list: ListType) {
+    if (!canToggleList(editor, list)) {
         return false;
     }
 
-    switch (type) {
+    switch (list) {
         case 'bullet':
             return editor.chain().focus().toggleBulletList().run();
         case 'ordered':
@@ -92,7 +105,7 @@ export function execute(editor: Editor, type: ListType) {
     }
 }
 
-function getCurrent(editor: Editor): ListType {
+function getCurrentList(editor: Editor): ListType {
     if (!editor.isEditable) {
         return 'bullet';
     }
@@ -108,18 +121,36 @@ function getCurrent(editor: Editor): ListType {
     return 'bullet';
 }
 
-export function getIcon(type: ListType) {
-    return LIST_ICONS[type];
+function getLabelList(list: ListType) {
+    return `${list.replace(/^./, (c) => c.toUpperCase())} list`;
 }
 
-export function getCurrentIcon(editor: Editor) {
-    return getIcon(getCurrent(editor));
+export function useList(config: UseListConfig) {
+    const { editor, list } = config;
+    const canToggle = computed(() => canToggleList(editor, list));
+    const isActive = computed(() => isActiveList(editor, list));
+    const handleToggle = () => toggleList(editor, list);
+
+    return {
+        canToggle,
+        isActive,
+        label: getLabelList(list),
+        icon: LIST_ICONS[list],
+        shortcutKeys: parseShortcutKeys(LIST_SHORTCUT_KEYS[list]),
+        handleToggle,
+    };
 }
 
-export function getLabel(type: ListType) {
-    return `${type.replace(/^./, (c) => c.toUpperCase())} list`;
-}
+export function useLists(config: UseListsConfig) {
+    const { editor, lists } = config;
+    const canToggle = computed(() => canToggleAnyList(editor, lists));
+    const isActive = computed(() => isActiveAnyList(editor, lists));
+    const icon = computed(() => LIST_ICONS[getCurrentList(editor)]);
 
-export function getShortcutKeys(type: ListType) {
-    return parseShortcutKeys(LIST_SHORTCUTS[type]);
+    return {
+        canToggle,
+        isActive,
+        label: LIST_LABEL,
+        icon,
+    };
 }

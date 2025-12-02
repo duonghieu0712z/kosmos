@@ -19,7 +19,13 @@ const editor = new Editor({
     content: '<h1>Welcome to Kosmos!</h1>',
     extensions: [
         StarterKit.configure({
-            link: { openOnClick: 'whenNotEditable' },
+            link: {
+                openOnClick: 'whenNotEditable',
+                enableClickSelection: true,
+                HTMLAttributes: {
+                    target: null,
+                },
+            },
         }),
         Superscript,
         Subscript,
@@ -49,7 +55,7 @@ const editor = new Editor({
             <ButtonGroupSeparator />
             <MarkGroup :editor="editor" :marks="['superscript', 'subscript']" />
             <ButtonGroupSeparator />
-            <MarkButton :editor="editor" type="code" />
+            <MarkButton :editor="editor" mark="code" />
             <LinkPopover :editor="editor" />
             <HighlightButton color="#ffd7a8" :editor="editor" />
             <ButtonGroupSeparator />

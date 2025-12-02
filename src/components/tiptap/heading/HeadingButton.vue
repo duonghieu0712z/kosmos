@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
-import { reactiveOmit } from '@vueuse/core';
+import { reactiveOmit, reactivePick } from '@vueuse/core';
 
-import { ShortcutKeys } from '@/components/custom/shortcut-keys';
 import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
-import type { HeadingLevel } from './utils';
-import { canExecute, execute, getIcon, getLabel, getShortcutKeys, isActive } from './utils';
+import type { HeadingLevel, UseHeadingConfig } from './utils';
+import { useHeading } from './utils';
 
 const props = withDefaults(
     defineProps<
@@ -24,34 +22,30 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-    (e: 'update:toggle', level: HeadingLevel): void;
+    (e: 'update:toggled', level: HeadingLevel): void;
 }>();
 
 const delegatedProps = reactiveOmit(props, 'editor', 'level');
+
+const config = reactivePick(props, 'editor', 'level') as UseHeadingConfig;
+const { canToggle, isActive, label, icon, handleToggle } = useHeading(config);
+
+function onClick() {
+    if (handleToggle()) {
+        emits('update:toggled', config.level);
+    }
+}
 </script>
 
 <template>
-    <Tooltip>
-        <TooltipTrigger class="flex-1">
-            <Toggle
-                v-bind="delegatedProps"
-                :class="cn('w-full', props.class)"
-                :disabled="!canExecute(editor, level)"
-                :model-value="isActive(editor, level)"
-                @click="
-                    () => {
-                        execute(editor, level);
-                        emits('update:toggle', level);
-                    }
-                "
-            >
-                <component :is="getIcon(level)" />
-                <div class="flex-1">{{ getLabel(level) }}</div>
-            </Toggle>
-        </TooltipTrigger>
-
-        <TooltipContent side="right">
-            <ShortcutKeys :shortcut-keys="getShortcutKeys(level)"></ShortcutKeys>
-        </TooltipContent>
-    </Tooltip>
+    <Toggle
+        v-bind="delegatedProps"
+        :class="cn('w-full', props.class)"
+        :disabled="!canToggle"
+        :model-value="isActive"
+        @click="onClick"
+    >
+        <component :is="icon" />
+        <div class="flex-1">{{ label }}</div>
+    </Toggle>
 </template>

@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
-import { reactiveOmit } from '@vueuse/core';
+import { reactiveOmit, reactivePick } from '@vueuse/core';
 
-import { ShortcutKeys } from '@/components/custom/shortcut-keys';
 import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-import type { TextAlign } from './utils';
-import { canExecute, execute, getIcon, getLabel, getShortcutKeys, isActive } from './utils';
+import type { TextAlign, UseTextAlignConfig } from './utils';
+import { useTextAlign } from './utils';
 
 const props = withDefaults(
     defineProps<
@@ -27,28 +26,25 @@ const emits = defineEmits<{
 }>();
 
 const delegatedProps = reactiveOmit(props, 'editor', 'align');
+
+const config = reactivePick(props, 'editor', 'align') as UseTextAlignConfig;
+const { canAlign, isActive, label, icon, handleAlign } = useTextAlign(config);
+
+function onClick() {
+    if (handleAlign()) {
+        emits('update:toggle', config.align);
+    }
+}
 </script>
 
 <template>
     <Tooltip>
         <TooltipTrigger>
-            <Toggle
-                v-bind="delegatedProps"
-                :disabled="!canExecute(editor, align)"
-                :model-value="isActive(editor, align)"
-                @click="
-                    () => {
-                        execute(editor, align);
-                        emits('update:toggle', align);
-                    }
-                "
-            >
-                <component :is="getIcon(align)" />
+            <Toggle v-bind="delegatedProps" :disabled="!canAlign" :model-value="isActive" @click="onClick">
+                <component :is="icon" />
             </Toggle>
         </TooltipTrigger>
 
-        <TooltipContent>
-            {{ getLabel(align) }} (<ShortcutKeys :shortcut-keys="getShortcutKeys(align)"></ShortcutKeys>)
-        </TooltipContent>
+        <TooltipContent>{{ label }}</TooltipContent>
     </Tooltip>
 </template>

@@ -1,14 +1,27 @@
 import type { Editor } from '@tiptap/vue-3';
 import { isTextSelection } from '@tiptap/vue-3';
 import { Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
 
 export type HeadingLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
+export interface UseHeadingConfig {
+    editor: Editor;
+    level: HeadingLevel;
+}
+
+export interface UseHeadingsConfig {
+    editor: Editor;
+    levels: HeadingLevel[];
+}
+
+const HEADING_LABEL = 'Heading';
+
 const HEADING_ICONS = [Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6] as const;
 
-export function canExecute(editor: Editor, level: HeadingLevel, turnInto = true) {
+function canToggleHeading(editor: Editor, level: HeadingLevel, turnInto = true) {
     if (!editor.isEditable) {
         return false;
     }
@@ -35,29 +48,29 @@ export function canExecute(editor: Editor, level: HeadingLevel, turnInto = true)
     }
 }
 
-export function canExecuteAny(editor: Editor, levels: HeadingLevel[]) {
+function canToggleAnyHeading(editor: Editor, levels: HeadingLevel[]) {
     if (!editor.isEditable) {
         return false;
     }
-    return levels.some((level) => level !== 0 && canExecute(editor, level));
+    return levels.some((level) => level !== 0 && canToggleHeading(editor, level));
 }
 
-export function isActive(editor: Editor, level: HeadingLevel) {
+function isActiveHeading(editor: Editor, level: HeadingLevel) {
     if (!editor.isEditable) {
         return false;
     }
     return level !== 0 && editor.isActive('heading', { level });
 }
 
-export function isActiveAny(editor: Editor, levels: HeadingLevel[]) {
+function isActiveAnyHeading(editor: Editor, levels: HeadingLevel[]) {
     if (!editor.isEditable) {
         return false;
     }
-    return levels.some((level) => level !== 0 && isActive(editor, level));
+    return levels.some((level) => level !== 0 && isActiveHeading(editor, level));
 }
 
-export function execute(editor: Editor, level: HeadingLevel) {
-    if (!canExecute(editor, level)) {
+function toggleHeading(editor: Editor, level: HeadingLevel) {
+    if (!canToggleHeading(editor, level)) {
         return false;
     }
 
@@ -68,22 +81,40 @@ export function execute(editor: Editor, level: HeadingLevel) {
     return editor.chain().focus().toggleHeading({ level }).run();
 }
 
-function getCurrent(editor: Editor): HeadingLevel {
+function getCurrentHeading(editor: Editor): HeadingLevel {
     return editor.getAttributes('heading').level ?? 0;
 }
 
-export function getIcon(level: HeadingLevel) {
-    return HEADING_ICONS[level];
-}
-
-export function getCurrentIcon(editor: Editor) {
-    return getIcon(getCurrent(editor));
-}
-
-export function getLabel(level: HeadingLevel) {
+function getLabelHeading(level: HeadingLevel) {
     return level === 0 ? 'Paragraph' : `Heading ${level}`;
 }
 
-export function getShortcutKeys(level: HeadingLevel) {
-    return parseShortcutKeys(`mod+alt+${level}`);
+export function useHeading(config: UseHeadingConfig) {
+    const { editor, level } = config;
+    const canToggle = computed(() => canToggleHeading(editor, level));
+    const isActive = computed(() => isActiveHeading(editor, level));
+    const handleToggle = () => toggleHeading(editor, level);
+
+    return {
+        canToggle,
+        isActive,
+        label: getLabelHeading(level),
+        icon: HEADING_ICONS[level],
+        shortcutKeys: parseShortcutKeys(`mod+alt+${level}`),
+        handleToggle,
+    };
+}
+
+export function useHeadings(config: UseHeadingsConfig) {
+    const { editor, levels } = config;
+    const canToggle = computed(() => canToggleAnyHeading(editor, levels));
+    const isActive = computed(() => isActiveAnyHeading(editor, levels));
+    const icon = computed(() => HEADING_ICONS[getCurrentHeading(editor)]);
+
+    return {
+        canToggle,
+        isActive,
+        label: HEADING_LABEL,
+        icon,
+    };
 }

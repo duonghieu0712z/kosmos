@@ -27,6 +27,6 @@ const delegatedProps = reactiveOmit(props, 'editor', 'lists');
 
 <template>
     <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
-        <ListButton v-for="list in lists" :key="list" :editor="editor" :type="list" />
+        <ListButton v-for="list in lists" :key="list" :editor="editor" :list="list" />
     </ButtonGroup>
 </template>
