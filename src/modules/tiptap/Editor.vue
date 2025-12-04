@@ -4,18 +4,19 @@ import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import TextAlign from '@tiptap/extension-text-align';
 import StarterKit from '@tiptap/starter-kit';
-import { Editor, EditorContent } from '@tiptap/vue-3';
+import { EditorContent, useEditor } from '@tiptap/vue-3';
 
 import { HeadingDropdown } from '@/components/tiptap/heading';
-import { HighlightButton } from '@/components/tiptap/highlight';
+import { HighlightPopover } from '@/components/tiptap/highlight';
 import { LinkPopover } from '@/components/tiptap/link';
 import { ListDropdown, ListGroup } from '@/components/tiptap/list';
 import { MarkButton, MarkGroup } from '@/components/tiptap/mark';
 import { TextAlignDropdown, TextAlignGroup } from '@/components/tiptap/text-align';
 import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
-const editor = new Editor({
+const editor = useEditor({
     content: '<h1>Welcome to Kosmos!</h1>',
     extensions: [
         StarterKit.configure({
@@ -35,9 +36,10 @@ const editor = new Editor({
         }),
         Highlight.configure({ multicolor: true }),
     ],
+    autofocus: 'end',
     editorProps: {
         attributes: {
-            class: 'prose dark:prose-invert text-foreground min-h-full min-w-full cursor-text p-6 text-[12pt] outline-none border',
+            class: 'prose dark:prose-invert text-foreground min-h-full min-w-full p-4 text-[12pt] outline-none',
             spellCheck: 'false',
         },
     },
@@ -57,7 +59,7 @@ const editor = new Editor({
             <ButtonGroupSeparator />
             <MarkButton :editor="editor" mark="code" />
             <LinkPopover :editor="editor" />
-            <HighlightButton color="#ffd7a8" :editor="editor" />
+            <HighlightPopover :editor="editor" />
             <ButtonGroupSeparator />
             <TextAlignGroup :editor="editor" />
             <ButtonGroupSeparator />
@@ -67,6 +69,8 @@ const editor = new Editor({
             <ListDropdown :editor="editor" />
         </ButtonGroup>
 
-        <EditorContent class="flex-1 p-2" :editor="editor" />
+        <ScrollArea class="m-2 flex-1 cursor-text border" type="always" @click="editor.chain().focus().run()">
+            <EditorContent class="w-full" :editor="editor" />
+        </ScrollArea>
     </main>
 </template>

@@ -16,8 +16,6 @@ export interface UseTextAlignsConfig {
     aligns: TextAlign[];
 }
 
-const TEXT_ALIGN_LABEL = 'Text align';
-
 const TEXT_ALIGN_ICONS = {
     left: AlignLeft,
     center: AlignCenter,
@@ -96,7 +94,6 @@ export function useTextAligns(config: UseTextAlignsConfig) {
 
     return {
         canAlign,
-        label: TEXT_ALIGN_LABEL,
         icon,
     };
 }

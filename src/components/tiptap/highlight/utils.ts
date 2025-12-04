@@ -1,16 +1,12 @@
 import type { Editor } from '@tiptap/vue-3';
-import { Highlighter } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { isMarkInSchema, isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
 
 export interface UseHighlightConfig {
     editor: Editor;
-    color: string;
+    colors: { color: string; label: string }[];
 }
-
-const HIGHLIGHT_LABEL = 'Highlight';
-const HIGHLIGHT_SHORTCUT_KEY = 'mod+shift+h';
 
 function canSetColorHighlight(editor: Editor) {
     if (!editor.isEditable) {
@@ -29,6 +25,10 @@ function isActiveColorHighlight(editor: Editor, color?: string) {
         return false;
     }
     return color ? editor.isActive('highlight', { color }) : editor.isActive('highlight');
+}
+
+function getCurrentHighlight(editor: Editor) {
+    return (editor.getAttributes('highlight').color as string) ?? false;
 }
 
 function setColorHighlight(editor: Editor, color: string) {
@@ -54,18 +54,18 @@ function removeColorHighlight(editor: Editor) {
 }
 
 export function useHighlight(config: UseHighlightConfig) {
-    const { editor, color } = config;
+    const { editor } = config;
     const canHighlight = computed(() => canSetColorHighlight(editor));
-    const isActive = computed(() => isActiveColorHighlight(editor, color));
-    const setHighlight = () => setColorHighlight(editor, color);
+    const currentHighlight = computed(() => getCurrentHighlight(editor));
+    const isHighlight = (color: string) => isActiveColorHighlight(editor, color);
+    const setHighlight = (color: string) => setColorHighlight(editor, color);
     const removeHighlight = () => removeColorHighlight(editor);
 
     return {
         canHighlight,
-        isActive,
-        label: HIGHLIGHT_LABEL,
-        icon: Highlighter,
-        shortcutKeys: parseShortcutKeys(HIGHLIGHT_SHORTCUT_KEY),
+        currentHighlight,
+        shortcutKeys: parseShortcutKeys('mod+shift+h'),
+        isHighlight,
         setHighlight,
         removeHighlight,
     };

@@ -17,8 +17,6 @@ export interface UseHeadingsConfig {
     levels: HeadingLevel[];
 }
 
-const HEADING_LABEL = 'Heading';
-
 const HEADING_ICONS = [Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6] as const;
 
 function canToggleHeading(editor: Editor, level: HeadingLevel, turnInto = true) {
@@ -114,7 +112,6 @@ export function useHeadings(config: UseHeadingsConfig) {
     return {
         canToggle,
         isActive,
-        label: HEADING_LABEL,
         icon,
     };
 }

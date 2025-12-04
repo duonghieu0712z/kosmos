@@ -17,8 +17,6 @@ export interface UseListsConfig {
     lists: ListType[];
 }
 
-const LIST_LABEL = 'List';
-
 const LIST_ICONS = {
     bullet: List,
     ordered: ListOrdered,
@@ -150,7 +148,6 @@ export function useLists(config: UseListsConfig) {
     return {
         canToggle,
         isActive,
-        label: LIST_LABEL,
         icon,
     };
 }

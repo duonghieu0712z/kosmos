@@ -1,13 +1,10 @@
 import { openUrl } from '@tauri-apps/plugin-opener';
 import type { Editor } from '@tiptap/vue-3';
-import { Link } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 export interface UseLinkConfig {
     editor: Editor;
 }
-
-const LINK_LABEL = 'Link';
 
 function canSetLink(editor: Editor) {
     if (!editor.isEditable) {
@@ -47,9 +44,8 @@ export function useLink(config: UseLinkConfig) {
             return;
         }
 
-        const selection = editor.state.selection;
         let chain = editor.chain().focus().extendMarkRange('link').setLink({ href: url.value });
-        if (selection.empty) {
+        if (editor.state.selection.empty) {
             chain = chain.insertContent({ type: 'text', text: url.value });
         }
         chain.run();
@@ -72,8 +68,6 @@ export function useLink(config: UseLinkConfig) {
         url,
         canLink,
         isActive,
-        label: LINK_LABEL,
-        icon: Link,
         setLink,
         removeLink,
         openLink,

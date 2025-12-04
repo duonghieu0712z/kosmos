@@ -1,1 +1,1 @@
-export { default as HighlightButton } from './HighlightButton.vue';
+export { default as HighlightPopover } from './HighlightPopover.vue';

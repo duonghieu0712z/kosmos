@@ -2,7 +2,8 @@
 import type { Editor } from '@tiptap/vue-3';
 import { vOnKeyStroke } from '@vueuse/components';
 import { reactivePick } from '@vueuse/core';
-import { CornerDownLeft, ExternalLink, Trash2 } from 'lucide-vue-next';
+import { CornerDownLeft, ExternalLink, Link, Trash2 } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
@@ -19,20 +20,22 @@ const props = defineProps<{
 }>();
 
 const config = reactivePick(props, 'editor') as UseLinkConfig;
-const { url, canLink, isActive, label, icon, setLink, removeLink, openLink } = useLink(config);
+const { url, canLink, isActive, setLink, removeLink, openLink } = useLink(config);
+
+const open = ref(false);
 </script>
 
 <template>
-    <Popover>
+    <Popover @update:open="(value) => (open = value)">
         <PopoverTrigger>
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle :disabled="!canLink" :model-value="isActive" size="sm">
-                        <component :is="icon" />
+                    <Toggle :disabled="!canLink" :model-value="isActive || open" size="sm">
+                        <Link />
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>{{ label }}</TooltipContent>
+                <TooltipContent>Link</TooltipContent>
             </Tooltip>
         </PopoverTrigger>
 
@@ -50,19 +53,36 @@ const { url, canLink, isActive, label, icon, setLink, removeLink, openLink } = u
             />
 
             <ButtonGroup class="gap-0.5" orientation="horizontal-rounded">
-                <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="setLink">
-                    <CornerDownLeft />
-                </Button>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="setLink">
+                            <CornerDownLeft />
+                        </Button>
+                    </TooltipTrigger>
 
+                    <TooltipContent>Set link</TooltipContent>
+                </Tooltip>
                 <ButtonGroupSeparator />
 
-                <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="openLink">
-                    <ExternalLink />
-                </Button>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="openLink">
+                            <ExternalLink />
+                        </Button>
+                    </TooltipTrigger>
 
-                <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="removeLink">
-                    <Trash2 />
-                </Button>
+                    <TooltipContent>Open link</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="removeLink">
+                            <Trash2 />
+                        </Button>
+                    </TooltipTrigger>
+
+                    <TooltipContent>Remove link</TooltipContent>
+                </Tooltip>
             </ButtonGroup>
         </PopoverContent>
     </Popover>

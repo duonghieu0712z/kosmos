@@ -2,6 +2,7 @@
 import type { Editor } from '@tiptap/vue-3';
 import { reactivePick } from '@vueuse/core';
 import { ChevronDown } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
@@ -28,21 +29,23 @@ const props = withDefaults(
 );
 
 const config = reactivePick(props, 'editor', 'levels') as UseHeadingsConfig;
-const { canToggle, isActive, label, icon } = useHeadings(config);
+const { canToggle, isActive, icon } = useHeadings(config);
+
+const open = ref(false);
 </script>
 
 <template>
-    <DropdownMenu>
+    <DropdownMenu @update:open="(value) => (open = value)">
         <DropdownMenuTrigger :disabled="!canToggle">
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive" size="sm">
+                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive || open" size="sm">
                         <component :is="icon" />
                         <ChevronDown class="size-2" />
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>{{ label }}</TooltipContent>
+                <TooltipContent>Heading</TooltipContent>
             </Tooltip>
         </DropdownMenuTrigger>
 
