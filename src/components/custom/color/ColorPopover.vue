@@ -4,7 +4,12 @@ import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -26,8 +31,8 @@ const open = ref(false);
 </script>
 
 <template>
-    <Popover @update:open="(value) => (open = value)">
-        <PopoverTrigger>
+    <DropdownMenu @update:open="(value) => (open = value)">
+        <DropdownMenuTrigger>
             <Tooltip>
                 <TooltipTrigger>
                     <Toggle class="flex-col gap-0" :disabled="disabled" :model-value="!!currentColor || open" size="sm">
@@ -41,31 +46,33 @@ const open = ref(false);
 
                 <TooltipContent>{{ tooltip }}</TooltipContent>
             </Tooltip>
-        </PopoverTrigger>
+        </DropdownMenuTrigger>
 
-        <PopoverContent as-child>
+        <DropdownMenuContent as-child>
             <ButtonGroup class="w-fit gap-0.5 p-1" orientation="horizontal-rounded">
-                <ColorButton
-                    v-for="{ color, label } in colors"
-                    :key="color"
-                    :color="color"
-                    :label="label"
-                    :model-value="color === currentColor"
-                    @set:color="$emit('set:color', color)"
-                />
+                <DropdownMenuItem v-for="{ color, label } in colors" :key="color" class="p-0">
+                    <ColorButton
+                        :color="color"
+                        :label="label"
+                        :model-value="color === currentColor"
+                        @set:color="$emit('set:color', color)"
+                    />
+                </DropdownMenuItem>
 
                 <ButtonGroupSeparator />
 
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Button size="icon-sm" variant="ghost" @click="$emit('remove:color')">
-                            <CircleSlash2 />
-                        </Button>
-                    </TooltipTrigger>
+                <DropdownMenuItem class="p-0">
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <Button size="icon-sm" variant="ghost" @click="$emit('remove:color')">
+                                <CircleSlash2 />
+                            </Button>
+                        </TooltipTrigger>
 
-                    <TooltipContent>Remove {{ tooltip.replace(/^./, (c) => c.toLowerCase()) }}</TooltipContent>
-                </Tooltip>
+                        <TooltipContent>Remove {{ tooltip.replace(/^./, (c) => c.toLowerCase()) }}</TooltipContent>
+                    </Tooltip>
+                </DropdownMenuItem>
             </ButtonGroup>
-        </PopoverContent>
-    </Popover>
+        </DropdownMenuContent>
+    </DropdownMenu>
 </template>
