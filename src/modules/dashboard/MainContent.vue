@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { X } from 'lucide-vue-next';
 
-import { useTabs } from '@/components/custom/tabs';
 import { ScrollArea, vWheelX } from '@/components/ui/scroll-area';
 import { SidebarInset } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useTabs } from '@/composables';
 import { Todo } from '@/modules/todo';
 
-const { tabs, currentTab, activeTab, popTab } = useTabs();
+const { currentTab, tabs, activeTab, popTab } = useTabs();
 </script>
 
 <template>

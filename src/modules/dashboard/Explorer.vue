@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { FileText, Folder, FolderOpen } from 'lucide-vue-next';
 import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
-import { markRaw, ref } from 'vue';
+import { markRaw, ref, shallowRef } from 'vue';
 
-import { useTabs } from '@/components/custom/tabs';
+import { useTabs } from '@/composables';
 import { cn } from '@/lib/utils';
 import Editor from '@/modules/tiptap/Editor.vue';
 
@@ -64,7 +64,7 @@ const { pushTab } = useTabs();
                     async () => {
                         currentItem = item._id;
                         if (!item.hasChildren) {
-                            const tab = { id: item._id, name: item.value.name, component: markRaw(Editor) };
+                            const tab = { id: item._id, name: item.value.name, component: shallowRef(markRaw(Editor)) };
                             await pushTab(tab);
                         }
                     }
