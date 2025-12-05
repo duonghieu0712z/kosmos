@@ -18,7 +18,6 @@ defineProps<{
 }>();
 
 defineEmits<{
-    (e: 'isActive:color', color: string): boolean;
     (e: 'set:color', color: string): void;
     (e: 'remove:color'): void;
 }>();
@@ -51,7 +50,7 @@ const open = ref(false);
                     :key="color"
                     :color="color"
                     :label="label"
-                    :model-value="$emit('isActive:color', color)"
+                    :model-value="color === currentColor"
                     @set:color="$emit('set:color', color)"
                 />
 

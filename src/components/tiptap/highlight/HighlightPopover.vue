@@ -24,7 +24,7 @@ const props = withDefaults(
 );
 
 const config = reactivePick(props, 'editor') as UseHighlightConfig;
-const { canHighlight, currentHighlight, isHighlight, setHighlight, removeHighlight } = useHighlight(config);
+const { canHighlight, currentHighlight, setHighlight, removeHighlight } = useHighlight(config);
 </script>
 
 <template>
@@ -33,7 +33,6 @@ const { canHighlight, currentHighlight, isHighlight, setHighlight, removeHighlig
         :current-color="currentHighlight"
         :disabled="!canHighlight"
         tooltip="Highlight"
-        @is-active:color="isHighlight"
         @remove:color="removeHighlight"
         @set:color="setHighlight"
     >

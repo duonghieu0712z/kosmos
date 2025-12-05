@@ -20,15 +20,17 @@ function canSetColorHighlight(editor: Editor) {
     return editor.can().setHighlight();
 }
 
-function isActiveColorHighlight(editor: Editor, color?: string) {
-    if (!editor.isEditable) {
-        return false;
-    }
-    return color ? editor.isActive('highlight', { color }) : editor.isActive('highlight');
-}
-
 function getCurrentHighlight(editor: Editor) {
-    return (editor.getAttributes('highlight').color as string) ?? false;
+    const color = editor.getAttributes('highlight').color;
+    if (typeof color === 'string') {
+        return color;
+    }
+
+    if (color === null) {
+        return 'mark';
+    }
+
+    return false;
 }
 
 function setColorHighlight(editor: Editor, color: string) {
@@ -57,7 +59,6 @@ export function useHighlight(config: UseHighlightConfig) {
     const { editor } = config;
     const canHighlight = computed(() => canSetColorHighlight(editor));
     const currentHighlight = computed(() => getCurrentHighlight(editor));
-    const isHighlight = (color: string) => isActiveColorHighlight(editor, color);
     const setHighlight = (color: string) => setColorHighlight(editor, color);
     const removeHighlight = () => removeColorHighlight(editor);
 
@@ -65,7 +66,6 @@ export function useHighlight(config: UseHighlightConfig) {
         canHighlight,
         currentHighlight,
         shortcutKeys: parseShortcutKeys('mod+shift+h'),
-        isHighlight,
         setHighlight,
         removeHighlight,
     };
