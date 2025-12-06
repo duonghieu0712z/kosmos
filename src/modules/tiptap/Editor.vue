@@ -6,6 +6,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import StarterKit from '@tiptap/starter-kit';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 
+import { BlockquoteButton } from '@/components/tiptap/blockquote';
 import { HeadingDropdown } from '@/components/tiptap/heading';
 import { HighlightPopover } from '@/components/tiptap/highlight';
 import { LinkPopover } from '@/components/tiptap/link';
@@ -52,6 +53,8 @@ const editor = useEditor({
             <UndoRedoGroup :editor="editor" />
             <ButtonGroupSeparator />
             <HeadingDropdown :editor="editor" />
+            <ButtonGroupSeparator />
+            <BlockquoteButton :editor="editor" />
             <ButtonGroupSeparator />
             <MarkGroup :editor="editor" />
             <ButtonGroupSeparator />
