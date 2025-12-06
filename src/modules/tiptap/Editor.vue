@@ -9,6 +9,7 @@ import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { all, createLowlight } from 'lowlight';
 
 import { BlockquoteButton } from '@/components/tiptap/blockquote';
+import { CodeBlockButton } from '@/components/tiptap/code-block';
 import { HeadingDropdown } from '@/components/tiptap/heading';
 import { HighlightPopover } from '@/components/tiptap/highlight';
 import { LinkPopover } from '@/components/tiptap/link';
@@ -59,6 +60,7 @@ const editor = useEditor({
             <HeadingDropdown :editor="editor" />
             <ButtonGroupSeparator />
             <BlockquoteButton :editor="editor" />
+            <CodeBlockButton :editor="editor" />
             <ButtonGroupSeparator />
             <MarkGroup :editor="editor" />
             <ButtonGroupSeparator />
