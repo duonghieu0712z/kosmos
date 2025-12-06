@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Highlight from '@tiptap/extension-highlight';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import TextAlign from '@tiptap/extension-text-align';
 import StarterKit from '@tiptap/starter-kit';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
+import { all, createLowlight } from 'lowlight';
 
 import { BlockquoteButton } from '@/components/tiptap/blockquote';
 import { HeadingDropdown } from '@/components/tiptap/heading';
@@ -17,16 +19,17 @@ import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+const lowlight = createLowlight(all);
+
 const editor = useEditor({
     content: '<h1>Welcome to Kosmos!</h1>',
     extensions: [
         StarterKit.configure({
+            codeBlock: false,
             link: {
                 openOnClick: 'whenNotEditable',
                 enableClickSelection: true,
-                HTMLAttributes: {
-                    target: null,
-                },
+                HTMLAttributes: { target: null },
             },
         }),
         Superscript,
@@ -36,6 +39,7 @@ const editor = useEditor({
             defaultAlignment: 'left',
         }),
         Highlight.configure({ multicolor: true }),
+        CodeBlockLowlight.configure({ lowlight, enableTabIndentation: true }),
     ],
     autofocus: 'end',
     editorProps: {
