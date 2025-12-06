@@ -5,9 +5,8 @@ import { ScrollArea, vWheelX } from '@/components/ui/scroll-area';
 import { SidebarInset } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTabs } from '@/composables';
+import { Startup } from '@/modules/startup';
 import { Todo } from '@/modules/todo';
-
-import Startup from './Startup.vue';
 
 const { currentTab, tabs, activeTab, popTab } = useTabs();
 </script>
