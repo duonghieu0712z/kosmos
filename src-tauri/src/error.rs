@@ -27,7 +27,7 @@ pub enum KosmosError {
     #[error("Already exists: {0}")]
     AlreadyExists(String),
 
-    #[error("Invalid data: {0}")]
+    #[error("Invalid: {0}")]
     Invalid(String),
 }
 

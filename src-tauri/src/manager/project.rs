@@ -1,12 +1,13 @@
 use std::{path::PathBuf, sync::Arc};
 
+use chrono::Utc;
 use sqlx::SqlitePool;
 use tokio::fs::{File, create_dir_all};
 
 use crate::{
     constants::PROJECT_KOSMOS,
     error::{KosmosError, KosmosResult},
-    project::{ProjectData, ProjectService, ProjectSqlite},
+    project::{ProjectCache, ProjectData, ProjectService, ProjectSqlite},
 };
 
 #[allow(dead_code)]
@@ -86,5 +87,26 @@ impl ProjectManager {
 
     pub fn path(&self) -> &PathBuf {
         &self.path
+    }
+
+    pub async fn cache(&self) -> KosmosResult<ProjectCache> {
+        let name = self.project().await?.title().to_string();
+        if let Some(path) = self
+            .path
+            .parent()
+            .and_then(|p| p.to_str())
+            .map(|p| p.to_string())
+        {
+            return Ok(ProjectCache {
+                name,
+                path,
+                is_pinned: false,
+                last_opened: Utc::now(),
+            });
+        }
+
+        Err(KosmosError::Invalid(format!(
+            "Project {name} has invalid path"
+        )))
     }
 }

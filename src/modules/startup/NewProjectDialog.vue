@@ -50,7 +50,13 @@ async function createProject() {
                     <Label for="name">Project name</Label>
 
                     <InputGroup class="col-span-3 h-8">
-                        <InputGroupInput id="name" v-model="name" />
+                        <InputGroupInput
+                            id="name"
+                            v-model="name"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            autocorrect="off"
+                        />
 
                         <InputGroupAddon align="inline-end">
                             <InputGroupButton @click="name = ''">
@@ -64,7 +70,13 @@ async function createProject() {
                     <Label for="path">Location</Label>
 
                     <InputGroup class="col-span-3 h-8">
-                        <InputGroupInput id="path" v-model="path" />
+                        <InputGroupInput
+                            id="path"
+                            v-model="path"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            autocorrect="off"
+                        />
 
                         <InputGroupAddon align="inline-end">
                             <InputGroupButton @click="selectPath">

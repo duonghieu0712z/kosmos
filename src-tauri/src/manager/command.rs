@@ -1,11 +1,11 @@
-use std::{collections::BTreeMap, path::PathBuf};
+use std::path::PathBuf;
 
 use tauri::State;
 use tokio::sync::Mutex;
 
 use crate::{
     error::{KosmosResult, log_error},
-    project::ProjectData,
+    project::{ProjectCache, ProjectData},
 };
 
 use super::AppManager;
@@ -36,7 +36,7 @@ pub async fn open_project(
 #[tauri::command]
 pub async fn get_recent_projects(
     state: State<'_, Mutex<AppManager>>,
-) -> KosmosResult<BTreeMap<String, String>> {
+) -> KosmosResult<Vec<ProjectCache>> {
     log::info!("Get recent projects");
     let manager = state.lock().await;
     let projects = manager.get_recent_projects();

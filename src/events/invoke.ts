@@ -1,5 +1,7 @@
 import { invoke } from '@tauri-apps/api/core';
 
+import type { RecentProject } from '@/types';
+
 export async function newProject(name: string, path: string) {
     try {
         const result = await invoke('new_project', { name, path });
@@ -16,4 +18,8 @@ export async function openProject(path: string) {
     } catch (error) {
         console.log(error);
     }
+}
+
+export async function getRecentProjects() {
+    return await invoke<RecentProject[]>('get_recent_projects');
 }

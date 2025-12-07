@@ -1,8 +1,11 @@
-use std::{collections::BTreeMap, path::PathBuf};
+use std::path::PathBuf;
 
 use tauri::AppHandle;
 
-use crate::{error::KosmosResult, project::ProjectData};
+use crate::{
+    error::KosmosResult,
+    project::{ProjectCache, ProjectData},
+};
 
 use super::{cache::CacheManager, project::ProjectManager};
 
@@ -25,12 +28,8 @@ impl AppManager {
         let project_manager = ProjectManager::create(name, path).await?;
         let project = project_manager.project().await?;
 
-        let path = project_manager.path().clone();
         let cache = self.cache_manager.data_mut();
-        cache.insert_project(
-            path.into_os_string().into_string()?,
-            project.title().to_string(),
-        );
+        cache.push_project(project_manager.cache().await?);
         self.cache_manager.save().await?;
 
         self.project_manager = Some(project_manager);
@@ -41,19 +40,15 @@ impl AppManager {
         let project_manager = ProjectManager::load(path).await?;
         let project = project_manager.project().await?;
 
-        let path = project_manager.path().clone();
         let cache = self.cache_manager.data_mut();
-        cache.insert_project(
-            path.into_os_string().into_string()?,
-            project.title().to_string(),
-        );
+        cache.push_project(project_manager.cache().await?);
         self.cache_manager.save().await?;
 
         self.project_manager = Some(project_manager);
         Ok(project)
     }
 
-    pub fn get_recent_projects(&self) -> BTreeMap<String, String> {
-        self.cache_manager.data().projects().clone()
+    pub fn get_recent_projects(&self) -> Vec<ProjectCache> {
+        self.cache_manager.data().projects()
     }
 }

@@ -1,15 +1,16 @@
-use std::collections::BTreeMap;
+use std::cmp::Reverse;
 
+use chrono::Utc;
 use serde::{Deserialize, Serialize};
 use serde_json::{from_str, to_string};
 
-use crate::error::KosmosResult;
+use crate::{error::KosmosResult, project::ProjectCache};
 
 #[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CacheData {
-    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
-    projects: BTreeMap<String, String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    projects: Vec<ProjectCache>,
 }
 
 #[allow(dead_code)]
@@ -22,16 +23,23 @@ impl CacheData {
         Ok(to_string(self)?)
     }
 
-    pub fn projects(&self) -> &BTreeMap<String, String> {
-        &self.projects
+    pub fn projects(&self) -> Vec<ProjectCache> {
+        self.projects.clone()
     }
 
-    pub fn insert_project(&mut self, path: String, title: String) -> Option<String> {
-        self.projects.insert(path, title)
+    pub fn push_project(&mut self, project: ProjectCache) {
+        if let Some(project) = self.projects.iter_mut().find(|p| p.path == project.path) {
+            project.last_opened = Utc::now();
+        } else {
+            self.projects.push(project);
+        }
+
+        self.projects
+            .sort_by_key(|project| Reverse(project.last_opened));
     }
 
-    pub fn remove_project(&mut self, path: &str) -> Option<String> {
-        self.projects.remove(path)
+    pub fn remove_project(&mut self, path: &str) {
+        self.projects.retain(|project| project.path == path);
     }
 }
 
