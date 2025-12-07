@@ -1,9 +1,10 @@
 use std::{path::PathBuf, sync::Arc};
 
 use sqlx::SqlitePool;
-use tokio::fs::{File, create_dir};
+use tokio::fs::{File, create_dir_all};
 
 use crate::{
+    constants::PROJECT_KOSMOS,
     error::{KosmosError, KosmosResult},
     project::{ProjectData, ProjectService, ProjectSqlite},
 };
@@ -18,7 +19,7 @@ pub struct ProjectManager {
 
 #[allow(dead_code)]
 impl ProjectManager {
-    async fn new(path: &PathBuf) -> KosmosResult<Self> {
+    async fn new(path: PathBuf) -> KosmosResult<Self> {
         let url = format!("sqlite://{}", path.display());
         let pool = SqlitePool::connect(&url).await?;
 
@@ -27,55 +28,63 @@ impl ProjectManager {
 
         Ok(Self {
             pool,
-            path: path.clone(),
+            path,
             project_service,
         })
     }
 
-    pub async fn create(name: &str, path: &PathBuf) -> KosmosResult<Self> {
+    pub async fn create(name: &str, path: PathBuf) -> KosmosResult<Self> {
         if !path.exists() {
-            return Err(KosmosError::NotFound(format!("{}", path.display())));
+            return Err(KosmosError::NotFound(path.into_os_string().into_string()?));
         }
 
         let path = path.join(name);
         if path.exists() {
-            return Err(KosmosError::AlreadyExists(format!("{}", path.display())));
+            return Err(KosmosError::AlreadyExists(
+                path.into_os_string().into_string()?,
+            ));
         }
 
-        create_dir(&path).await?;
-        let path = path.join("project.kosmos");
+        create_dir_all(&path).await?;
+        let path = path.join(PROJECT_KOSMOS);
         if path.exists() {
-            return Err(KosmosError::AlreadyExists(format!("{}", path.display())));
+            return Err(KosmosError::AlreadyExists(
+                path.into_os_string().into_string()?,
+            ));
         }
 
         File::create(&path).await?;
-        let manager = Self::new(&path).await?;
+        let manager = Self::new(path).await?;
         manager.project_service.create(name).await?;
 
         Ok(manager)
     }
 
-    pub async fn load(path: &PathBuf) -> KosmosResult<Self> {
+    pub async fn load(path: PathBuf) -> KosmosResult<Self> {
         if !path.exists() {
-            return Err(KosmosError::NotFound(format!("{}", path.display())));
+            return Err(KosmosError::NotFound(path.into_os_string().into_string()?));
         }
 
         if path.is_dir() {
-            let path = path.join("project.kosmos");
+            let path = path.join(PROJECT_KOSMOS);
             if !path.exists() {
-                return Err(KosmosError::NotFound(format!("{}", path.display())));
+                return Err(KosmosError::NotFound(path.into_os_string().into_string()?));
             }
-            return Self::new(&path).await;
+            return Self::new(path).await;
         }
 
-        if path.is_file() && !path.ends_with("project.kosmos") {
-            return Err(KosmosError::Invalid(format!("{}", path.display())));
+        if path.is_file() && !path.ends_with(PROJECT_KOSMOS) {
+            return Err(KosmosError::Invalid(path.into_os_string().into_string()?));
         }
 
-        Self::new(&path).await
+        Self::new(path).await
     }
 
     pub async fn project(&self) -> KosmosResult<ProjectData> {
         self.project_service.get().await
+    }
+
+    pub fn path(&self) -> &PathBuf {
+        &self.path
     }
 }
