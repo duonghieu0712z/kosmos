@@ -1,31 +1,42 @@
-use std::sync::Arc;
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
-use crate::error::KosmosResult;
+use crate::{constants::PROJECT_FILE, error::KosmosResult, file::JsonFile};
 
-use super::{data::ProjectData, repository::ProjectRepository};
+use super::ProjectData;
 
-#[allow(dead_code)]
+#[derive(Default)]
 pub struct ProjectService {
-    repository: Arc<dyn ProjectRepository + Send + Sync>,
+    data: ProjectData,
+    file: PathBuf,
 }
 
-#[allow(dead_code)]
 impl ProjectService {
-    pub fn new(repository: Arc<dyn ProjectRepository + Send + Sync>) -> Self {
-        Self { repository }
+    pub fn data(&self) -> &ProjectData {
+        &self.data
     }
 
-    pub async fn get(&self) -> KosmosResult<ProjectData> {
-        self.repository.get().await
+    pub fn update_data(&mut self, data: ProjectData) -> KosmosResult<&ProjectData> {
+        let mut new_data = self.data.clone();
+        new_data.update(data)?;
+        new_data.write_json(&self.file)?;
+        self.data = new_data;
+        Ok(self.data())
     }
 
-    pub async fn create(&self, name: &str) -> KosmosResult<bool> {
-        let mut data = ProjectData::default();
-        data.set_title(name.to_string());
-        self.repository.create(&data).await
-    }
+    pub fn set_path<P: AsRef<Path>>(&mut self, path: P) -> KosmosResult<()> {
+        let path = path.as_ref();
+        fs::create_dir_all(path)?;
 
-    pub async fn update(&self, data: &ProjectData) -> KosmosResult<bool> {
-        self.repository.update(data).await
+        self.file = path.join(PROJECT_FILE);
+        if !self.file.exists() {
+            self.data.write_json(&self.file)?;
+        } else {
+            self.data = ProjectData::read_json(&self.file)?;
+        }
+
+        Ok(())
     }
 }

@@ -1,7 +1,5 @@
-mod cache;
 mod data;
 mod service;
 
-pub use cache::*;
 pub use data::*;
 pub use service::*;

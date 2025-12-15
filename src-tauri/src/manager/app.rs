@@ -1,54 +1,36 @@
-use std::path::PathBuf;
+use tauri::{AppHandle, Manager};
 
-use tauri::AppHandle;
-
-use crate::{
-    error::KosmosResult,
-    project::{ProjectCache, ProjectData},
-};
+use crate::{constants::CACHE_DIR, error::KosmosResult};
 
 use super::{cache::CacheManager, project::ProjectManager};
 
-#[allow(dead_code)]
+#[derive(Default)]
 pub struct AppManager {
     cache_manager: CacheManager,
-    project_manager: Option<ProjectManager>,
+    project_manager: ProjectManager,
 }
 
-#[allow(dead_code)]
 impl AppManager {
-    pub async fn new(handle: &AppHandle) -> KosmosResult<Self> {
+    pub fn new(handle: &AppHandle) -> KosmosResult<Self> {
+        let cache_dir = handle.path().app_cache_dir()?.join(CACHE_DIR);
+
+        let mut cache_manager = CacheManager::default();
+        cache_manager.setup(&cache_dir)?;
+
+        let mut project_manager = ProjectManager::default();
+        project_manager.set_cache_dir(&cache_dir);
+
         Ok(Self {
-            cache_manager: CacheManager::new(handle).await?,
-            project_manager: None,
+            cache_manager,
+            project_manager,
         })
     }
 
-    pub async fn new_project(&mut self, name: &str, path: PathBuf) -> KosmosResult<ProjectData> {
-        let project_manager = ProjectManager::create(name, path).await?;
-        let project = project_manager.project().await?;
-
-        let cache = self.cache_manager.data_mut();
-        cache.push_project(project_manager.cache().await?);
-        self.cache_manager.save().await?;
-
-        self.project_manager = Some(project_manager);
-        Ok(project)
+    pub fn cache_manager(&self) -> &CacheManager {
+        &self.cache_manager
     }
 
-    pub async fn open_project(&mut self, path: PathBuf) -> KosmosResult<ProjectData> {
-        let project_manager = ProjectManager::load(path).await?;
-        let project = project_manager.project().await?;
-
-        let cache = self.cache_manager.data_mut();
-        cache.push_project(project_manager.cache().await?);
-        self.cache_manager.save().await?;
-
-        self.project_manager = Some(project_manager);
-        Ok(project)
-    }
-
-    pub fn get_recent_projects(&self) -> Vec<ProjectCache> {
-        self.cache_manager.data().projects()
+    pub fn project_manager_mut(&mut self) -> &mut ProjectManager {
+        &mut self.project_manager
     }
 }

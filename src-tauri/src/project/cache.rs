@@ -1,12 +1,12 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-#[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ProjectCache {
-    pub name: String,
-    pub path: String,
-    pub is_pinned: bool,
-    pub last_opened: DateTime<Utc>,
+    pub(crate) name: String,
+    pub(crate) file: String,
+    pub(crate) is_pinned: bool,
+    #[serde(with = "chrono::serde::ts_seconds")]
+    pub(crate) last_opened: DateTime<Utc>,
 }

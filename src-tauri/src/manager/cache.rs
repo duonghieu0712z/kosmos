@@ -1,49 +1,23 @@
-use std::path::PathBuf;
-
-use tauri::{AppHandle, Manager};
-use tokio::fs::{File, create_dir_all, write};
+use std::path::{Path, PathBuf};
 
 use crate::{
     cache::{CacheData, CacheService},
-    constants::{CACHE_FILE, CACHE_FOLDER},
     error::KosmosResult,
 };
 
-#[allow(dead_code)]
+#[derive(Default)]
 pub struct CacheManager {
     service: CacheService,
-    path: PathBuf,
+    cache_dir: PathBuf,
 }
 
-#[allow(dead_code)]
 impl CacheManager {
-    pub async fn new(handle: &AppHandle) -> KosmosResult<Self> {
-        let path = handle.path().app_cache_dir()?.join(CACHE_FOLDER);
-        if !path.exists() {
-            create_dir_all(&path).await?;
-        }
-
-        let path = path.join(CACHE_FILE);
-        if !path.exists() {
-            File::create(&path).await?;
-            write(&path, "{}").await?;
-        }
-
-        let mut service = CacheService::default();
-        service.load(&path).await?;
-
-        Ok(Self { service, path })
+    pub fn setup<P: AsRef<Path>>(&mut self, cache_dir: P) -> KosmosResult<()> {
+        self.cache_dir = cache_dir.as_ref().to_path_buf();
+        self.service.set_path(&self.cache_dir)
     }
 
     pub fn data(&self) -> &CacheData {
         self.service.data()
-    }
-
-    pub fn data_mut(&mut self) -> &mut CacheData {
-        self.service.data_mut()
-    }
-
-    pub async fn save(&self) -> KosmosResult<()> {
-        self.service.save(&self.path).await
     }
 }

@@ -1,43 +1,34 @@
-use std::path::PathBuf;
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
-use tokio::fs::{read_to_string, write};
+use crate::{constants::CACHE_FILE, error::KosmosResult, file::JsonFile};
 
-use crate::error::KosmosResult;
+use super::CacheData;
 
-use super::data::CacheData;
-
-#[allow(dead_code)]
+#[derive(Default)]
 pub struct CacheService {
     data: CacheData,
+    file: PathBuf,
 }
 
-#[allow(dead_code)]
 impl CacheService {
-    pub async fn load(&mut self, path: &PathBuf) -> KosmosResult<()> {
-        let data = read_to_string(path).await?;
-        self.data = CacheData::from_json(&data)?;
-        Ok(())
-    }
-
-    pub async fn save(&self, path: &PathBuf) -> KosmosResult<()> {
-        let data = self.data.to_json()?;
-        write(path, data).await?;
-        Ok(())
-    }
-
     pub fn data(&self) -> &CacheData {
         &self.data
     }
 
-    pub fn data_mut(&mut self) -> &mut CacheData {
-        &mut self.data
-    }
-}
+    pub fn set_path<P: AsRef<Path>>(&mut self, path: P) -> KosmosResult<()> {
+        let path = path.as_ref();
+        fs::create_dir_all(path)?;
 
-impl Default for CacheService {
-    fn default() -> Self {
-        Self {
-            data: Default::default(),
+        self.file = path.join(CACHE_FILE);
+        if !self.file.exists() {
+            self.data.write_json(&self.file)?;
+        } else {
+            self.data = CacheData::read_json(&self.file)?;
         }
+
+        Ok(())
     }
 }

@@ -1,15 +1,20 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
-use tauri::Manager;
-use tokio::sync::Mutex;
-
-use crate::manager::{AppManager, get_recent_projects, new_project, open_project};
-
+mod book;
 mod cache;
+mod chapter;
 mod constants;
+mod enums;
 mod error;
+mod file;
+mod json;
 mod manager;
 mod project;
+mod version;
+
+use tauri::Manager;
+
+use crate::manager::{AppManager, create_project, get_recent_projects, open_project};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -23,35 +28,35 @@ pub fn run() {
     #[cfg(not(debug_assertions))]
     let builder = builder.plugin(
         tauri_plugin_log::Builder::new()
-            .target(tauri_plugin_log::Target::new(
-                tauri_plugin_log::TargetKind::LogDir { file_name: None },
-            ))
             .level(tauri_plugin_log::log::LevelFilter::Info)
             .filter(|metadata| metadata.target().starts_with("kosmos"))
+            .format(|out, message, record| {
+                out.finish(format_args!(
+                    "[{}][{}] {}",
+                    chrono::Local::now().format("%Y-%m-%d %H:%M:%S"),
+                    record.level(),
+                    message
+                ))
+            })
             .build(),
     );
 
     builder
         .setup(|app| {
-            let handle = app.handle().clone();
-            tauri::async_runtime::spawn(async move {
-                handle.manage(Mutex::new(
-                    AppManager::new(&handle)
-                        .await
-                        .map_err(|e| {
-                            log::error!("{}", e);
-                            e
-                        })
-                        .unwrap(),
-                ));
-            });
+            let handle = app.app_handle();
+            let manager = AppManager::new(handle)
+                .inspect_err(|e| log::error!("{e}"))
+                .unwrap();
+            let mutex = tauri::async_runtime::Mutex::new(manager);
+            app.manage(mutex);
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
-            new_project,
+            create_project,
             open_project,
             get_recent_projects
         ])
         .run(tauri::generate_context!())
+        .inspect_err(|e| log::error!("{e}"))
         .expect("error while running tauri application");
 }
