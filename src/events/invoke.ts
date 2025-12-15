@@ -2,21 +2,21 @@ import { invoke } from '@tauri-apps/api/core';
 
 import type { RecentProject } from '@/types';
 
-export async function newProject(name: string, path: string) {
+export async function createProject(name: string, path: string) {
     try {
-        const result = await invoke('new_project', { name, path });
+        const result = await invoke('create_project', { name, path });
         console.log(result);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
-export async function openProject(path: string) {
+export async function openProject(file: string) {
     try {
-        const result = await invoke('open_project', { path });
+        const result = await invoke('open_project', { file });
         console.log(result);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 

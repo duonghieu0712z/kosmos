@@ -17,7 +17,7 @@ const recentProjects = ref<RecentProject[]>([]);
 
 const projects = useArrayMap(recentProjects, (project) => ({
     ...project,
-    lastOpened: useTimeAgo(project.lastOpened),
+    lastOpened: useTimeAgo(project.lastOpened * 1000),
 }));
 
 onMounted(async () => {
@@ -41,14 +41,14 @@ onMounted(async () => {
         <TableBody>
             <TableRow
                 v-for="project in projects"
-                :key="project.path"
+                :key="project.file"
                 class="text-xs [&>td]:p-1.5"
-                :data-state="project.path === selected ? 'selected' : ''"
-                @click="selected = project.path"
+                :data-state="project.file === selected ? 'selected' : ''"
+                @click="selected = project.file"
             >
                 <TableCell class="flex items-center justify-center"><Folder class="size-5" /></TableCell>
                 <TableCell class="truncate">{{ project.name }}</TableCell>
-                <TableCell class="truncate">{{ project.path }}</TableCell>
+                <TableCell class="truncate">{{ project.file }}</TableCell>
                 <TableCell class="flex items-center justify-center"><Star class="size-5" /></TableCell>
                 <TableCell class="text-center">{{ project.lastOpened }}</TableCell>
                 <TableCell class="flex items-center justify-center"><EllipsisVertical class="size-5" /></TableCell>

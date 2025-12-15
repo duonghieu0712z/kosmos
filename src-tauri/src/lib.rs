@@ -12,9 +12,13 @@ mod manager;
 mod project;
 mod version;
 
+use std::sync::Mutex;
+
 use tauri::Manager;
 
-use crate::manager::{AppManager, create_project, get_recent_projects, open_project};
+use crate::manager::{
+    AppManager, close_project, create_project, get_recent_projects, open_project,
+};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -47,13 +51,26 @@ pub fn run() {
             let manager = AppManager::new(handle)
                 .inspect_err(|e| log::error!("{e}"))
                 .unwrap();
-            let mutex = tauri::async_runtime::Mutex::new(manager);
+            let mutex = Mutex::new(manager);
             app.manage(mutex);
             Ok(())
+        })
+        .on_window_event(|window, event| {
+            let handle = window.app_handle();
+            let state = handle.state::<Mutex<AppManager>>();
+            match event {
+                tauri::WindowEvent::CloseRequested { .. } => {
+                    close_project(state)
+                        .inspect_err(|e| log::error!("{e}"))
+                        .unwrap();
+                }
+                _ => {}
+            }
         })
         .invoke_handler(tauri::generate_handler![
             create_project,
             open_project,
+            close_project,
             get_recent_projects
         ])
         .run(tauri::generate_context!())

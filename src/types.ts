@@ -1,6 +1,6 @@
 export interface RecentProject {
     name: string;
-    path: string;
+    file: string;
     isPinned: boolean;
-    lastOpened: string;
+    lastOpened: number;
 }

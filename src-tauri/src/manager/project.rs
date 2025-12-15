@@ -25,6 +25,7 @@ pub struct ProjectManager {
     books_service: BooksService,
     chapters_service: ChaptersService,
 
+    name: String,
     file: PathBuf,
     cache_project: PathBuf,
     cache_dir: PathBuf,
@@ -62,6 +63,7 @@ impl ProjectManager {
         fs::create_dir_all(&self.cache_project)?;
 
         self.file = file.to_path_buf();
+        self.name = file_name.to_os_string().into_string()?;
 
         self.reload_project()?;
         self.save_project()?;
@@ -137,6 +139,7 @@ impl ProjectManager {
         fs::create_dir_all(&self.cache_project)?;
 
         self.file = file.to_path_buf();
+        self.name = file_name.to_os_string().into_string()?;
 
         self.load_project()?;
 
@@ -219,6 +222,10 @@ impl ProjectManager {
         }
         log::info!("Closed project: {}", self.file.display());
         Ok(())
+    }
+
+    pub fn name(&self) -> String {
+        self.name.clone()
     }
 
     pub fn set_cache_dir<P: AsRef<Path>>(&mut self, path: P) {

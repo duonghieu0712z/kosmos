@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { open } from '@tauri-apps/plugin-dialog';
-import { FolderOpen, FolderPlus, X } from 'lucide-vue-next';
+import { FolderOpen, FolderPlus } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
@@ -13,9 +13,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupButton,
+    InputGroupInput,
+    InputGroupText,
+} from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
-import { newProject } from '@/events';
+import { createProject } from '@/events';
 
 const name = ref('New Project');
 const path = ref('');
@@ -27,8 +33,8 @@ async function selectPath() {
     }
 }
 
-async function createProject() {
-    await newProject(name.value, path.value);
+async function newProject() {
+    await createProject(name.value, path.value);
 }
 </script>
 
@@ -46,10 +52,10 @@ async function createProject() {
             <DialogDescription>Create a new project</DialogDescription>
 
             <div class="grid gap-4">
-                <div class="grid grid-cols-4 items-center gap-1">
+                <div class="grid grid-cols-[100px_1fr] items-center gap-1">
                     <Label for="name">Project name</Label>
 
-                    <InputGroup class="col-span-3 h-8">
+                    <InputGroup class="h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0">
                         <InputGroupInput
                             id="name"
                             v-model="name"
@@ -59,17 +65,15 @@ async function createProject() {
                         />
 
                         <InputGroupAddon align="inline-end">
-                            <InputGroupButton @click="name = ''">
-                                <X />
-                            </InputGroupButton>
+                            <InputGroupText>.kosmos</InputGroupText>
                         </InputGroupAddon>
                     </InputGroup>
                 </div>
 
-                <div class="grid grid-cols-4 items-center gap-1">
+                <div class="grid grid-cols-[100px_1fr] items-center gap-1">
                     <Label for="path">Location</Label>
 
-                    <InputGroup class="col-span-3 h-8">
+                    <InputGroup class="h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0">
                         <InputGroupInput
                             id="path"
                             v-model="path"
@@ -89,7 +93,7 @@ async function createProject() {
 
             <DialogFooter>
                 <DialogClose as-child>
-                    <Button :disabled="!name || !path" variant="outline" @click="createProject">Create project</Button>
+                    <Button :disabled="!name || !path" variant="outline" @click="newProject">Create project</Button>
                 </DialogClose>
             </DialogFooter>
         </DialogContent>

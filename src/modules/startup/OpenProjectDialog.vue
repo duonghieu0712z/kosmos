@@ -42,10 +42,10 @@ async function selectPath() {
             <DialogTitle>Open Project</DialogTitle>
             <DialogDescription>Open an existing project</DialogDescription>
 
-            <div class="grid grid-cols-7 items-center gap-1">
+            <div class="grid grid-cols-[100px_1fr] items-center gap-1">
                 <Label for="path">Project name</Label>
 
-                <InputGroup class="col-span-6 h-8">
+                <InputGroup class="h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0">
                     <InputGroupInput
                         id="path"
                         v-model="path"

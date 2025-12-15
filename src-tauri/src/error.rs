@@ -1,4 +1,4 @@
-use std::io;
+use std::{ffi::OsString, io, sync};
 
 use serde::Serialize;
 use thiserror::Error;
@@ -17,6 +17,12 @@ pub enum KosmosError {
     #[error("Version error: {0}")]
     Version(#[from] semver::Error),
 
+    #[error("Mutex error: {0}")]
+    Mutex(String),
+
+    #[error("OsString error: {0:?}")]
+    OsString(OsString),
+
     #[error("Already exists error: {0}")]
     AlreadyExists(String),
 
@@ -34,6 +40,18 @@ impl Serialize for KosmosError {
     {
         log::error!("{self}");
         serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<T> From<sync::PoisonError<T>> for KosmosError {
+    fn from(err: sync::PoisonError<T>) -> Self {
+        Self::Mutex(err.to_string())
+    }
+}
+
+impl From<OsString> for KosmosError {
+    fn from(err: OsString) -> Self {
+        Self::OsString(err)
     }
 }
 

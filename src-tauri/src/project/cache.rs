@@ -10,3 +10,14 @@ pub struct ProjectCache {
     #[serde(with = "chrono::serde::ts_seconds")]
     pub(crate) last_opened: DateTime<Utc>,
 }
+
+impl ProjectCache {
+    pub fn new(name: &str, file: &str) -> Self {
+        Self {
+            name: name.into(),
+            file: file.into(),
+            is_pinned: false,
+            last_opened: Utc::now(),
+        }
+    }
+}

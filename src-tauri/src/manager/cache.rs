@@ -1,9 +1,6 @@
 use std::path::{Path, PathBuf};
 
-use crate::{
-    cache::{CacheData, CacheService},
-    error::KosmosResult,
-};
+use crate::{cache::CacheService, error::KosmosResult, project::ProjectCache};
 
 #[derive(Default)]
 pub struct CacheManager {
@@ -17,7 +14,15 @@ impl CacheManager {
         self.service.set_path(&self.cache_dir)
     }
 
-    pub fn data(&self) -> &CacheData {
-        self.service.data()
+    pub fn projects(&self) -> &Vec<ProjectCache> {
+        self.service.projects()
+    }
+
+    pub fn add_project(&mut self, name: &str, file: &str) -> KosmosResult<&Vec<ProjectCache>> {
+        self.service.add_project(name, file)
+    }
+
+    pub fn remove_project(&mut self, file: &str) -> KosmosResult<&Vec<ProjectCache>> {
+        self.service.remove_project(file)
     }
 }

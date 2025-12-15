@@ -12,18 +12,21 @@ pub struct CacheData {
 }
 
 impl CacheData {
-    pub fn add_project(&mut self, project: ProjectCache) {
-        if let Some(project) = self.projects.iter_mut().find(|p| p.file == project.file) {
+    pub fn add_project(&mut self, name: &str, file: &str) {
+        if let Some(project) = self.projects.iter_mut().find(|p| p.file == file) {
             project.last_opened = Utc::now();
         } else {
-            self.projects.push(project);
+            self.projects.push(ProjectCache::new(name, file));
         }
 
-        self.projects
-            .sort_by_key(|project| Reverse(project.last_opened));
+        self.projects.sort_by(|a, b| {
+            Reverse(a.is_pinned)
+                .cmp(&Reverse(b.is_pinned))
+                .then(Reverse(a.last_opened).cmp(&Reverse(b.last_opened)))
+        });
     }
 
-    pub fn remove_project(&mut self, path: &str) {
-        self.projects.retain(|project| project.file == path);
+    pub fn remove_project(&mut self, file: &str) {
+        self.projects.retain(|project| project.file == file);
     }
 }

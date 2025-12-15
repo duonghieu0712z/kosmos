@@ -1,4 +1,6 @@
-use tauri::{State, async_runtime::Mutex};
+use std::sync::Mutex;
+
+use tauri::State;
 
 use crate::{
     error::KosmosResult,
@@ -8,35 +10,32 @@ use crate::{
 use super::AppManager;
 
 #[tauri::command]
-pub async fn create_project(
+pub fn create_project(
     state: State<'_, Mutex<AppManager>>,
-    file: String,
+    name: &str,
+    path: &str,
 ) -> KosmosResult<ProjectData> {
-    let mut manager = state.lock().await;
-    let project_manager = manager.project_manager_mut();
-    project_manager.create_project(file)?;
-    let project = project_manager.project().clone();
-    Ok(project)
+    let mut manager = state.lock()?;
+    let project = manager.create_project(name, path)?;
+    Ok(project.clone())
 }
 
 #[tauri::command]
-pub async fn open_project(
-    state: State<'_, Mutex<AppManager>>,
-    file: &str,
-) -> KosmosResult<ProjectData> {
-    let mut manager = state.lock().await;
-    let project_manager = manager.project_manager_mut();
-    project_manager.open_project(file)?;
-    let project = project_manager.project().clone();
-    Ok(project)
+pub fn open_project(state: State<'_, Mutex<AppManager>>, file: &str) -> KosmosResult<ProjectData> {
+    let mut manager = state.lock()?;
+    let project = manager.open_project(file)?;
+    Ok(project.clone())
 }
 
 #[tauri::command]
-pub async fn get_recent_projects(
-    state: State<'_, Mutex<AppManager>>,
-) -> KosmosResult<Vec<ProjectCache>> {
-    let manager = state.lock().await;
-    let cache_manager = manager.cache_manager();
-    let projects = cache_manager.data().projects.clone();
-    Ok(projects)
+pub fn close_project(state: State<'_, Mutex<AppManager>>) -> KosmosResult<()> {
+    let mut manager = state.lock()?;
+    manager.close_project()
+}
+
+#[tauri::command]
+pub fn get_recent_projects(state: State<'_, Mutex<AppManager>>) -> KosmosResult<Vec<ProjectCache>> {
+    let manager = state.lock()?;
+    let projects = manager.get_recent_projects();
+    Ok(projects.clone())
 }
