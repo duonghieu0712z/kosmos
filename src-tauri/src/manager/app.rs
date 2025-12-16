@@ -3,9 +3,10 @@ use std::path::Path;
 use tauri::{AppHandle, Manager};
 
 use crate::{
+    cache::RecentProject,
     constants::{APP_EXTENSION, CACHE_DIR},
     error::KosmosResult,
-    project::{ProjectCache, ProjectData},
+    project::ProjectData,
 };
 
 use super::{cache::CacheManager, project::ProjectManager};
@@ -56,7 +57,7 @@ impl AppManager {
         Ok(())
     }
 
-    pub fn get_recent_projects(&self) -> &Vec<ProjectCache> {
+    pub fn recent_projects(&self) -> &Vec<RecentProject> {
         self.cache_manager.projects()
     }
 }

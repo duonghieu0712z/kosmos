@@ -2,10 +2,7 @@ use std::sync::Mutex;
 
 use tauri::State;
 
-use crate::{
-    error::KosmosResult,
-    project::{ProjectCache, ProjectData},
-};
+use crate::{cache::RecentProject, error::KosmosResult, project::ProjectData};
 
 use super::AppManager;
 
@@ -34,8 +31,8 @@ pub fn close_project(state: State<'_, Mutex<AppManager>>) -> KosmosResult<()> {
 }
 
 #[tauri::command]
-pub fn get_recent_projects(state: State<'_, Mutex<AppManager>>) -> KosmosResult<Vec<ProjectCache>> {
+pub fn get_recent_projects(state: State<'_, Mutex<AppManager>>) -> KosmosResult<Vec<RecentProject>> {
     let manager = state.lock()?;
-    let projects = manager.get_recent_projects();
+    let projects = manager.recent_projects();
     Ok(projects.clone())
 }

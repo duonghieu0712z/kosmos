@@ -1,14 +1,33 @@
 use std::cmp::Reverse;
 
-use chrono::Utc;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-use crate::project::ProjectCache;
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RecentProject {
+    pub(crate) name: String,
+    pub(crate) file: String,
+    pub(crate) is_pinned: bool,
+    #[serde(with = "chrono::serde::ts_seconds")]
+    pub(crate) last_opened: DateTime<Utc>,
+}
+
+impl RecentProject {
+    pub fn new(name: &str, file: &str) -> Self {
+        Self {
+            name: name.into(),
+            file: file.into(),
+            is_pinned: false,
+            last_opened: Utc::now(),
+        }
+    }
+}
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct CacheData {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub(crate) projects: Vec<ProjectCache>,
+    pub(crate) projects: Vec<RecentProject>,
 }
 
 impl CacheData {
@@ -16,7 +35,7 @@ impl CacheData {
         if let Some(project) = self.projects.iter_mut().find(|p| p.file == file) {
             project.last_opened = Utc::now();
         } else {
-            self.projects.push(ProjectCache::new(name, file));
+            self.projects.push(RecentProject::new(name, file));
         }
 
         self.projects.sort_by(|a, b| {

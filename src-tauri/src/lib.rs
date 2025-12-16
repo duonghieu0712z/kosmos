@@ -36,7 +36,7 @@ pub fn run() {
             .filter(|metadata| metadata.target().starts_with("kosmos"))
             .format(|out, message, record| {
                 out.finish(format_args!(
-                    "[{}][{}] {}",
+                    "[{}]|{:<5}: {}",
                     chrono::Local::now().format("%Y-%m-%d %H:%M:%S"),
                     record.level(),
                     message

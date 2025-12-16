@@ -3,9 +3,9 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::{constants::CACHE_FILE, error::KosmosResult, file::JsonFile, project::ProjectCache};
+use crate::{constants::CACHE_FILE, error::KosmosResult, file::JsonFile};
 
-use super::CacheData;
+use super::{CacheData, RecentProject};
 
 #[derive(Default)]
 pub struct CacheService {
@@ -14,11 +14,11 @@ pub struct CacheService {
 }
 
 impl CacheService {
-    pub fn projects(&self) -> &Vec<ProjectCache> {
+    pub fn projects(&self) -> &Vec<RecentProject> {
         &self.data.projects
     }
 
-    pub fn add_project(&mut self, name: &str, file: &str) -> KosmosResult<&Vec<ProjectCache>> {
+    pub fn add_project(&mut self, name: &str, file: &str) -> KosmosResult<&Vec<RecentProject>> {
         let mut data = self.data.clone();
         data.add_project(name, file);
         data.write_json(&self.file)?;
@@ -27,7 +27,7 @@ impl CacheService {
         Ok(self.projects())
     }
 
-    pub fn remove_project(&mut self, file: &str) -> KosmosResult<&Vec<ProjectCache>> {
+    pub fn remove_project(&mut self, file: &str) -> KosmosResult<&Vec<RecentProject>> {
         let mut data = self.data.clone();
         data.remove_project(file);
         data.write_json(&self.file)?;
