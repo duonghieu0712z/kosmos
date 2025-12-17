@@ -31,7 +31,9 @@ pub fn close_project(state: State<'_, Mutex<AppManager>>) -> KosmosResult<()> {
 }
 
 #[tauri::command]
-pub fn get_recent_projects(state: State<'_, Mutex<AppManager>>) -> KosmosResult<Vec<RecentProject>> {
+pub fn get_recent_projects(
+    state: State<'_, Mutex<AppManager>>,
+) -> KosmosResult<Vec<RecentProject>> {
     let manager = state.lock()?;
     let projects = manager.recent_projects();
     Ok(projects.clone())

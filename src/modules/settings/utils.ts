@@ -2,15 +2,15 @@ import { createGlobalState } from '@vueuse/core';
 import { Settings2 } from 'lucide-vue-next';
 import { markRaw, shallowRef } from 'vue';
 
-import { useTabs } from '@/composables';
+import { useTabsStore } from '@/composables';
 
 import Settings from './Settings.vue';
 
 export const useSettings = createGlobalState(() => {
-    const { pushTab } = useTabs();
+    const store = useTabsStore();
 
     const openSettings = async () => {
-        await pushTab({
+        await store.pushTab({
             id: 'settings',
             name: 'Settings',
             icon: markRaw(Settings2),

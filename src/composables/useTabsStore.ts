@@ -1,5 +1,5 @@
-import { createGlobalState } from '@vueuse/core';
 import type { LucideIcon } from 'lucide-vue-next';
+import { defineStore } from 'pinia';
 import type { Component, Raw, ShallowRef, VNodeRef } from 'vue';
 import { nextTick, reactive, ref } from 'vue';
 
@@ -13,7 +13,7 @@ export interface Tab {
 
 const MAX_HISTORY = 100;
 
-export const useTabs = createGlobalState(() => {
+export const useTabsStore = defineStore('tabs', () => {
     const currentTab = ref<string>();
     const tabs = reactive<Tab[]>([]);
     const history = reactive<string[]>([]);
