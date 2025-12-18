@@ -30,11 +30,11 @@ const delegatedProps = reactiveOmit(props, 'editor', 'level');
 const config = reactivePick(props, 'editor', 'level') as UseHeadingConfig;
 const { canToggle, isActive, label, icon, handleToggle } = useHeading(config);
 
-function onClick() {
+const onClick = () => {
     if (handleToggle()) {
         emits('update:toggled', config.level);
     }
-}
+};
 </script>
 
 <template>

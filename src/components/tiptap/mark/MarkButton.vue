@@ -30,11 +30,11 @@ const delegatedProps = reactiveOmit(props, 'editor', 'mark');
 const config = reactivePick(props, 'editor', 'mark') as UseMarkConfig;
 const { canToggle, isActive, label, icon, handleToggle } = useMark(config);
 
-function onClick() {
+const onClick = () => {
     if (handleToggle()) {
         emits('update:toggled', config.mark);
     }
-}
+};
 </script>
 
 <template>

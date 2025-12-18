@@ -4,9 +4,9 @@ import { X } from 'lucide-vue-next';
 import { ScrollArea, vWheelX } from '@/components/ui/scroll-area';
 import { SidebarInset } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useTabsStore } from '@/composables';
 import { Startup } from '@/modules/startup';
 import { Todo } from '@/modules/todo';
+import { useTabsStore } from '@/stores';
 
 const store = useTabsStore();
 </script>

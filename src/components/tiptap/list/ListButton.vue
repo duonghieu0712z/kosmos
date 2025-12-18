@@ -30,11 +30,11 @@ const delegatedProps = reactiveOmit(props, 'editor', 'list');
 const config = reactivePick(props, 'editor', 'list') as UseListConfig;
 const { canToggle, isActive, label, icon, handleToggle } = useList(config);
 
-function onClick() {
+const onClick = () => {
     if (handleToggle()) {
         emits('update:toggled', config.list);
     }
-}
+};
 </script>
 
 <template>

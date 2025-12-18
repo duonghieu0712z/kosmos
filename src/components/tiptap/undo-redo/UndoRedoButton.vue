@@ -31,11 +31,11 @@ const delegatedProps = reactiveOmit(props, 'editor', 'action');
 const config = reactivePick(props, 'editor', 'action') as UseUndoRedoConfig;
 const { canExecute, label, icon, handleExecute } = useUndoRedo(config);
 
-function onClick() {
+const onClick = () => {
     if (handleExecute()) {
         emits('update:executed', config.action);
     }
-}
+};
 </script>
 
 <template>

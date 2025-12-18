@@ -3,9 +3,9 @@ import { FileText, Folder, FolderOpen } from 'lucide-vue-next';
 import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
 import { markRaw, ref, shallowRef } from 'vue';
 
-import { useTabsStore } from '@/composables';
 import { cn } from '@/lib/utils';
 import Editor from '@/modules/tiptap/Editor.vue';
+import { useTabsStore } from '@/stores';
 
 const SAMPLES = [
     {

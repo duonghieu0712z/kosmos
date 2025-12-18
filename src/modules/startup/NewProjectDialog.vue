@@ -21,21 +21,23 @@ import {
     InputGroupText,
 } from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
-import { createProject } from '@/events';
+import { useProjectStore } from '@/stores';
+
+const store = useProjectStore();
 
 const name = ref('New Project');
 const path = ref('');
 
-async function selectPath() {
+const selectPath = async () => {
     const newPath = await open({ directory: true });
     if (newPath) {
         path.value = newPath;
     }
-}
+};
 
-async function newProject() {
-    await createProject(name.value, path.value);
-}
+const createProject = async () => {
+    await store.createProject(name.value, path.value);
+};
 </script>
 
 <template>
@@ -93,7 +95,7 @@ async function newProject() {
 
             <DialogFooter>
                 <DialogClose as-child>
-                    <Button :disabled="!name || !path" variant="outline" @click="newProject">Create project</Button>
+                    <Button :disabled="!name || !path" variant="outline" @click="createProject">Create project</Button>
                 </DialogClose>
             </DialogFooter>
         </DialogContent>

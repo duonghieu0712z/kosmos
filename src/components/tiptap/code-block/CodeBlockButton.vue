@@ -30,11 +30,11 @@ const delegatedProps = reactiveOmit(props, 'editor');
 const config = reactivePick(props, 'editor') as UseCodeBlockConfig;
 const { canToggle, isActive, handleToggle } = useCodeBlock(config);
 
-function onClick() {
+const onClick = () => {
     if (handleToggle()) {
         emits('update:toggled');
     }
-}
+};
 </script>
 
 <template>

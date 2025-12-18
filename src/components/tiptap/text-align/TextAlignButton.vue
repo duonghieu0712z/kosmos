@@ -30,11 +30,11 @@ const delegatedProps = reactiveOmit(props, 'editor', 'align');
 const config = reactivePick(props, 'editor', 'align') as UseTextAlignConfig;
 const { canAlign, isActive, label, icon, handleAlign } = useTextAlign(config);
 
-function onClick() {
+const onClick = () => {
     if (handleAlign()) {
         emits('update:toggle', config.align);
     }
-}
+};
 </script>
 
 <template>

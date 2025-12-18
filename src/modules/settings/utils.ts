@@ -2,7 +2,7 @@ import { createGlobalState } from '@vueuse/core';
 import { Settings2 } from 'lucide-vue-next';
 import { markRaw, shallowRef } from 'vue';
 
-import { useTabsStore } from '@/composables';
+import { useTabsStore } from '@/stores';
 
 import Settings from './Settings.vue';
 
