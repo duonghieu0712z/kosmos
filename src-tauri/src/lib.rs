@@ -17,7 +17,8 @@ use std::sync::Mutex;
 use tauri::Manager;
 
 use crate::manager::{
-    AppManager, close_project, create_project, get_recent_projects, open_project,
+    AppManager, close_project, create_project, get_book, get_books, get_chapter, get_chapters,
+    get_recent_projects, open_project,
 };
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -71,7 +72,11 @@ pub fn run() {
             create_project,
             open_project,
             close_project,
-            get_recent_projects
+            get_recent_projects,
+            get_books,
+            get_book,
+            get_chapters,
+            get_chapter
         ])
         .run(tauri::generate_context!())
         .inspect_err(|e| log::error!("{e}"))

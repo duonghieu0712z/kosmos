@@ -5,50 +5,17 @@ import { markRaw, ref, shallowRef } from 'vue';
 
 import { cn } from '@/lib/utils';
 import Editor from '@/modules/tiptap/Editor.vue';
-import { useTabsStore } from '@/stores';
-
-const SAMPLES = [
-    {
-        id: 'characters',
-        name: 'Characters',
-        children: [
-            { id: 'character-1', name: 'Character 1' },
-            { id: 'character-2', name: 'Character 2' },
-            { id: 'character-3', name: 'Character 3' },
-        ],
-    },
-    {
-        id: 'locations',
-        name: 'Locations',
-        children: [
-            { id: 'location-1', name: 'Location 1' },
-            { id: 'location-2', name: 'Location 2' },
-            { id: 'location-3', name: 'Location 3' },
-        ],
-    },
-    {
-        id: 'organizations',
-        name: 'Organizations',
-        children: [
-            { id: 'organization-1', name: 'Organization 1' },
-            { id: 'organization-2', name: 'Organization 2' },
-            { id: 'organization-3', name: 'Organization 3' },
-            {
-                id: 'organization-sample',
-                name: 'Organization sample with a very long name to test text truncation',
-            },
-        ],
-    },
-];
+import { useProjectStore, useTabsStore } from '@/stores';
 
 const currentItem = ref('');
 
-const store = useTabsStore();
+const projectStore = useProjectStore();
+const tabsStore = useTabsStore();
 </script>
 
 <template>
-    <TreeRoot class="w-full list-none py-2 select-none" :get-key="(item) => item.id" :items="SAMPLES">
-        <TreeVirtualizer v-slot="{ item }" :text-content="(item) => item.name">
+    <TreeRoot class="w-full list-none py-2 select-none" :get-key="(item) => item.id" :items="projectStore.books">
+        <TreeVirtualizer v-slot="{ item }" :text-content="(item) => item.title">
             <TreeItem
                 :key="item._id"
                 v-slot="{ isExpanded }"
@@ -64,8 +31,12 @@ const store = useTabsStore();
                     async () => {
                         currentItem = item._id;
                         if (!item.hasChildren) {
-                            const tab = { id: item._id, name: item.value.name, component: shallowRef(markRaw(Editor)) };
-                            await store.pushTab(tab);
+                            const tab = {
+                                id: item._id,
+                                name: item.value.title,
+                                component: shallowRef(markRaw(Editor)),
+                            };
+                            await tabsStore.pushTab(tab);
                         }
                     }
                 "
@@ -75,7 +46,7 @@ const store = useTabsStore();
                     <FolderOpen v-else :size="16" />
                 </template>
                 <FileText v-else :size="16" />
-                <div class="flex-1 truncate">{{ item.value.name }}</div>
+                <div class="flex-1 truncate">{{ item.value.title }}</div>
             </TreeItem>
         </TreeVirtualizer>
     </TreeRoot>

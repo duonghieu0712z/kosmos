@@ -1,9 +1,12 @@
 use std::path::Path;
 
 use tauri::{AppHandle, Manager};
+use uuid::Uuid;
 
 use crate::{
+    book::{BookChapterData, BookData},
     cache::RecentProject,
+    chapter::ChapterData,
     constants::{APP_EXTENSION, CACHE_DIR},
     error::KosmosResult,
     project::ProjectData,
@@ -59,5 +62,21 @@ impl AppManager {
 
     pub fn recent_projects(&self) -> &Vec<RecentProject> {
         self.cache_manager.projects()
+    }
+
+    pub fn books(&self) -> &Vec<BookChapterData> {
+        self.project_manager.books()
+    }
+
+    pub fn book(&mut self, id: &Uuid) -> KosmosResult<&BookData> {
+        self.project_manager.book(id)
+    }
+
+    pub fn chapters(&mut self, id: &Uuid) -> KosmosResult<&Vec<BookChapterData>> {
+        self.project_manager.chapters(id)
+    }
+
+    pub fn chapter(&mut self, id: &Uuid) -> KosmosResult<&ChapterData> {
+        self.project_manager.chapter(id)
     }
 }
