@@ -45,7 +45,7 @@ const editor = useEditor({
     autofocus: 'end',
     editorProps: {
         attributes: {
-            class: 'prose dark:prose-invert text-foreground min-h-full min-w-full p-4 text-[12pt] outline-none',
+            class: 'prose dark:prose-invert text-foreground min-h-full min-w-full p-4 outline-none',
             spellCheck: 'false',
         },
     },
