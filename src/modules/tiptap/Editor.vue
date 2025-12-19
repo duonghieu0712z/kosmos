@@ -19,6 +19,7 @@ import { TextAlignDropdown, TextAlignGroup } from '@/components/tiptap/text-alig
 import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
 
 const lowlight = createLowlight(all);
 
@@ -45,7 +46,7 @@ const editor = useEditor({
     autofocus: 'end',
     editorProps: {
         attributes: {
-            class: 'prose dark:prose-invert text-foreground min-h-full min-w-full p-4 outline-none',
+            class: cn('prose dark:prose-invert text-foreground font-document min-h-full min-w-full p-4 outline-none'),
             spellCheck: 'false',
         },
     },

@@ -11,10 +11,10 @@
 
 @layer base {
     * {
-        @apply font-ui border-border outline-ring/50 select-none;
+        @apply border-border outline-ring/50 select-none;
     }
     body {
-        @apply bg-background text-foreground cursor-default;
+        @apply bg-background text-foreground font-ui cursor-default;
     }
     button:not(:disabled),
     [role='button']:not(:disabled) {
