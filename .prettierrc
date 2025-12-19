@@ -5,5 +5,6 @@
     "singleQuote": true,
     "tabWidth": 4,
     "trailingComma": "es5",
+    "tailwindFunctions": ["clsx", "cn", "cva", "twMerge"],
     "plugins": ["prettier-plugin-tailwindcss"]
 }
