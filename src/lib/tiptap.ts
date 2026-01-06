@@ -136,7 +136,6 @@ type ProtocolOptions = {
 
 type ProtocolConfig = Array<ProtocolOptions | string>;
 
-// eslint-disable-next-line no-control-regex
 const ATTR_WHITESPACE = /[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g;
 
 export function isAllowedUri(uri?: string, protocols?: ProtocolConfig) {

@@ -9,8 +9,8 @@
         "preview": "vite preview",
         "start": "pnpm tauri dev",
         "make": "pnpm tauri build",
-        "lint": "eslint --ext .ts,.tsx,.vue .",
-        "lint:fix": "eslint --fix --ext .ts,.tsx,.vue .",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
         "format": "prettier --check .",
         "format:fix": "prettier --write .",
         "prepare": "husky"
@@ -43,14 +43,14 @@
         "vue": "^3.5.25"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.1",
         "@tailwindcss/typography": "^0.5.19",
         "@tailwindcss/vite": "^4.1.17",
         "@tauri-apps/cli": "^2.9.5",
         "@types/node": "^24.10.1",
         "@vitejs/plugin-vue": "^6.0.2",
+        "@vue/eslint-config-prettier": "^10.2.0",
+        "@vue/eslint-config-typescript": "^14.6.0",
         "eslint": "^9.39.1",
-        "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "eslint-plugin-vue": "^10.6.2",
@@ -72,7 +72,7 @@
         "*.{ts,tsx,vue,html,css,json,yaml}": [
             "prettier --write"
         ],
-        "*.{ts,tsx,vue}": [
+        "*.{ts,tsx,mts,vue}": [
             "eslint --fix"
         ]
     }
