@@ -1,4 +1,4 @@
-import path from 'node:path';
+import { resolve } from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
@@ -12,7 +12,7 @@ export default defineConfig(async () => ({
     plugins: [vue(), tailwindcss(), vueDevTools()],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, 'src'),
+            '@': resolve(__dirname, 'src'),
         },
     },
 

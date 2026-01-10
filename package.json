@@ -13,6 +13,7 @@
         "lint:fix": "eslint --fix .",
         "format": "prettier --check .",
         "format:fix": "prettier --write .",
+        "bump": "node bump-version.js",
         "prepare": "husky"
     },
     "dependencies": {
@@ -72,7 +73,7 @@
         "*.{ts,tsx,vue,html,css,json,yaml}": [
             "prettier --write"
         ],
-        "*.{ts,tsx,mts,vue}": [
+        "*.{ts,tsx,vue}": [
             "eslint --fix"
         ]
     }

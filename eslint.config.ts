@@ -11,7 +11,7 @@ import vueParser from 'vue-eslint-parser';
 export default defineConfigWithVueTs(
     {
         name: 'app/files-to-lint',
-        files: ['**/*.{ts,tsx,mts,vue}'],
+        files: ['**/*.{ts,tsx,vue}'],
     },
 
     globalIgnores(['**/node_modules', '**/dist', '**/src-tauri/target']),
@@ -19,6 +19,7 @@ export default defineConfigWithVueTs(
     pluginVue.configs['flat/recommended'],
     vueTsConfigs.recommended,
     prettierRecommended,
+    eslintConfigPrettier,
 
     {
         languageOptions: {
@@ -34,7 +35,7 @@ export default defineConfigWithVueTs(
             'simple-import-sort': simpleImportSort,
         },
         rules: {
-            curly: ['error', 'all'],
+            curly: ['error'],
 
             '@typescript-eslint/consistent-type-imports': [
                 'error',
@@ -54,6 +55,4 @@ export default defineConfigWithVueTs(
             'vue/require-default-prop': 'off',
         },
     },
-
-    eslintConfigPrettier
 );
