@@ -56,5 +56,5 @@ async function updateVersion() {
 try {
     await updateVersion();
 } catch (error) {
-    console.log(error);
+    console.error(error);
 }
