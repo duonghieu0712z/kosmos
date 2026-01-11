@@ -54,6 +54,10 @@ pub fn run() {
                 .unwrap();
             let mutex = Mutex::new(manager);
             app.manage(mutex);
+
+            #[cfg(debug_assertions)]
+            app.get_webview_window("main").unwrap().open_devtools();
+
             Ok(())
         })
         .on_window_event(|window, event| {
