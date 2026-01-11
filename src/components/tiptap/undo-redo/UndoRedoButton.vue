@@ -19,7 +19,7 @@ const props = withDefaults(
     {
         variant: 'ghost',
         size: 'icon-sm',
-    }
+    },
 );
 
 const emits = defineEmits<{

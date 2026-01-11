@@ -27,7 +27,7 @@ export const inputGroupAddonVariants = cva(
         defaultVariants: {
             align: 'inline-start',
         },
-    }
+    },
 );
 
 export type InputGroupVariants = VariantProps<typeof inputGroupAddonVariants>;

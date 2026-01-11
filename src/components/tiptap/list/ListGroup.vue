@@ -19,7 +19,7 @@ const props = withDefaults(
     {
         lists: () => ['bullet', 'ordered'],
         orientation: 'horizontal-rounded',
-    }
+    },
 );
 
 const delegatedProps = reactiveOmit(props, 'editor', 'lists');

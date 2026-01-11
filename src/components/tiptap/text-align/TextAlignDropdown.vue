@@ -27,7 +27,7 @@ const props = withDefaults(
     {
         aligns: () => ['left', 'center', 'right', 'justify'],
         orientation: 'horizontal',
-    }
+    },
 );
 
 const config = reactivePick(props, 'editor', 'aligns') as UseTextAlignsConfig;

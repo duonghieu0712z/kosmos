@@ -17,22 +17,32 @@ export const vWheelX: Directive<HTMLElement, { invert?: boolean; speed?: number 
         const invert = binding.value?.invert ?? false;
 
         const onWheel = (e: WheelEvent) => {
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                return;
+            }
 
             const { scrollWidth, clientWidth, scrollLeft } = viewport;
             const canScroll = scrollWidth > clientWidth;
-            if (!canScroll) return;
+            if (!canScroll) {
+                return;
+            }
 
             const tag = (e.target as HTMLElement)?.closest(
-                'input,textarea,select, [contenteditable=""], [contenteditable="true"]'
+                'input,textarea,select, [contenteditable=""], [contenteditable="true"]',
             );
-            if (e.ctrlKey || tag) return;
+            if (e.ctrlKey || tag) {
+                return;
+            }
 
             const delta = (invert ? -1 : 1) * e.deltaY * speed;
             let next = scrollLeft + delta;
             const max = scrollWidth - clientWidth;
-            if (next < 0) next = 0;
-            if (next > max) next = max;
+            if (next < 0) {
+                next = 0;
+            }
+            if (next > max) {
+                next = max;
+            }
 
             if (next !== scrollLeft) {
                 e.preventDefault();

@@ -21,7 +21,7 @@ const delegatedProps = reactiveOmit(props, 'class');
                 'flex touch-none px-0.5 transition-colors select-none',
                 orientation === 'vertical' && 'h-full w-1 border-l border-l-transparent',
                 orientation === 'horizontal' && 'h-1 flex-col border-t border-t-transparent',
-                props.class
+                props.class,
             )
         "
         data-slot="scroll-area-scrollbar"

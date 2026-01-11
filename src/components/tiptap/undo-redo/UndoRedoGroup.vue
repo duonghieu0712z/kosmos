@@ -19,7 +19,7 @@ const props = withDefaults(
     {
         actions: () => ['undo', 'redo'],
         orientation: 'horizontal-rounded',
-    }
+    },
 );
 
 const delegatedProps = reactiveOmit(props, 'editor', 'actions');

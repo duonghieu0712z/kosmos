@@ -27,7 +27,7 @@ const props = withDefaults(
     {
         lists: () => ['bullet', 'ordered'],
         orientation: 'horizontal',
-    }
+    },
 );
 
 const config = reactivePick(props, 'editor', 'lists') as UseListsConfig;

@@ -13,7 +13,7 @@ const props = withDefaults(
     }>(),
     {
         align: 'inline-start',
-    }
+    },
 );
 
 function handleInputGroupAddonClick(e: MouseEvent) {

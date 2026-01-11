@@ -20,7 +20,7 @@ const props = withDefaults(
             { color: 'oklch(92.5% 0.084 155.995)', label: 'Green' },
             { color: 'oklch(91.7% 0.08 205.041)', label: 'Blue' },
         ],
-    }
+    },
 );
 
 const config = reactivePick(props, 'editor') as UseHighlightConfig;

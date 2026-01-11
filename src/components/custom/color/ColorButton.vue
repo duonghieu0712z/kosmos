@@ -13,7 +13,7 @@ const props = withDefaults(
     >(),
     {
         size: 'sm',
-    }
+    },
 );
 
 const emits = defineEmits<{

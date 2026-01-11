@@ -27,7 +27,7 @@ const props = defineProps<{
                 // Error state.
                 'has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40',
 
-                props.class
+                props.class,
             )
         "
         data-slot="input-group"

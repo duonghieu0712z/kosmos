@@ -25,7 +25,7 @@ const props = withDefaults(
     }>(),
     {
         levels: () => [1, 2, 3, 4, 0],
-    }
+    },
 );
 
 const config = reactivePick(props, 'editor', 'levels') as UseHeadingsConfig;

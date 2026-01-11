@@ -19,7 +19,7 @@ const props = withDefaults(
     {
         marks: () => ['bold', 'italic', 'underline', 'strike'],
         orientation: 'horizontal-rounded',
-    }
+    },
 );
 
 const delegatedProps = reactiveOmit(props, 'editor', 'marks');

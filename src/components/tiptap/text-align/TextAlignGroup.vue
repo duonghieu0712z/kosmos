@@ -19,7 +19,7 @@ const props = withDefaults(
     {
         aligns: () => ['left', 'center', 'right', 'justify'],
         orientation: 'horizontal-rounded',
-    }
+    },
 );
 
 const delegatedProps = reactiveOmit(props, 'editor', 'aligns');
