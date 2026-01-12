@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { CircleSlash2 } from 'lucide-vue-next';
+import { CircleSlash2Icon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -31,15 +26,15 @@ const open = ref(false);
 </script>
 
 <template>
-    <DropdownMenu @update:open="open = $event">
-        <DropdownMenuTrigger as="div">
+    <Popover @update:open="open = $event">
+        <PopoverTrigger as="div">
             <Tooltip>
                 <TooltipTrigger>
                     <Toggle
                         class="flex-col gap-0"
                         :disabled="disabled"
                         :model-value="!!currentColor || open"
-                        size="default"
+                        size="icon"
                     >
                         <slot />
                         <span
@@ -51,33 +46,31 @@ const open = ref(false);
 
                 <TooltipContent>{{ tooltip }}</TooltipContent>
             </Tooltip>
-        </DropdownMenuTrigger>
+        </PopoverTrigger>
 
-        <DropdownMenuContent as-child>
-            <ButtonGroup class="w-fit gap-0.5 p-1" spacing="spaced">
-                <DropdownMenuItem v-for="{ color, label } in colors" :key="color" class="p-0">
-                    <ColorButton
-                        :color="color"
-                        :label="label"
-                        :model-value="color === currentColor"
-                        @set:color="$emit('set:color', color)"
-                    />
-                </DropdownMenuItem>
+        <PopoverContent as-child class="p-0.5">
+            <ButtonGroup spacing="spaced">
+                <ColorButton
+                    v-for="{ color, label } in colors"
+                    :key="color"
+                    :color="color"
+                    :label="label"
+                    :model-value="color === currentColor"
+                    @set:color="$emit('set:color', color)"
+                />
 
                 <ButtonGroupSeparator />
 
-                <DropdownMenuItem class="p-0">
-                    <Tooltip>
-                        <TooltipTrigger>
-                            <Button size="icon" variant="ghost" @click="$emit('remove:color')">
-                                <CircleSlash2 />
-                            </Button>
-                        </TooltipTrigger>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button size="icon" variant="ghost" @click="$emit('remove:color')">
+                            <CircleSlash2Icon />
+                        </Button>
+                    </TooltipTrigger>
 
-                        <TooltipContent>Remove {{ tooltip.replace(/^./, (c) => c.toLowerCase()) }}</TooltipContent>
-                    </Tooltip>
-                </DropdownMenuItem>
+                    <TooltipContent>Remove {{ tooltip.replace(/^./, (c) => c.toLowerCase()) }}</TooltipContent>
+                </Tooltip>
             </ButtonGroup>
-        </DropdownMenuContent>
-    </DropdownMenu>
+        </PopoverContent>
+    </Popover>
 </template>

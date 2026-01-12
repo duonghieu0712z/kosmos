@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactivePick } from '@vueuse/core';
-import { ChevronDown } from 'lucide-vue-next';
+import { ChevronDownIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -36,12 +36,12 @@ const open = ref(false);
 
 <template>
     <DropdownMenu @update:open="open = $event">
-        <DropdownMenuTrigger :disabled="!canToggle">
+        <DropdownMenuTrigger as="div" :disabled="!canToggle">
             <Tooltip>
                 <TooltipTrigger>
                     <Toggle :disabled="!canToggle" :model-value="isActive || open" size="icon">
                         <component :is="icon" />
-                        <ChevronDown class="size-2" />
+                        <ChevronDownIcon class="size-2" />
                     </Toggle>
                 </TooltipTrigger>
 

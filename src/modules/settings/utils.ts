@@ -1,5 +1,5 @@
 import { createGlobalState } from '@vueuse/core';
-import { Settings2 } from 'lucide-vue-next';
+import { Settings2Icon } from 'lucide-vue-next';
 import { markRaw, shallowRef } from 'vue';
 
 import { useTabsStore } from '@/stores';
@@ -13,7 +13,7 @@ export const useSettings = createGlobalState(() => {
         await store.pushTab({
             id: 'settings',
             name: 'Settings',
-            icon: markRaw(Settings2),
+            icon: markRaw(Settings2Icon),
             component: shallowRef(markRaw(Settings)),
         });
     };

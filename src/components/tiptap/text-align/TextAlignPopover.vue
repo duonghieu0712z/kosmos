@@ -32,7 +32,7 @@ const open = ref(false);
 
 <template>
     <Popover @update:open="open = $event">
-        <PopoverTrigger :disabled="!canAlign">
+        <PopoverTrigger as="div" :disabled="!canAlign">
             <Tooltip>
                 <TooltipTrigger>
                     <Toggle :disabled="!canAlign" :model-value="open" size="icon">

@@ -15,7 +15,7 @@ const colorMode = useColorMode();
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger as-child>
+        <DropdownMenuTrigger as="div" as-child>
             <Button class="hover:[&>svg]:stroke-sidebar-foreground size-12" size="icon" variant="ghost">
                 <SunIcon v-if="colorMode === 'light'" class="stroke-muted-foreground size-6" />
                 <MoonIcon v-else-if="colorMode === 'dark'" class="stroke-muted-foreground size-6" />
