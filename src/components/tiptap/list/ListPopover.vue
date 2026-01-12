@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactivePick } from '@vueuse/core';
-import { ChevronDown } from 'lucide-vue-next';
+import { ChevronDownIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
-import { ButtonGroup } from '@/components/ui/button-group';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-import ListButton from './ListButton.vue';
+import ListGroup from './ListGroup.vue';
 import type { ListType, UseListsConfig } from './utils';
 import { useLists } from './utils';
 
@@ -37,26 +31,22 @@ const open = ref(false);
 </script>
 
 <template>
-    <DropdownMenu @update:open="open = $event">
-        <DropdownMenuTrigger :disabled="!canToggle">
+    <Popover @update:open="open = $event">
+        <PopoverTrigger :disabled="!canToggle">
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive || open" size="icon">
+                    <Toggle :disabled="!canToggle" :model-value="isActive || open" size="icon">
                         <component :is="icon" />
-                        <ChevronDown class="size-2" />
+                        <ChevronDownIcon class="size-2" />
                     </Toggle>
                 </TooltipTrigger>
 
                 <TooltipContent>List</TooltipContent>
             </Tooltip>
-        </DropdownMenuTrigger>
+        </PopoverTrigger>
 
-        <DropdownMenuContent align="start" as-child>
-            <ButtonGroup class="min-w-0 p-0.5" spacing="spaced">
-                <DropdownMenuItem v-for="list in lists" :key="list" class="p-0">
-                    <ListButton :editor="editor" :list="list" />
-                </DropdownMenuItem>
-            </ButtonGroup>
-        </DropdownMenuContent>
-    </DropdownMenu>
+        <PopoverContent align="start" as-child class="p-0.5">
+            <ListGroup :editor="editor" :lists="lists" :orientation="orientation" />
+        </PopoverContent>
+    </Popover>
 </template>

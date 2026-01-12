@@ -13,9 +13,9 @@ import { CodeBlockButton } from '@/components/tiptap/code-block';
 import { HeadingDropdown } from '@/components/tiptap/heading';
 import { HighlightPopover } from '@/components/tiptap/highlight';
 import { LinkPopover } from '@/components/tiptap/link';
-import { ListDropdown, ListGroup } from '@/components/tiptap/list';
+import { ListGroup, ListPopover } from '@/components/tiptap/list';
 import { MarkButton, MarkGroup } from '@/components/tiptap/mark';
-import { TextAlignDropdown, TextAlignGroup } from '@/components/tiptap/text-align';
+import { TextAlignGroup, TextAlignPopover } from '@/components/tiptap/text-align';
 import { UndoRedoGroup } from '@/components/tiptap/undo-redo';
 import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -75,8 +75,8 @@ const editor = useEditor({
             <ButtonGroupSeparator />
             <ListGroup :editor="editor" />
             <ButtonGroupSeparator />
-            <TextAlignDropdown :editor="editor" />
-            <ListDropdown :editor="editor" />
+            <TextAlignPopover :editor="editor" />
+            <ListPopover :editor="editor" />
         </ButtonGroup>
 
         <ScrollArea class="m-2 flex-1 cursor-text border" type="always" @click="editor.chain().focus().run()">

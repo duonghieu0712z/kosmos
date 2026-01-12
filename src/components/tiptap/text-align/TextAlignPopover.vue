@@ -4,17 +4,11 @@ import { reactivePick } from '@vueuse/core';
 import { ChevronDownIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
-import { ButtonGroup } from '@/components/ui/button-group';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-import TextAlignButton from './TextAlignButton.vue';
+import TextAlignGroup from './TextAlignGroup.vue';
 import type { TextAlign, UseTextAlignsConfig } from './utils';
 import { useTextAligns } from './utils';
 
@@ -37,11 +31,11 @@ const open = ref(false);
 </script>
 
 <template>
-    <DropdownMenu @update:open="open = $event">
-        <DropdownMenuTrigger :disabled="!canAlign">
+    <Popover @update:open="open = $event">
+        <PopoverTrigger :disabled="!canAlign">
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle class="gap-0 px-1!" :disabled="!canAlign" :model-value="open" size="icon">
+                    <Toggle :disabled="!canAlign" :model-value="open" size="icon">
                         <component :is="icon" />
                         <ChevronDownIcon class="size-2" />
                     </Toggle>
@@ -49,14 +43,10 @@ const open = ref(false);
 
                 <TooltipContent>Text align</TooltipContent>
             </Tooltip>
-        </DropdownMenuTrigger>
+        </PopoverTrigger>
 
-        <DropdownMenuContent align="start" as-child>
-            <ButtonGroup class="p-0.5" spacing="spaced">
-                <DropdownMenuItem v-for="align in aligns" :key="align" class="p-0">
-                    <TextAlignButton :align="align" :editor="editor" />
-                </DropdownMenuItem>
-            </ButtonGroup>
-        </DropdownMenuContent>
-    </DropdownMenu>
+        <PopoverContent align="start" as-child class="p-0.5">
+            <TextAlignGroup :aligns="aligns" :editor="editor" :orientation="orientation" />
+        </PopoverContent>
+    </Popover>
 </template>
