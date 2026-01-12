@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactivePick } from '@vueuse/core';
-import { Highlighter } from 'lucide-vue-next';
+import { HighlighterIcon } from 'lucide-vue-next';
 
 import { ColorPopover } from '@/components/custom/color';
 
@@ -36,6 +36,6 @@ const { canHighlight, currentHighlight, setHighlight, removeHighlight } = useHig
         @remove:color="removeHighlight"
         @set:color="setHighlight"
     >
-        <Highlighter />
+        <HighlighterIcon />
     </ColorPopover>
 </template>

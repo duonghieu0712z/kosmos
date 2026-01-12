@@ -19,7 +19,7 @@ const store = useTabsStore();
 
         <template v-else>
             <Tabs
-                class="size-full gap-2"
+                class="size-full gap-0"
                 :model-value="store.currentTab"
                 @update:model-value="store.activeTab($event as string)"
             >

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit, reactivePick } from '@vueuse/core';
-import { SquareCode } from 'lucide-vue-next';
+import { SquareCodeIcon } from 'lucide-vue-next';
 
 import type { ToggleProps } from '@/components/ui/toggle';
 import { Toggle } from '@/components/ui/toggle';
@@ -17,7 +17,7 @@ const props = withDefaults(
         }
     >(),
     {
-        size: 'sm',
+        size: 'icon',
     },
 );
 
@@ -41,7 +41,7 @@ const onClick = () => {
     <Tooltip>
         <TooltipTrigger>
             <Toggle v-bind="delegatedProps" :disabled="!canToggle" :model-value="isActive" @click="onClick">
-                <SquareCode />
+                <SquareCodeIcon />
             </Toggle>
         </TooltipTrigger>
 

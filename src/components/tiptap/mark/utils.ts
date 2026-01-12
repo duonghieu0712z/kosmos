@@ -1,5 +1,13 @@
 import type { Editor } from '@tiptap/vue-3';
-import { Bold, Code2, Italic, Strikethrough, Subscript, Superscript, Underline } from 'lucide-vue-next';
+import {
+    BoldIcon,
+    Code2Icon,
+    ItalicIcon,
+    StrikethroughIcon,
+    SubscriptIcon,
+    SuperscriptIcon,
+    UnderlineIcon,
+} from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { isMarkInSchema, isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
@@ -12,13 +20,13 @@ export interface UseMarkConfig {
 }
 
 const MARK_ICONS = {
-    bold: Bold,
-    italic: Italic,
-    underline: Underline,
-    strike: Strikethrough,
-    code: Code2,
-    superscript: Superscript,
-    subscript: Subscript,
+    bold: BoldIcon,
+    italic: ItalicIcon,
+    underline: UnderlineIcon,
+    strike: StrikethroughIcon,
+    code: Code2Icon,
+    superscript: SuperscriptIcon,
+    subscript: SubscriptIcon,
 } as const;
 
 const MARK_SHORTCUT_KEYS = {

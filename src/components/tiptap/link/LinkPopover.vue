@@ -2,7 +2,7 @@
 import type { Editor } from '@tiptap/vue-3';
 import { vOnKeyStroke } from '@vueuse/components';
 import { reactivePick } from '@vueuse/core';
-import { CornerDownLeft, ExternalLink, Link, Trash2 } from 'lucide-vue-next';
+import { CornerDownLeftIcon, ExternalLinkIcon, LinkIcon, Trash2Icon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
@@ -26,12 +26,12 @@ const open = ref(false);
 </script>
 
 <template>
-    <Popover @update:open="(value) => (open = value)">
+    <Popover @update:open="open = $event">
         <PopoverTrigger>
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle :disabled="!canLink" :model-value="isActive || open" size="sm">
-                        <Link />
+                    <Toggle :disabled="!canLink" :model-value="isActive || open" size="icon">
+                        <LinkIcon />
                     </Toggle>
                 </TooltipTrigger>
 
@@ -52,11 +52,11 @@ const open = ref(false);
                 type="url"
             />
 
-            <ButtonGroup class="gap-0.5" orientation="horizontal-rounded">
+            <ButtonGroup class="gap-0.5" spacing="spaced">
                 <Tooltip>
                     <TooltipTrigger>
-                        <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="setLink">
-                            <CornerDownLeft />
+                        <Button :disabled="!url && !isActive" size="icon" variant="ghost" @click="setLink">
+                            <CornerDownLeftIcon />
                         </Button>
                     </TooltipTrigger>
 
@@ -66,8 +66,8 @@ const open = ref(false);
 
                 <Tooltip>
                     <TooltipTrigger>
-                        <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="openLink">
-                            <ExternalLink />
+                        <Button :disabled="!url && !isActive" size="icon" variant="ghost" @click="openLink">
+                            <ExternalLinkIcon />
                         </Button>
                     </TooltipTrigger>
 
@@ -76,8 +76,8 @@ const open = ref(false);
 
                 <Tooltip>
                     <TooltipTrigger>
-                        <Button :disabled="!url && !isActive" size="icon-sm" variant="ghost" @click="removeLink">
-                            <Trash2 />
+                        <Button :disabled="!url && !isActive" size="icon" variant="ghost" @click="removeLink">
+                            <Trash2Icon />
                         </Button>
                     </TooltipTrigger>
 

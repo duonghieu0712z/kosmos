@@ -1,6 +1,14 @@
 import type { Editor } from '@tiptap/vue-3';
 import { isTextSelection } from '@tiptap/vue-3';
-import { Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from 'lucide-vue-next';
+import {
+    Heading1Icon,
+    Heading2Icon,
+    Heading3Icon,
+    Heading4Icon,
+    Heading5Icon,
+    Heading6Icon,
+    HeadingIcon,
+} from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
@@ -17,7 +25,15 @@ export interface UseHeadingsConfig {
     levels: HeadingLevel[];
 }
 
-const HEADING_ICONS = [Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6] as const;
+const HEADING_ICONS = [
+    HeadingIcon,
+    Heading1Icon,
+    Heading2Icon,
+    Heading3Icon,
+    Heading4Icon,
+    Heading5Icon,
+    Heading6Icon,
+] as const;
 
 function canToggleHeading(editor: Editor, level: HeadingLevel, turnInto = true) {
     if (!editor.isEditable) {

@@ -4,7 +4,6 @@ import { reactiveOmit } from '@vueuse/core';
 
 import type { ButtonGroupProps } from '@/components/ui/button-group';
 import { ButtonGroup } from '@/components/ui/button-group';
-import { cn } from '@/lib/utils';
 
 import UndoRedoButton from './UndoRedoButton.vue';
 import type { UndoRedoAction } from './utils';
@@ -18,7 +17,7 @@ const props = withDefaults(
     >(),
     {
         actions: () => ['undo', 'redo'],
-        orientation: 'horizontal-rounded',
+        spacing: 'spaced',
     },
 );
 
@@ -26,7 +25,7 @@ const delegatedProps = reactiveOmit(props, 'editor', 'actions');
 </script>
 
 <template>
-    <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
+    <ButtonGroup v-bind="delegatedProps">
         <UndoRedoButton v-for="action in actions" :key="action" :action="action" :editor="editor" />
     </ButtonGroup>
 </template>

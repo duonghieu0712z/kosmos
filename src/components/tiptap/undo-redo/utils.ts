@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/vue-3';
-import { Redo, Undo } from 'lucide-vue-next';
+import { RedoIcon, UndoIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
@@ -12,8 +12,8 @@ export interface UseUndoRedoConfig {
 }
 
 const UNDO_REDO_ICONS = {
-    undo: Undo,
-    redo: Redo,
+    undo: UndoIcon,
+    redo: RedoIcon,
 } as const;
 
 const UNDO_REDO_SHORTCUT_KEYS = {

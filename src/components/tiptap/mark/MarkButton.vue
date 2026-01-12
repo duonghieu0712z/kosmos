@@ -17,7 +17,7 @@ const props = withDefaults(
         }
     >(),
     {
-        size: 'sm',
+        size: 'icon',
     },
 );
 
@@ -39,7 +39,7 @@ const onClick = () => {
 
 <template>
     <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger as-child>
             <Toggle v-bind="delegatedProps" :disabled="!canToggle" :model-value="isActive" @click="onClick">
                 <component :is="icon" />
             </Toggle>

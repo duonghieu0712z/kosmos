@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/vue-3';
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'lucide-vue-next';
+import { AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { isNodeTypeSelected, parseShortcutKeys } from '@/lib/tiptap';
@@ -17,10 +17,10 @@ export interface UseTextAlignsConfig {
 }
 
 const TEXT_ALIGN_ICONS = {
-    left: AlignLeft,
-    center: AlignCenter,
-    right: AlignRight,
-    justify: AlignJustify,
+    left: AlignLeftIcon,
+    center: AlignCenterIcon,
+    right: AlignRightIcon,
+    justify: AlignJustifyIcon,
 } as const;
 
 const TEXT_ALIGN_SHORTCUT_KEYS = {

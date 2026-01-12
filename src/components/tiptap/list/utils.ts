@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/vue-3';
 import { isTextSelection } from '@tiptap/vue-3';
-import { List, ListChecks, ListOrdered } from 'lucide-vue-next';
+import { ListChecksIcon, ListIcon, ListOrderedIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 import { findNodePosition, isNodeInSchema, isNodeTypeSelected, isValidPosition, parseShortcutKeys } from '@/lib/tiptap';
@@ -18,9 +18,9 @@ export interface UseListsConfig {
 }
 
 const LIST_ICONS = {
-    bullet: List,
-    ordered: ListOrdered,
-    task: ListChecks,
+    bullet: ListIcon,
+    ordered: ListOrderedIcon,
+    task: ListChecksIcon,
 } as const;
 
 const LIST_SHORTCUT_KEYS = {

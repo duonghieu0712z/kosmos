@@ -4,7 +4,6 @@ import { reactiveOmit } from '@vueuse/core';
 
 import type { ButtonGroupProps } from '@/components/ui/button-group';
 import { ButtonGroup } from '@/components/ui/button-group';
-import { cn } from '@/lib/utils';
 
 import TextAlignButton from './TextAlignButton.vue';
 import type { TextAlign } from './utils';
@@ -18,7 +17,7 @@ const props = withDefaults(
     >(),
     {
         aligns: () => ['left', 'center', 'right', 'justify'],
-        orientation: 'horizontal-rounded',
+        spacing: 'spaced',
     },
 );
 
@@ -26,7 +25,7 @@ const delegatedProps = reactiveOmit(props, 'editor', 'aligns');
 </script>
 
 <template>
-    <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
+    <ButtonGroup v-bind="delegatedProps">
         <TextAlignButton v-for="align in aligns" :key="align" :align="align" :editor="editor" />
     </ButtonGroup>
 </template>

@@ -17,7 +17,7 @@ const props = withDefaults(
         }
     >(),
     {
-        size: 'sm',
+        size: 'default',
     },
 );
 

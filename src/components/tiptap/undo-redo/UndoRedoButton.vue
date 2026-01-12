@@ -18,7 +18,7 @@ const props = withDefaults(
     >(),
     {
         variant: 'ghost',
-        size: 'icon-sm',
+        size: 'icon',
     },
 );
 

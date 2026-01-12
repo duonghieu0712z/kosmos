@@ -37,11 +37,11 @@ const open = ref(false);
 </script>
 
 <template>
-    <DropdownMenu @update:open="(value) => (open = value)">
+    <DropdownMenu @update:open="open = $event">
         <DropdownMenuTrigger :disabled="!canToggle">
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive || open" size="sm">
+                    <Toggle class="gap-0 px-1!" :disabled="!canToggle" :model-value="isActive || open" size="icon">
                         <component :is="icon" />
                         <ChevronDown class="size-2" />
                     </Toggle>
@@ -52,7 +52,7 @@ const open = ref(false);
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" as-child>
-            <ButtonGroup class="min-w-0 gap-0.5 p-0.5" :orientation="`${orientation}-rounded`">
+            <ButtonGroup class="min-w-0 p-0.5" spacing="spaced">
                 <DropdownMenuItem v-for="list in lists" :key="list" class="p-0">
                     <ListButton :editor="editor" :list="list" />
                 </DropdownMenuItem>

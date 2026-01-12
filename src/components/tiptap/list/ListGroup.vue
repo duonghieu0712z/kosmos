@@ -4,7 +4,6 @@ import { reactiveOmit } from '@vueuse/core';
 
 import type { ButtonGroupProps } from '@/components/ui/button-group';
 import { ButtonGroup } from '@/components/ui/button-group';
-import { cn } from '@/lib/utils';
 
 import ListButton from './ListButton.vue';
 import type { ListType } from './utils';
@@ -18,7 +17,7 @@ const props = withDefaults(
     >(),
     {
         lists: () => ['bullet', 'ordered'],
-        orientation: 'horizontal-rounded',
+        spacing: 'spaced',
     },
 );
 
@@ -26,7 +25,7 @@ const delegatedProps = reactiveOmit(props, 'editor', 'lists');
 </script>
 
 <template>
-    <ButtonGroup v-bind="delegatedProps" :class="cn('gap-0.5', props.class)">
+    <ButtonGroup v-bind="delegatedProps">
         <ListButton v-for="list in lists" :key="list" :editor="editor" :list="list" />
     </ButtonGroup>
 </template>
