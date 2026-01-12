@@ -39,7 +39,7 @@ const onClick = () => {
 
 <template>
     <Tooltip>
-        <TooltipTrigger as-child>
+        <TooltipTrigger>
             <Toggle v-bind="delegatedProps" :disabled="!canToggle" :model-value="isActive" @click="onClick">
                 <component :is="icon" />
             </Toggle>
