@@ -79,7 +79,7 @@ const editor = useEditor({
             <ListPopover :editor="editor" />
         </ButtonGroup>
 
-        <ScrollArea class="m-2 flex-1 cursor-text border" type="always" @click="editor.chain().focus().run()">
+        <ScrollArea class="m-2 flex-1 cursor-text border" @click="editor.chain().focus().run()">
             <EditorContent class="w-full" :editor="editor" />
         </ScrollArea>
     </main>
