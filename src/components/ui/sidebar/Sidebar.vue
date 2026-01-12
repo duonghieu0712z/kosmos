@@ -38,9 +38,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
             data-sidebar="sidebar"
             data-slot="sidebar"
             :side="side"
-            :style="{
-                '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
-            }"
+            :style="{ '--sidebar-width': SIDEBAR_WIDTH_MOBILE }"
         >
             <SheetHeader class="sr-only">
                 <SheetTitle>Sidebar</SheetTitle>
@@ -91,7 +89,10 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
             v-bind="$attrs"
         >
             <div
-                class="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+                :class="[
+                    'bg-sidebar flex h-full w-full flex-col',
+                    'group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:rounded-sm group-data-[variant=floating]:border group-data-[variant=floating]:shadow-xs',
+                ]"
                 data-sidebar="sidebar"
             >
                 <slot />

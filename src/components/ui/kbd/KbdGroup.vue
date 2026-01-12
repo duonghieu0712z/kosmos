@@ -3,13 +3,13 @@ import type { HTMLAttributes } from 'vue';
 
 import { cn } from '@/lib/utils';
 
-interface SkeletonProps {
+const props = defineProps<{
     class?: HTMLAttributes['class'];
-}
-
-const props = defineProps<SkeletonProps>();
+}>();
 </script>
 
 <template>
-    <div :class="cn('bg-primary/10 animate-pulse rounded-sm', props.class)" data-slot="skeleton" />
+    <kbd :class="cn('inline-flex items-center gap-1', props.class)" data-slot="kbd-group">
+        <slot />
+    </kbd>
 </template>

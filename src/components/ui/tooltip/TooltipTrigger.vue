@@ -2,7 +2,9 @@
 import type { TooltipTriggerProps } from 'reka-ui';
 import { TooltipTrigger } from 'reka-ui';
 
-const props = defineProps<TooltipTriggerProps>();
+const props = withDefaults(defineProps<TooltipTriggerProps>(), {
+    as: 'div',
+});
 </script>
 
 <template>

@@ -6,17 +6,13 @@ import type { InputGroupButtonProps } from '.';
 import { inputGroupButtonVariants } from '.';
 
 const props = withDefaults(defineProps<InputGroupButtonProps>(), {
-    size: 'xs',
     variant: 'ghost',
+    size: 'default',
 });
 </script>
 
 <template>
-    <Button
-        :class="cn(inputGroupButtonVariants({ size: props.size }), props.class)"
-        :data-size="props.size"
-        :variant="props.variant"
-    >
+    <Button :class="cn(inputGroupButtonVariants({ size }), props.class)" :data-size="size" :variant="variant">
         <slot />
     </Button>
 </template>

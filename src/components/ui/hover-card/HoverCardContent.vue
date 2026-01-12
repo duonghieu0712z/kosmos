@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactiveOmit } from '@vueuse/core';
-import type { PopoverContentEmits, PopoverContentProps } from 'reka-ui';
-import { PopoverContent, PopoverPortal, useForwardPropsEmits } from 'reka-ui';
+import type { HoverCardContentProps } from 'reka-ui';
+import { HoverCardContent, HoverCardPortal, useForwardProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 
 import { cn } from '@/lib/utils';
@@ -10,33 +10,31 @@ defineOptions({
     inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<PopoverContentProps & { class?: HTMLAttributes['class'] }>(), {
-    align: 'center',
+const props = withDefaults(defineProps<HoverCardContentProps & { class?: HTMLAttributes['class'] }>(), {
     sideOffset: 4,
 });
-const emits = defineEmits<PopoverContentEmits>();
 
 const delegatedProps = reactiveOmit(props, 'class');
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-    <PopoverPortal>
-        <PopoverContent
-            v-bind="{ ...$attrs, ...forwarded }"
+    <HoverCardPortal>
+        <HoverCardContent
+            v-bind="{ ...$attrs, ...forwardedProps }"
             :class="
                 cn(
-                    'bg-popover text-popover-foreground z-50 origin-(--reka-popover-content-transform-origin) rounded-sm border p-1 shadow-xs outline-hidden',
+                    'bg-popover text-popover-foreground rounded-sm border p-4 shadow-xs outline-hidden *:z-50',
                     'data-[state=open]:animate-in data-[state=open]:zoom-in-95 data-[state=open]:fade-in-0',
                     'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
                     'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
                     props.class,
                 )
             "
-            data-slot="popover-content"
+            data-slot="hover-card-content"
         >
             <slot />
-        </PopoverContent>
-    </PopoverPortal>
+        </HoverCardContent>
+    </HoverCardPortal>
 </template>

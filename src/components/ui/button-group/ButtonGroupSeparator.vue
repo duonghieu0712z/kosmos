@@ -15,8 +15,8 @@ const delegatedProps = reactiveOmit(props, 'class');
 <template>
     <Separator
         v-bind="delegatedProps"
-        :class="cn('bg-input relative m-0! self-stretch data-[orientation=vertical]:h-auto', props.class)"
+        :class="cn('bg-input relative self-stretch data-[orientation=vertical]:h-auto', props.class)"
         data-slot="button-group-separator"
-        :orientation="props.orientation"
+        :orientation="orientation"
     />
 </template>

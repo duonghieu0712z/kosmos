@@ -8,6 +8,8 @@ import { buttonVariants } from '.';
 
 const props = withDefaults(defineProps<ButtonProps>(), {
     as: 'button',
+    variant: 'default',
+    size: 'default',
 });
 </script>
 
