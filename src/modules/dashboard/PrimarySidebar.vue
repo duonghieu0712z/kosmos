@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BookText, PencilRuler, Settings } from 'lucide-vue-next';
+import { BookTextIcon, PencilRulerIcon, SettingsIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { ThemeToggle } from '@/components/custom/theme';
@@ -15,21 +15,26 @@ import {
     SidebarSeparator,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 import { useSettings } from '@/modules/settings';
 
 import Explorer from './Explorer.vue';
 
-const sidebarButtonClass =
-    'data-[active=true]:[&>svg]:stroke-sidebar-foreground hover:[&>svg]:stroke-sidebar-foreground hover:bg-sidebar data-[active=true]:before:border-sidebar-foreground flex h-12 items-center justify-center rounded-none group-data-[collapsible=icon]:size-12! hover:cursor-pointer data-[active=true]:before:absolute data-[active=true]:before:top-0 data-[active=true]:before:left-0 data-[active=true]:before:h-full data-[active=true]:before:border-l-2';
+const sidebarButtonClass = cn(
+    'flex h-12 items-center justify-center rounded-none',
+    'hover:[&>svg]:stroke-sidebar-foreground hover:bg-sidebar hover:cursor-pointer',
+    'data-[active=true]:[&>svg]:stroke-sidebar-foreground data-[active=true]:before:border-sidebar-foreground data-[active=true]:before:absolute data-[active=true]:before:top-0 data-[active=true]:before:left-0 data-[active=true]:before:h-full data-[active=true]:before:border-l-2',
+    'group-data-[collapsible=icon]:size-12!',
+);
 
 const ITEMS = [
     {
         name: 'Story',
-        icon: BookText,
+        icon: BookTextIcon,
     },
     {
         name: 'Wiki',
-        icon: PencilRuler,
+        icon: PencilRulerIcon,
     },
 ];
 
@@ -84,7 +89,7 @@ const activeItem = ref(ITEMS[0]);
                     tooltip="Settings"
                     @click="openSettings"
                 >
-                    <Settings class="stroke-muted-foreground size-6" />
+                    <SettingsIcon class="stroke-muted-foreground size-6" />
                     <span class="sr-only">Settings</span>
                 </SidebarMenuButton>
             </SidebarFooter>

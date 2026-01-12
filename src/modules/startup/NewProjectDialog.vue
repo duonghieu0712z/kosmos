@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { open } from '@tauri-apps/plugin-dialog';
-import { FolderOpen, FolderPlus } from 'lucide-vue-next';
+import { FolderOpenIcon, FolderPlusIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
@@ -44,7 +44,7 @@ const createProject = async () => {
     <Dialog>
         <DialogTrigger as-child>
             <Button variant="outline">
-                <FolderPlus />
+                <FolderPlusIcon />
                 <span>New Project</span>
             </Button>
         </DialogTrigger>
@@ -57,7 +57,7 @@ const createProject = async () => {
                 <div class="grid grid-cols-[100px_1fr] items-center gap-1">
                     <Label for="name">Project name</Label>
 
-                    <InputGroup class="h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0">
+                    <InputGroup>
                         <InputGroupInput
                             id="name"
                             v-model="name"
@@ -75,7 +75,7 @@ const createProject = async () => {
                 <div class="grid grid-cols-[100px_1fr] items-center gap-1">
                     <Label for="path">Location</Label>
 
-                    <InputGroup class="h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0">
+                    <InputGroup>
                         <InputGroupInput
                             id="path"
                             v-model="path"
@@ -85,8 +85,8 @@ const createProject = async () => {
                         />
 
                         <InputGroupAddon align="inline-end">
-                            <InputGroupButton @click="selectPath">
-                                <FolderOpen />
+                            <InputGroupButton size="icon" @click="selectPath">
+                                <FolderOpenIcon />
                             </InputGroupButton>
                         </InputGroupAddon>
                     </InputGroup>

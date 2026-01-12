@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FileText, Folder, FolderOpen } from 'lucide-vue-next';
+import { FileTextIcon, FolderIcon, FolderOpenIcon } from 'lucide-vue-next';
 import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
 import { markRaw, ref, shallowRef } from 'vue';
 
@@ -42,10 +42,10 @@ const tabsStore = useTabsStore();
                 "
             >
                 <template v-if="item.hasChildren">
-                    <Folder v-if="!isExpanded" :size="16" />
-                    <FolderOpen v-else :size="16" />
+                    <FolderIcon v-if="!isExpanded" :size="16" />
+                    <FolderOpenIcon v-else :size="16" />
                 </template>
-                <FileText v-else :size="16" />
+                <FileTextIcon v-else :size="16" />
                 <div class="flex-1 truncate">{{ item.value.title }}</div>
             </TreeItem>
         </TreeVirtualizer>

@@ -55,7 +55,7 @@ const editor = useEditor({
 
 <template>
     <main v-if="editor" class="flex flex-col">
-        <ButtonGroup class="w-full px-2 pt-2 has-[>[data-slot=button-group]]:gap-0.5" orientation="horizontal-rounded">
+        <ButtonGroup class="w-full px-2 pt-2 has-[>[data-slot=button-group]]:gap-0.5" spacing="spaced">
             <UndoRedoGroup :editor="editor" />
             <ButtonGroupSeparator />
             <HeadingDropdown :editor="editor" />

@@ -31,11 +31,16 @@ const open = ref(false);
 </script>
 
 <template>
-    <DropdownMenu @update:open="(value) => (open = value)">
-        <DropdownMenuTrigger>
+    <DropdownMenu @update:open="open = $event">
+        <DropdownMenuTrigger as="div">
             <Tooltip>
                 <TooltipTrigger>
-                    <Toggle class="flex-col gap-0" :disabled="disabled" :model-value="!!currentColor || open" size="sm">
+                    <Toggle
+                        class="flex-col gap-0"
+                        :disabled="disabled"
+                        :model-value="!!currentColor || open"
+                        size="default"
+                    >
                         <slot />
                         <span
                             class="relative h-0.5 w-4 bg-(--highlight-color)"
@@ -49,7 +54,7 @@ const open = ref(false);
         </DropdownMenuTrigger>
 
         <DropdownMenuContent as-child>
-            <ButtonGroup class="w-fit gap-0.5 p-1" orientation="horizontal-rounded">
+            <ButtonGroup class="w-fit gap-0.5 p-1" spacing="spaced">
                 <DropdownMenuItem v-for="{ color, label } in colors" :key="color" class="p-0">
                     <ColorButton
                         :color="color"
@@ -64,7 +69,7 @@ const open = ref(false);
                 <DropdownMenuItem class="p-0">
                     <Tooltip>
                         <TooltipTrigger>
-                            <Button size="icon-sm" variant="ghost" @click="$emit('remove:color')">
+                            <Button size="icon" variant="ghost" @click="$emit('remove:color')">
                                 <CircleSlash2 />
                             </Button>
                         </TooltipTrigger>

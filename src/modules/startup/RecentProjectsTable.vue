@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useArrayMap, useTimeAgo, useVModel } from '@vueuse/core';
-import { EllipsisVertical, Folder, Star } from 'lucide-vue-next';
+import { EllipsisVerticalIcon, FolderIcon, StarIcon } from 'lucide-vue-next';
 import { onMounted, ref } from 'vue';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -46,12 +46,12 @@ onMounted(async () => {
                 :data-state="project.file === selected ? 'selected' : ''"
                 @click="selected = project.file"
             >
-                <TableCell class="flex items-center justify-center"><Folder class="size-5" /></TableCell>
+                <TableCell class="flex items-center justify-center"><FolderIcon class="size-5" /></TableCell>
                 <TableCell class="truncate">{{ project.name }}</TableCell>
                 <TableCell class="truncate">{{ project.file }}</TableCell>
-                <TableCell class="flex items-center justify-center"><Star class="size-5" /></TableCell>
+                <TableCell class="flex items-center justify-center"><StarIcon class="size-5" /></TableCell>
                 <TableCell class="text-center">{{ project.lastOpened }}</TableCell>
-                <TableCell class="flex items-center justify-center"><EllipsisVertical class="size-5" /></TableCell>
+                <TableCell class="flex items-center justify-center"><EllipsisVerticalIcon class="size-5" /></TableCell>
             </TableRow>
         </TableBody>
     </Table>

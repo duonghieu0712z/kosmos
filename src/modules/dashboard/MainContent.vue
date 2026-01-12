@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { X } from 'lucide-vue-next';
+import { XIcon } from 'lucide-vue-next';
 
 import { ScrollArea, vWheelX } from '@/components/ui/scroll-area';
 import { SidebarInset } from '@/components/ui/sidebar';
@@ -19,16 +19,20 @@ const store = useTabsStore();
 
         <template v-else>
             <Tabs
-                class="size-full gap-0"
+                class="size-full gap-2"
                 :model-value="store.currentTab"
                 @update:model-value="store.activeTab($event as string)"
             >
-                <ScrollArea v-wheel-x class="h-8" orientation="horizontal">
-                    <TabsList class="h-8 w-full justify-start rounded-none p-0">
+                <ScrollArea v-wheel-x orientation="horizontal">
+                    <TabsList>
                         <TabsTrigger
                             v-for="tab in store.tabs"
                             :key="tab.id"
-                            class="data-active:after:border-ring relative h-8 min-w-30 flex-none justify-end rounded-none pr-1 hover:cursor-pointer data-active:after:absolute data-active:after:bottom-0 data-active:after:left-0 data-active:after:w-full data-active:after:border-b-2 hover:[&>span]:opacity-100 data-active:[&>span]:opacity-100"
+                            :class="[
+                                'relative min-w-30 pr-1',
+                                'hover:cursor-pointer hover:[&>span]:opacity-100',
+                                'data-active:after:border-ring data-active:after:absolute data-active:after:bottom-0 data-active:after:left-0 data-active:after:w-full data-active:after:border-b-2 data-active:[&>span]:opacity-100',
+                            ]"
                             :data-tab-id="`kosmos-tab-${tab.id}`"
                             :value="tab.id"
                             @click="store.activeTab(tab.id)"
@@ -40,7 +44,7 @@ const store = useTabsStore();
                                 @click.stop="store.popTab(tab.id)"
                                 @mousedown.stop.prevent
                             >
-                                <X />
+                                <XIcon />
                             </span>
                         </TabsTrigger>
                     </TabsList>

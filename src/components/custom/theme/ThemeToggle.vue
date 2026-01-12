@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useColorMode } from '@vueuse/core';
-import { Laptop2, Moon, Sun } from 'lucide-vue-next';
+import { Laptop2Icon, MoonIcon, SunIcon } from 'lucide-vue-next';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,9 +17,9 @@ const colorMode = useColorMode();
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
             <Button class="hover:[&>svg]:stroke-sidebar-foreground size-12" size="icon" variant="ghost">
-                <Sun v-if="colorMode === 'light'" class="stroke-muted-foreground size-6" />
-                <Moon v-else-if="colorMode === 'dark'" class="stroke-muted-foreground size-6" />
-                <Laptop2 v-else class="stroke-muted-foreground size-6" />
+                <SunIcon v-if="colorMode === 'light'" class="stroke-muted-foreground size-6" />
+                <MoonIcon v-else-if="colorMode === 'dark'" class="stroke-muted-foreground size-6" />
+                <Laptop2Icon v-else class="stroke-muted-foreground size-6" />
                 <span class="sr-only">Toggle theme</span>
             </Button>
         </DropdownMenuTrigger>

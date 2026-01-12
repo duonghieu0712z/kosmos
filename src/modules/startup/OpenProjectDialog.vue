@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { open } from '@tauri-apps/plugin-dialog';
-import { FolderOpen } from 'lucide-vue-next';
+import { FolderOpenIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
@@ -40,7 +40,7 @@ const openProject = async () => {
     <Dialog>
         <DialogTrigger as-child>
             <Button variant="outline">
-                <FolderOpen />
+                <FolderOpenIcon />
                 <span>Open Project</span>
             </Button>
         </DialogTrigger>
@@ -52,7 +52,7 @@ const openProject = async () => {
             <div class="grid grid-cols-[100px_1fr] items-center gap-1">
                 <Label for="path">Project name</Label>
 
-                <InputGroup class="h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0">
+                <InputGroup>
                     <InputGroupInput
                         id="path"
                         v-model="file"
@@ -62,8 +62,8 @@ const openProject = async () => {
                     />
 
                     <InputGroupAddon align="inline-end">
-                        <InputGroupButton @click="selectFile">
-                            <FolderOpen />
+                        <InputGroupButton size="icon" @click="selectFile">
+                            <FolderOpenIcon />
                         </InputGroupButton>
                     </InputGroupAddon>
                 </InputGroup>
