@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FileTextIcon, FolderIcon, FolderOpenIcon } from 'lucide-vue-next';
+import { BookOpenTextIcon, FileTextIcon, FolderIcon, FolderOpenIcon } from 'lucide-vue-next';
 import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
 import { markRaw, ref, shallowRef } from 'vue';
 
@@ -34,6 +34,7 @@ const tabsStore = useTabsStore();
                             const tab = {
                                 id: item._id,
                                 name: item.value.title,
+                                icon: markRaw(BookOpenTextIcon),
                                 component: shallowRef(markRaw(Editor)),
                             };
                             await tabsStore.pushTab(tab);
