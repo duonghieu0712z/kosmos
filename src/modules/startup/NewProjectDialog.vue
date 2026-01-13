@@ -25,7 +25,7 @@ import { useProjectStore } from '@/stores';
 
 const store = useProjectStore();
 
-const name = ref('New Project');
+const name = ref('New World');
 const path = ref('');
 
 const selectPath = async () => {
@@ -35,7 +35,7 @@ const selectPath = async () => {
     }
 };
 
-const createProject = async () => {
+const createWorld = async () => {
     await store.createProject(name.value, path.value);
 };
 </script>
@@ -45,17 +45,17 @@ const createProject = async () => {
         <DialogTrigger as-child>
             <Button variant="outline">
                 <FolderPlusIcon />
-                <span>New Project</span>
+                <span>New World</span>
             </Button>
         </DialogTrigger>
 
         <DialogContent>
-            <DialogTitle>New Project</DialogTitle>
-            <DialogDescription>Create a new project</DialogDescription>
+            <DialogTitle>New World</DialogTitle>
+            <DialogDescription>Create a new world</DialogDescription>
 
             <div class="grid gap-4">
                 <div class="grid grid-cols-[100px_1fr] items-center gap-1">
-                    <Label for="name">Project name</Label>
+                    <Label for="name">World name</Label>
 
                     <InputGroup>
                         <InputGroupInput
@@ -95,7 +95,7 @@ const createProject = async () => {
 
             <DialogFooter>
                 <DialogClose as-child>
-                    <Button :disabled="!name || !path" variant="outline" @click="createProject">Create project</Button>
+                    <Button :disabled="!name || !path" variant="outline" @click="createWorld">Create world</Button>
                 </DialogClose>
             </DialogFooter>
         </DialogContent>

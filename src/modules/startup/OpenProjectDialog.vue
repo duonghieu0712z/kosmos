@@ -30,7 +30,7 @@ const selectFile = async () => {
     }
 };
 
-const openProject = async () => {
+const openWorld = async () => {
     await store.openProject(file.value);
     file.value = '';
 };
@@ -41,16 +41,16 @@ const openProject = async () => {
         <DialogTrigger as-child>
             <Button variant="outline">
                 <FolderOpenIcon />
-                <span>Open Project</span>
+                <span>Open World</span>
             </Button>
         </DialogTrigger>
 
         <DialogContent class="max-w-200!">
-            <DialogTitle>Open Project</DialogTitle>
-            <DialogDescription>Open an existing project</DialogDescription>
+            <DialogTitle>Open World</DialogTitle>
+            <DialogDescription>Open an existing world</DialogDescription>
 
             <div class="grid grid-cols-[100px_1fr] items-center gap-1">
-                <Label for="path">Project name</Label>
+                <Label for="path">World name</Label>
 
                 <InputGroup>
                     <InputGroupInput
@@ -73,7 +73,7 @@ const openProject = async () => {
 
             <DialogFooter>
                 <DialogClose as-child>
-                    <Button :disabled="!file" variant="outline" @click="openProject">Open project</Button>
+                    <Button :disabled="!file" variant="outline" @click="openWorld">Open world</Button>
                 </DialogClose>
             </DialogFooter>
         </DialogContent>
