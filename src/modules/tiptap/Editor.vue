@@ -30,7 +30,6 @@ const editor = useEditor({
             codeBlock: false,
             link: {
                 openOnClick: 'whenNotEditable',
-                enableClickSelection: true,
                 HTMLAttributes: { target: null },
             },
         }),

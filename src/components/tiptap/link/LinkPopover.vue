@@ -47,7 +47,7 @@ const open = ref(false);
                 autocomplete="off"
                 autocorrect="off"
                 autofocus
-                class="bg-popover dark:bg-popover h-8 rounded border-none px-2 focus-visible:ring-0"
+                class="border-none shadow-none focus-visible:ring-0 dark:bg-transparent"
                 placeholder="Paste a link"
                 type="url"
             />
