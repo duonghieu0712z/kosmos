@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import Todo from '@/modules/todo/Todo.vue';
+import { Editor } from '@/modules/tiptap';
+// import { Todo } from '@/modules/todo';
 </script>
 
 <template>
-    <Todo />
+    <!-- <Todo /> -->
+    <Editor />
 </template>

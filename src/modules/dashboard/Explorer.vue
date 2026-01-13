@@ -4,7 +4,7 @@ import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui';
 import { markRaw, ref, shallowRef } from 'vue';
 
 import { cn } from '@/lib/utils';
-import Editor from '@/modules/tiptap/Editor.vue';
+import { Editor } from '@/modules/tiptap';
 import { useProjectStore, useTabsStore } from '@/stores';
 
 const currentItem = ref('');
