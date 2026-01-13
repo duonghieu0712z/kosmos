@@ -41,7 +41,7 @@ const open = ref(false);
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>List</TooltipContent>
+                <TooltipContent side="bottom">List</TooltipContent>
             </Tooltip>
         </PopoverTrigger>
 

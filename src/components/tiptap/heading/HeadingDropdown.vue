@@ -45,7 +45,7 @@ const open = ref(false);
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>Heading</TooltipContent>
+                <TooltipContent side="bottom">Heading</TooltipContent>
             </Tooltip>
         </DropdownMenuTrigger>
 

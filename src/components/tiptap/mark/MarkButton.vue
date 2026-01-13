@@ -45,6 +45,6 @@ const onClick = () => {
             </Toggle>
         </TooltipTrigger>
 
-        <TooltipContent>{{ label }}</TooltipContent>
+        <TooltipContent side="bottom">{{ label }}</TooltipContent>
     </Tooltip>
 </template>

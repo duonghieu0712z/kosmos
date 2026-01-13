@@ -44,7 +44,7 @@ const open = ref(false);
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>{{ tooltip }}</TooltipContent>
+                <TooltipContent side="bottom">{{ tooltip }}</TooltipContent>
             </Tooltip>
         </PopoverTrigger>
 
@@ -68,7 +68,9 @@ const open = ref(false);
                         </Button>
                     </TooltipTrigger>
 
-                    <TooltipContent>Remove {{ tooltip.replace(/^./, (c) => c.toLowerCase()) }}</TooltipContent>
+                    <TooltipContent side="bottom">
+                        Remove {{ tooltip.replace(/^./, (c) => c.toLowerCase()) }}
+                    </TooltipContent>
                 </Tooltip>
             </ButtonGroup>
         </PopoverContent>

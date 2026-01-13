@@ -41,7 +41,7 @@ const open = ref(false);
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>Text align</TooltipContent>
+                <TooltipContent side="bottom">Text align</TooltipContent>
             </Tooltip>
         </PopoverTrigger>
 

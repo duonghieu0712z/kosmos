@@ -35,7 +35,7 @@ const open = ref(false);
                     </Toggle>
                 </TooltipTrigger>
 
-                <TooltipContent>Link</TooltipContent>
+                <TooltipContent side="bottom">Link</TooltipContent>
             </Tooltip>
         </PopoverTrigger>
 
@@ -60,7 +60,7 @@ const open = ref(false);
                         </Button>
                     </TooltipTrigger>
 
-                    <TooltipContent>Set link</TooltipContent>
+                    <TooltipContent side="bottom">Set link</TooltipContent>
                 </Tooltip>
                 <ButtonGroupSeparator />
 
@@ -71,7 +71,7 @@ const open = ref(false);
                         </Button>
                     </TooltipTrigger>
 
-                    <TooltipContent>Open link</TooltipContent>
+                    <TooltipContent side="bottom">Open link</TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
@@ -81,7 +81,7 @@ const open = ref(false);
                         </Button>
                     </TooltipTrigger>
 
-                    <TooltipContent>Remove link</TooltipContent>
+                    <TooltipContent side="bottom">Remove link</TooltipContent>
                 </Tooltip>
             </ButtonGroup>
         </PopoverContent>

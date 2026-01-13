@@ -45,6 +45,6 @@ const onClick = () => {
             </Toggle>
         </TooltipTrigger>
 
-        <TooltipContent>Blockquote</TooltipContent>
+        <TooltipContent side="bottom">Blockquote</TooltipContent>
     </Tooltip>
 </template>
