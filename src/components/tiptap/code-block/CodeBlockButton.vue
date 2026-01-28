@@ -1,3 +1,4 @@
+<!-- COMMENTED BY ANTIGRAVITY FOR CLEANUP
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit, reactivePick } from '@vueuse/core';
@@ -48,3 +49,4 @@ const onClick = () => {
         <TooltipContent side="bottom">Code Block</TooltipContent>
     </Tooltip>
 </template>
+-->

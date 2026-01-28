@@ -1,3 +1,4 @@
+<!-- COMMENTED BY ANTIGRAVITY FOR CLEANUP
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit } from '@vueuse/core';
@@ -29,3 +30,4 @@ const delegatedProps = reactiveOmit(props, 'editor', 'actions');
         <UndoRedoButton v-for="action in actions" :key="action" :action="action" :editor="editor" />
     </ButtonGroup>
 </template>
+-->

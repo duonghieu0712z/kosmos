@@ -1,3 +1,4 @@
+<!-- COMMENTED BY ANTIGRAVITY FOR CLEANUP
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactiveOmit } from '@vueuse/core';
@@ -29,3 +30,4 @@ const delegatedProps = reactiveOmit(props, 'editor', 'lists');
         <ListButton v-for="list in lists" :key="list" :editor="editor" :list="list" />
     </ButtonGroup>
 </template>
+-->

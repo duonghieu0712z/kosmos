@@ -1,3 +1,4 @@
+<!-- COMMENTED BY ANTIGRAVITY FOR CLEANUP
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
 import { reactivePick } from '@vueuse/core';
@@ -50,3 +51,4 @@ const open = ref(false);
         </PopoverContent>
     </Popover>
 </template>
+-->
