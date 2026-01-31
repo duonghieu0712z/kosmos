@@ -1,7 +1,12 @@
+mod config;
+mod db;
+mod error;
+
+#[cfg(debug_assertions)]
 use specta_typescript::Typescript;
+use tauri::Manager;
 use tauri_specta::{Builder, collect_commands};
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 #[specta::specta]
 fn greet(name: String) -> String {
@@ -9,13 +14,11 @@ fn greet(name: String) -> String {
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
+pub fn run() -> crate::error::KosmosResult<()> {
     let specta_builder = Builder::<tauri::Wry>::new().commands(collect_commands![greet]);
 
     #[cfg(all(debug_assertions, not(mobile)))]
-    specta_builder
-        .export(Typescript::default(), "../src/bindings.ts")
-        .expect("Failed to export typescript bindings");
+    specta_builder.export(Typescript::default(), "../src/bindings.ts")?;
 
     let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
@@ -43,15 +46,18 @@ pub fn run() {
     builder
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app| {
+            let config = config::Config::load(app.handle())?;
+            app.manage(std::sync::Mutex::new(config));
+
             #[cfg(debug_assertions)]
             {
-                use tauri::Manager;
                 if let Some(window) = app.get_webview_window("main") {
                     window.open_devtools();
                 }
             }
             Ok(())
         })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .run(tauri::generate_context!())?;
+
+    Ok(())
 }
