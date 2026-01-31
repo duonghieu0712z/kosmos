@@ -14,7 +14,7 @@ export default defineConfigWithVueTs(
         files: ['**/*.{ts,tsx,vue}'],
     },
 
-    globalIgnores(['**/node_modules', '**/dist', '**/src-tauri/target']),
+    globalIgnores(['**/node_modules', '**/dist', '**/src-tauri/target', 'src/bindings.ts']),
 
     pluginVue.configs['flat/recommended'],
     vueTsConfigs.recommended,
