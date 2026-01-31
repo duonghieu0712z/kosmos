@@ -1,3 +1,4 @@
+mod cmd;
 mod config;
 mod db;
 mod error;
@@ -7,15 +8,14 @@ use specta_typescript::Typescript;
 use tauri::Manager;
 use tauri_specta::{Builder, collect_commands};
 
-#[tauri::command]
-#[specta::specta]
-fn greet(name: String) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() -> crate::error::KosmosResult<()> {
-    let specta_builder = Builder::<tauri::Wry>::new().commands(collect_commands![greet]);
+    let specta_builder = Builder::<tauri::Wry>::new().commands(collect_commands![
+        cmd::greet,
+        cmd::get_config,
+        cmd::update_settings,
+        cmd::add_recent_project
+    ]);
 
     #[cfg(all(debug_assertions, not(mobile)))]
     specta_builder.export(Typescript::default(), "../src/bindings.ts")?;

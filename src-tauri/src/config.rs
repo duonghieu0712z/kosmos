@@ -1,6 +1,7 @@
 use std::fs;
 use std::path::PathBuf;
 
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Manager};
 
@@ -10,7 +11,7 @@ const CONFIG_FILE_NAME: &str = "config.json";
 const DEFAULT_THEME: &str = "system";
 const DEFAULT_LANGUAGE: &str = "en";
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, specta::Type)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
     pub theme: String,
@@ -26,15 +27,17 @@ impl Default for Settings {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, specta::Type)]
 #[serde(rename_all = "camelCase")]
 pub struct RecentProject {
     pub name: String,
     pub path: PathBuf,
-    pub last_opened: i64,
+    #[serde(with = "chrono::serde::ts_seconds")]
+    #[specta(type = f64)]
+    pub last_opened: DateTime<Utc>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, specta::Type)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
     pub settings: Settings,

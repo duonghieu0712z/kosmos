@@ -6,6 +6,30 @@ export const commands = {
     async greet(name: string): Promise<string> {
         return await TAURI_INVOKE('greet', { name });
     },
+    async getConfig(): Promise<Result<Config, KosmosError>> {
+        try {
+            return { status: 'ok', data: await TAURI_INVOKE('get_config') };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: 'error', error: e as any };
+        }
+    },
+    async updateSettings(settings: Settings): Promise<Result<null, KosmosError>> {
+        try {
+            return { status: 'ok', data: await TAURI_INVOKE('update_settings', { settings }) };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: 'error', error: e as any };
+        }
+    },
+    async addRecentProject(name: string, path: string): Promise<Result<null, KosmosError>> {
+        try {
+            return { status: 'ok', data: await TAURI_INVOKE('add_recent_project', { name, path }) };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: 'error', error: e as any };
+        }
+    },
 };
 
 /** user-defined events **/
@@ -13,6 +37,11 @@ export const commands = {
 /** user-defined constants **/
 
 /** user-defined types **/
+
+export type Config = { settings: Settings; recentProjects: RecentProject[] };
+export type KosmosError = 'Database' | 'Export' | 'Io' | 'SerdeJson' | 'Tauri' | 'InvalidPath' | { Internal: string };
+export type RecentProject = { name: string; path: string; lastOpened: number };
+export type Settings = { theme: string; language: string };
 
 /** tauri-specta globals **/
 

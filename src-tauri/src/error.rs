@@ -1,21 +1,41 @@
 use serde::{Serialize, Serializer};
 
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Debug, specta::Type)]
 pub enum KosmosError {
     #[error("Database error: {0}")]
-    Database(#[from] sqlx::Error),
+    Database(
+        #[from]
+        #[specta(skip)]
+        sqlx::Error,
+    ),
 
     #[error("Specta export error: {0}")]
-    Export(#[from] specta_typescript::ExportError),
+    Export(
+        #[from]
+        #[specta(skip)]
+        specta_typescript::ExportError,
+    ),
 
     #[error("IO error: {0}")]
-    Io(#[from] std::io::Error),
+    Io(
+        #[from]
+        #[specta(skip)]
+        std::io::Error,
+    ),
 
     #[error("JSON error: {0}")]
-    SerdeJson(#[from] serde_json::Error),
+    SerdeJson(
+        #[from]
+        #[specta(skip)]
+        serde_json::Error,
+    ),
 
     #[error("Tauri error: {0}")]
-    Tauri(#[from] tauri::Error),
+    Tauri(
+        #[from]
+        #[specta(skip)]
+        tauri::Error,
+    ),
 
     #[error("Invalid path encountered")]
     InvalidPath,
