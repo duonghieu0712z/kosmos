@@ -3,8 +3,13 @@
 /** user-defined commands **/
 
 export const commands = {
-    async greet(name: string): Promise<string> {
-        return await TAURI_INVOKE('greet', { name });
+    async addRecentProject(name: string, path: string): Promise<Result<null, KosmosError>> {
+        try {
+            return { status: 'ok', data: await TAURI_INVOKE('add_recent_project', { name, path }) };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: 'error', error: e as any };
+        }
     },
     async getConfig(): Promise<Result<Config, KosmosError>> {
         try {
@@ -22,13 +27,32 @@ export const commands = {
             else return { status: 'error', error: e as any };
         }
     },
-    async addRecentProject(name: string, path: string): Promise<Result<null, KosmosError>> {
+    async closeProject(): Promise<Result<null, KosmosError>> {
         try {
-            return { status: 'ok', data: await TAURI_INVOKE('add_recent_project', { name, path }) };
+            return { status: 'ok', data: await TAURI_INVOKE('close_project') };
         } catch (e) {
             if (e instanceof Error) throw e;
             else return { status: 'error', error: e as any };
         }
+    },
+    async createProject(name: string, path: string): Promise<Result<string, KosmosError>> {
+        try {
+            return { status: 'ok', data: await TAURI_INVOKE('create_project', { name, path }) };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: 'error', error: e as any };
+        }
+    },
+    async openProject(path: string): Promise<Result<string, KosmosError>> {
+        try {
+            return { status: 'ok', data: await TAURI_INVOKE('open_project', { path }) };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: 'error', error: e as any };
+        }
+    },
+    async greet(name: string): Promise<string> {
+        return await TAURI_INVOKE('greet', { name });
     },
 };
 
@@ -39,7 +63,20 @@ export const commands = {
 /** user-defined types **/
 
 export type Config = { settings: Settings; recentProjects: RecentProject[] };
-export type KosmosError = 'Database' | 'Export' | 'Io' | 'SerdeJson' | 'Tauri' | 'InvalidPath' | { Internal: string };
+export type KosmosError =
+    | 'Io'
+    | { Poison: string }
+    | 'StripPrefix'
+    | 'Database'
+    | 'Export'
+    | 'Join'
+    | 'SerdeJson'
+    | 'Tauri'
+    | 'Zip'
+    | { Bundle: string }
+    | 'InvalidFileFormat'
+    | 'InvalidPath'
+    | { Internal: string };
 export type RecentProject = { name: string; path: string; lastOpened: number };
 export type Settings = { theme: string; language: string };
 

@@ -3,15 +3,16 @@ use std::path::PathBuf;
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use specta::Type;
 use tauri::{AppHandle, Manager};
 
+use crate::constants::CONFIG_FILE;
 use crate::error::KosmosResult;
 
-const CONFIG_FILE_NAME: &str = "config.json";
 const DEFAULT_THEME: &str = "system";
 const DEFAULT_LANGUAGE: &str = "en";
 
-#[derive(Serialize, Deserialize, Debug, Clone, specta::Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Type)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
     pub theme: String,
@@ -27,7 +28,7 @@ impl Default for Settings {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, specta::Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Type)]
 #[serde(rename_all = "camelCase")]
 pub struct RecentProject {
     pub name: String,
@@ -37,7 +38,7 @@ pub struct RecentProject {
     pub last_opened: DateTime<Utc>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default, specta::Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, Type)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
     pub settings: Settings,
@@ -51,7 +52,7 @@ impl Config {
             fs::create_dir_all(&config_dir)?;
         }
 
-        let config_path = config_dir.join(CONFIG_FILE_NAME);
+        let config_path = config_dir.join(CONFIG_FILE);
         if !config_path.exists() {
             let config = Self::default();
             config.save(app_handle)?;
@@ -65,7 +66,7 @@ impl Config {
 
     pub fn save(&self, app_handle: &AppHandle) -> KosmosResult<()> {
         let config_dir = app_handle.path().app_config_dir()?;
-        let config_path = config_dir.join(CONFIG_FILE_NAME);
+        let config_path = config_dir.join(CONFIG_FILE);
         let content = serde_json::to_string(self)?;
         fs::write(config_path, content)?;
         Ok(())

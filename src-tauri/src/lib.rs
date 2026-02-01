@@ -1,7 +1,11 @@
+mod bundle;
 mod cmd;
 mod config;
+mod constants;
 mod db;
 mod error;
+
+use std::sync::Mutex;
 
 #[cfg(debug_assertions)]
 use specta_typescript::Typescript;
@@ -9,12 +13,15 @@ use tauri::Manager;
 use tauri_specta::{Builder, collect_commands};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() -> crate::error::KosmosResult<()> {
+pub fn run() -> error::KosmosResult<()> {
     let specta_builder = Builder::<tauri::Wry>::new().commands(collect_commands![
-        cmd::greet,
-        cmd::get_config,
-        cmd::update_settings,
-        cmd::add_recent_project
+        cmd::config::add_recent_project,
+        cmd::config::get_config,
+        cmd::config::update_settings,
+        cmd::project::close_project,
+        cmd::project::create_project,
+        cmd::project::open_project,
+        cmd::util::greet
     ]);
 
     #[cfg(all(debug_assertions, not(mobile)))]
@@ -47,7 +54,8 @@ pub fn run() -> crate::error::KosmosResult<()> {
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app| {
             let config = config::Config::load(app.handle())?;
-            app.manage(std::sync::Mutex::new(config));
+            app.manage(Mutex::new(config));
+            app.manage(Mutex::new(cmd::project::ProjectState::default()));
 
             #[cfg(debug_assertions)]
             {
